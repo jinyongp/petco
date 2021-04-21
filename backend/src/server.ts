@@ -1,26 +1,9 @@
-import { ApolloServer, gql } from "apollo-server";
+require("dotenv").config();
+import { ApolloServer } from "apollo-server";
+import schema from "./schema";
 
-const typeDefs = gql`
-  type User {
-    id: Int!
-    username: String!
-  }
+const server = new ApolloServer({ schema });
+const { PORT } = process.env;
+if (!PORT) throw new Error(".env file is not set");
 
-  type Query {
-    profile: User!
-  }
-`;
-
-const resolvers = {
-  Query: {
-    profile() {
-      return { username: "Sample Username" };
-    },
-  },
-};
-
-const server = new ApolloServer({ typeDefs, resolvers });
-
-server
-  .listen()
-  .then(() => console.log("Running server on http://localhost:4000"));
+server.listen(PORT).then(({ url }) => console.log(`Running server on ${url}`));
