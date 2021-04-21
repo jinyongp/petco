@@ -1,47 +1,19 @@
-# petco
+<h1 style="text-align:left;transform: translateY(-20px);">펫코 <span style="font-size: 15px; color: #333;">: 동물병원 진료비 견적 서비스</span></h1>
 
-동물병원 진료비 견적 플랫폼
+<div align=center>
+  
+  <p align=center>
+    <img width="200" src="./.github/assets/petco.svg" alt="petco-logo">
+  </p>
+  <p style="color: #333;" align=center>
+    생각보다 높은 반려동물 진료비에 당황하신 적이 있나요? <br>
+    펫코는 동물 병원에 방문하기 전 <span style="">쉽고 빠르게</span> <br>
+    진료비를 견적 받을 수 있도록 도와줍니다. <br><br>
+    빠르게 알고가는 동물병원 진료비 견적 서비스, <span style="color: #3f3f3f;"><b>펫코</b></span>.
+  </p>
+  
+</div>
 
-#### Version
+## 🐈 Introduction
 
-> node v14.16.1(lts)
-
-## Common Skill set
-
-- Typescript, GraphQL
-
-## Frontend
-
-### Skill set
-
-- React Native, Expo, Apollo Client, styled-components
-
-## Backend
-
-### Skill set
-
-- Apollo Server, Apollo Express, Prisma(ORM), MySQL
-
-## References
-
-### Expo Library
-
-## Branch Strategy
-
-1. [upstream](https://github.com/jinyongp/petco) 저장소 fork
-2. 로컬로 클론 저장소 생성
-3. 브랜치를 작업 단위로 생성
-4. 작업 후, origin 저장소로 push
-5. 변경 사항은 pull request
-6. code review 후 보완 및 반영
-
-## Naming Convention Team Rules
-
-### Code
-
-- ES6+ 작성
-- eslint
-
-### Commit Message
-
-### Branch
+## 👨🏻‍💻 Development
