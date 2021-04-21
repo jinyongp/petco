@@ -25,7 +25,8 @@
 
 ### Details
 
-- [Frontend README](./frontend/README.md)
+- [Frontend/Mobile README](./frontend/mobile/README.md)
+- [Frontend/Web README](./frontend/web/README.md)
 - [Backend README](./backend/README.md)
 
 ### Team Conventions and Standards

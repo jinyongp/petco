@@ -1,4 +1,4 @@
-# Petco native
+# Petco mobile
 
 ## Technical Stack
 
