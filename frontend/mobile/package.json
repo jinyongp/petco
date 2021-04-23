@@ -11,6 +11,7 @@
     "prop-types": "^15.7.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-hook-form": "^7.2.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-safe-area-context": "3.2.0",
