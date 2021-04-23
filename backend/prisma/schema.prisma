@@ -10,76 +10,21 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model users {
-  id           Int            @id @default(autoincrement())
-  username     String         @unique
-  email        String
-  avatar       String
-  password     String
-  phone_number String
-  is_valid     Boolean        @default(false)
-  pets         pets[]
-  created_at   DateTime
-  updated_at   DateTime
-  appointments appointments[]
-  estimates    estimates[]
+model major_medical_subjects {
+  id                     Int                      @id @default(autoincrement())
+  subject                String
+  created_at             DateTime
+  updated_at             DateTime
+  minor_medical_subjects minor_medical_subjects[]
 }
 
-model pets {
-  id           Int            @id @default(autoincrement())
-  name         String
-  avatar       String
-  birth        String
-  gender       String
-  weight       String
-  type         String
-  in_neutered  Boolean        @default(false)
-  vaccinated   Boolean        @default(false)
-  created_at   DateTime
-  updated_at   DateTime
-  users        users?         @relation(fields: [user_id], references: [id])
-  user_id      Int?
-  appointments appointments[]
-  estimates    estimates[]
-}
-
-model appointments {
-  id         Int      @id @default(autoincrement())
-  status     status
-  date       DateTime
-  vets       vets?    @relation(fields: [vet_id], references: [id])
-  vet_id     Int?
-  users      users?   @relation(fields: [user_id], references: [id])
-  user_id    Int?
-  pets       pets?    @relation(fields: [pet_id], references: [id])
-  pet_id     Int?
-  created_at DateTime
-  updated_at DateTime
-}
-
-model estimates {
-  id              Int      @id @default(autoincrement())
-  request_comment String
-  status          status
-  vets            vets?    @relation(fields: [vet_id], references: [id])
-  vet_id          Int?
-  users           users?   @relation(fields: [user_id], references: [id])
-  user_id         Int?
-  pets            pets?    @relation(fields: [pet_id], references: [id])
-  pet_id          Int?
-  created_at      DateTime
-  updated_at      DateTime
-}
-
-model vets {
-  id           Int            @id @default(autoincrement())
-  name         String
-  location     String
-  number       String
-  created_at   DateTime
-  updated_at   DateTime
-  appointments appointments[]
-  estimates    estimates[]
+model minor_medical_subjects {
+  id                     Int                     @id @default(autoincrement())
+  subject                String
+  created_at             DateTime
+  updated_at             DateTime
+  major_medical_subjects major_medical_subjects? @relation(fields: [major_id], references: [id])
+  major_id               Int?
 }
 
 enum status {
