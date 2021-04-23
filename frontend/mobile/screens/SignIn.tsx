@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components/native";
 import { useRef } from "react";
-import { AuthLayout, TextInputIcon } from "../components/auth";
+import { AuthLayout, AuthButton, TextInputIcon } from "../components/auth";
+import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 
 const DefaultContainer = styled.View`
   justify-content: center;
@@ -34,29 +36,26 @@ const RowText = styled.Text`
   font-weight: 600;
 `;
 
-const Button = styled.TouchableOpacity`
-  background-color: #fec544;
-  width: 100%;
-  padding: 20px 20px;
-  border-radius: 30px;
-  opacity: ${({ disabled }) => (disabled ? "0.5" : "1")};
-`;
-
-const InnerText = styled.Text`
-  font-size: 15px;
-  font-weight: 800;
-  text-align: center;
-`;
-
 export default function SignIn({ navigation }) {
+  const { register, handleSubmit, setValue } = useForm();
+  useEffect(() => {
+    register("userId");
+    register("password");
+  }, [register]);
+  const goToHome = () => navigation.navigate("Home");
+  const goToSignUp = () => navigation.navigate("SignUp");
+  const onValid = (data: object) => {
+    console.log(data);
+    // TODO validation
+    goToHome();
+  };
+
   const passwordInputRef = useRef();
   const onTextInputNext = () => {
     const { current }: any = passwordInputRef;
     current?.focus();
   };
 
-  const goToHome = () => navigation.navigate("Home");
-  const goToSignUp = () => navigation.navigate("SignUp");
   return (
     <AuthLayout title={`펫코에${"\n"}로그인하기`}>
       <InputContainer>
@@ -66,8 +65,10 @@ export default function SignIn({ navigation }) {
             placeholderTextColor="#333"
             returnKeyType="next"
             autoCorrect={false}
+            autoCapitalize="none"
             onSubmitEditing={onTextInputNext}
             blurOnSubmit={false}
+            onChangeText={(text) => setValue("userId", text)}
           />
         </TextInputIcon>
         <TextInputIcon icon="lock-closed-outline">
@@ -77,7 +78,10 @@ export default function SignIn({ navigation }) {
             placeholderTextColor="#333"
             returnKeyType="done"
             autoCorrect={false}
+            autoCapitalize="none"
             secureTextEntry
+            onSubmitEditing={handleSubmit(onValid)}
+            onChangeText={(text) => setValue("password", text)}
           />
         </TextInputIcon>
       </InputContainer>
@@ -90,9 +94,11 @@ export default function SignIn({ navigation }) {
         </Link>
       </RowTextContainer>
       <ButtonContainer>
-        <Button onPress={goToHome}>
-          <InnerText>로그인 하기</InnerText>
-        </Button>
+        <AuthButton
+          onPress={handleSubmit(onValid)}
+          text="로그인 하기"
+          disabled={false}
+        />
       </ButtonContainer>
       <RowTextContainer style={{ marginBottom: 0 }}>
         <RowText style={{ paddingRight: 16 }}>펫코가 처음이신가요?</RowText>
