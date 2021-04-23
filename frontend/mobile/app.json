@@ -6,7 +6,8 @@
     "githubUrl": "https://github.com/jinyongp/petco",
     "orientation": "portrait",
     "splash": {
-      "image": "./assets/images/petco.png"
+      "image": "./assets/images/petco.png",
+      "resizeMode": "cover"
     }
   }
 }

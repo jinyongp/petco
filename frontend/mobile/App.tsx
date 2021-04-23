@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import AppLoading from "expo-app-loading";
 import { AppNavigation } from "./navigators";
@@ -22,9 +22,12 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <AppNavigation />
-    </NavigationContainer>
+    <>
+      <StatusBar barStyle="dark-content" />
+      <NavigationContainer>
+        <AppNavigation />
+      </NavigationContainer>
+    </>
   );
 }
 
