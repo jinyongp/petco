@@ -10,6 +10,39 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model users {
+  id           Int            @id @default(autoincrement())
+  username     String         @unique
+  email        String
+  avatar       String
+  password     String
+  phone_number String
+  is_valid     Boolean        @default(false)
+  pets         pets[]
+  created_at   DateTime
+  updated_at   DateTime
+  appointments appointments[]
+  estimates    estimates[]
+}
+
+model pets {
+  id           Int            @id @default(autoincrement())
+  name         String
+  avatar       String
+  birth        String
+  gender       String
+  weight       String
+  type         String
+  in_neutered  Boolean        @default(false)
+  vaccinated   Boolean        @default(false)
+  created_at   DateTime
+  updated_at   DateTime
+  users        users?         @relation(fields: [user_id], references: [id])
+  user_id      Int?
+  appointments appointments[]
+  estimates    estimates[]
+}
+
 model appointments {
   id         Int      @id @default(autoincrement())
   status     status
@@ -36,6 +69,17 @@ model estimates {
   pet_id          Int?
   created_at      DateTime
   updated_at      DateTime
+}
+
+model vets {
+  id           Int            @id @default(autoincrement())
+  name         String
+  location     String
+  number       String
+  created_at   DateTime
+  updated_at   DateTime
+  appointments appointments[]
+  estimates    estimates[]
 }
 
 enum status {
