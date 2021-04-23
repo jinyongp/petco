@@ -16,7 +16,8 @@
     "typescript": "^4.2.4"
   },
   "scripts": {
-    "start": "nodemon -x ts-node src/server --ext ts,js"
+    "start": "nodemon -x ts-node src/server --ext ts,js",
+    "db" : "yarn prisma migrate dev --name init"
   },
   "private": true
 }
