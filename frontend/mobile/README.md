@@ -12,6 +12,7 @@
 ### React Native
 
 - [Getting Started with React Native](https://reactnative.dev/docs/getting-started)
+- [@react-navigation/stack](https://reactnavigation.org/docs/stack-navigator/)
 
 ### Apollo Client
 
