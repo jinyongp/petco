@@ -24,6 +24,20 @@ model appointments {
   updated_at DateTime
 }
 
+model estimates {
+  id              Int      @id @default(autoincrement())
+  request_comment String
+  status          status
+  vets            vets?    @relation(fields: [vet_id], references: [id])
+  vet_id          Int?
+  users           users?   @relation(fields: [user_id], references: [id])
+  user_id         Int?
+  pets            pets?    @relation(fields: [pet_id], references: [id])
+  pet_id          Int?
+  created_at      DateTime
+  updated_at      DateTime
+}
+
 enum status {
   request
   confirm
