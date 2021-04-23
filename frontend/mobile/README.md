@@ -29,3 +29,6 @@
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
 
 ## References
+
+- [expo AppLoading](https://docs.expo.io/versions/latest/sdk/app-loading/)
+- [expo Assets](https://docs.expo.io/guides/assets/)

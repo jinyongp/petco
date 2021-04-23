@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { AppNavigation } from "./navigators";
 import { NavigationContainer } from "@react-navigation/native";
+import AppLoading from "expo-app-loading";
+import { AppNavigation } from "./navigators";
 
 export default function App() {
+  const [loading, setLoading] = useState(true);
+  const onFinish = () => setLoading(false);
+  const startAsync = () => {
+    // TODO async 작업
+    return Promise.all([]);
+  };
+  if (loading) {
+    return (
+      <AppLoading
+        onError={console.warn}
+        onFinish={onFinish}
+        startAsync={startAsync}
+      />
+    );
+  }
+
   return (
     <NavigationContainer>
       <AppNavigation />
