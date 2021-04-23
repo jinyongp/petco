@@ -9,7 +9,8 @@ export default function App() {
   const onFinish = () => setLoading(false);
   const startAsync = () => {
     // TODO async 작업
-    return Promise.all([]);
+    const waitFiveSeconds = new Promise((res) => setTimeout(res, 500));
+    return Promise.all([waitFiveSeconds]);
   };
   if (loading) {
     return (
