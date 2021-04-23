@@ -17,7 +17,7 @@
   },
   "scripts": {
     "start": "nodemon -x ts-node src/server --ext ts,js",
-    "db" : "yarn prisma migrate dev --name init"
+    "db" : "yarn prisma migrate dev"
   },
   "private": true
 }
