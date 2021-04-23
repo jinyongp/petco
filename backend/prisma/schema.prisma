@@ -10,18 +10,22 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model pets {
-  id          Int      @id @default(autoincrement())
-  name        String
-  avatar      String
-  birth       String
-  gender      String
-  weight      String
-  type        String
-  in_neutered Boolean  @default(false)
-  vaccinated  Boolean  @default(false)
-  created_at  DateTime
-  updated_at  DateTime
-  users       users?   @relation(fields: [user_id], references: [id])
-  user_id     Int?
+model appointments {
+  id         Int      @id @default(autoincrement())
+  status     status
+  date       DateTime
+  // vets       vets?    @relation(fields: [vet_id], references: [id])
+  // vet_id     Int?
+  // users      users?   @relation(fields: [user_id], references: [id])
+  // user_id    Int?
+  // pets       pets?    @relation(fields: [pet_id], references: [id])
+  pet_id     Int?
+  created_at DateTime
+  updated_at DateTime
+}
+
+enum status {
+  request
+  confirm
+  cancel
 }
