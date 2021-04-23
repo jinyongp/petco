@@ -15,7 +15,13 @@ const Stack = createStackNavigator();
 export default function AppNavigation() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="SignIn" component={SignIn} />
+      <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
+        name="SignIn"
+        component={SignIn}
+      />
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="RegisterPets" component={RegisterPets} />

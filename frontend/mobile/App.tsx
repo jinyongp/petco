@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import AppLoading from "expo-app-loading";
 import { AppNavigation } from "./navigators";
@@ -9,7 +9,8 @@ export default function App() {
   const onFinish = () => setLoading(false);
   const startAsync = () => {
     // TODO async 작업
-    return Promise.all([]);
+    const waitFiveSeconds = new Promise((res) => setTimeout(res, 500));
+    return Promise.all([waitFiveSeconds]);
   };
   if (loading) {
     return (
@@ -22,9 +23,12 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <AppNavigation />
-    </NavigationContainer>
+    <>
+      <StatusBar barStyle="dark-content" />
+      <NavigationContainer>
+        <AppNavigation />
+      </NavigationContainer>
+    </>
   );
 }
 

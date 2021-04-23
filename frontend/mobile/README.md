@@ -32,3 +32,4 @@
 
 - [expo AppLoading](https://docs.expo.io/versions/latest/sdk/app-loading/)
 - [expo Assets](https://docs.expo.io/guides/assets/)
+- [react hook form](https://react-hook-form.com/)
