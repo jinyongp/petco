@@ -9,6 +9,7 @@ import {
   SignIn,
   SignUp,
 } from "../screens";
+import { Ionicons } from "@expo/vector-icons";
 
 const Stack = createStackNavigator();
 
@@ -36,7 +37,22 @@ export default function AppNavigation() {
         }}
       />
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="RegisterPets" component={RegisterPets} />
+      <Stack.Screen
+        name="RegisterPets"
+        component={RegisterPets}
+        options={{
+          headerTitle: "",
+          headerBackTitle: "    이전",
+          headerTransparent: true,
+          headerBackTitleStyle: {
+            color: "black",
+            letterSpacing: 10,
+          },
+          headerBackImage: () => (
+            <Ionicons name="chevron-back" size={30} style={{ left: 20 }} />
+          ),
+        }}
+      />
       <Stack.Screen name="SelectPet" component={SelectPet} />
       <Stack.Screen name="SearchLocation" component={SearchLocation} />
       <Stack.Screen name="SelectLocation" component={SelectLocation} />
