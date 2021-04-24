@@ -1259,7 +1259,7 @@
   dependencies:
     cross-spawn "^6.0.5"
 
-"@expo/vector-icons@^12.0.4":
+"@expo/vector-icons@^12.0.0", "@expo/vector-icons@^12.0.4":
   version "12.0.4"
   resolved "https://registry.npmjs.org/@expo/vector-icons/-/vector-icons-12.0.4.tgz"
   integrity sha512-/EFbXri7jZmqj1jTY6wpauvMN0DY0Epic003d43yWqrScLlVERaxXrOR07BNuCZvVMHBAzXN4VbOzUUUTq6j8g==
@@ -3378,17 +3378,6 @@ expo-application@~3.1.2:
   version "3.1.2"
   resolved "https://registry.npmjs.org/expo-application/-/expo-application-3.1.2.tgz"
   integrity sha512-JZcKUpGmqzQ1zLxRxUditGzPqnPCXY6JT/Pbq4nyV4VPzjDd8wihVPuud+cuv8gHgdj8QLvKs/lcJJqN94EX5Q==
-
-expo-asset@^8.3.2:
-  version "8.3.2"
-  resolved "https://registry.npmjs.org/expo-asset/-/expo-asset-8.3.2.tgz"
-  integrity sha512-MKOwkkN0lnQRcOdn5moqkHPmLgFoUSIYyrvMAJ767vTXvLvZgoQgvBwqCAXsXitIwEitG0Az3XZ23SfKJpFbFg==
-  dependencies:
-    blueimp-md5 "^2.10.0"
-    invariant "^2.2.4"
-    md5-file "^3.2.3"
-    path-browserify "^1.0.0"
-    url-parse "^1.4.4"
 
 expo-asset@~8.3.1:
   version "8.3.1"
