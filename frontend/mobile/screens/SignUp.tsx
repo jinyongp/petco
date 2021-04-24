@@ -1,7 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components/native";
-import { AuthLayout, TextInputIcon, AuthButton } from "../components/auth";
+import {
+  AuthLayout,
+  AuthLink,
+  TextInputIcon,
+  AuthButton,
+} from "../components/auth";
 
 const Container = styled.View`
   justify-content: center;
@@ -14,7 +19,11 @@ const InputContainer = styled(Container)`
 `;
 
 const ButtonContainer = styled(Container)`
-  margin-bottom: 0px;
+  margin-bottom: 40px;
+`;
+
+const RowTextContainer = styled(Container)`
+  margin-bottom: 30px;
 `;
 
 const TextInput = styled.TextInput`
@@ -38,10 +47,12 @@ export default function SignUp({ navigation }) {
     const { current }: any = nextRef;
     current?.focus();
   };
+  const goToSignIn = () => navigation.navigate("SignIn");
   const onSetValue = (name: string) => (text: string) => setValue(name, text);
   const onValid = (data: object) => {
     console.log(data);
     // TODO validation
+    navigation.navigate("RegisterPets");
   };
 
   return (
@@ -109,6 +120,13 @@ export default function SignUp({ navigation }) {
           disabled={false}
         />
       </ButtonContainer>
+      <RowTextContainer>
+        <AuthLink
+          onPress={goToSignIn}
+          desc="이미 회원이신가요?"
+          link="로그인 하기"
+        />
+      </RowTextContainer>
     </AuthLayout>
   );
 }

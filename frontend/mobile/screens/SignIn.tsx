@@ -1,7 +1,12 @@
 import React from "react";
 import styled from "styled-components/native";
 import { useRef } from "react";
-import { AuthLayout, AuthButton, TextInputIcon } from "../components/auth";
+import {
+  AuthLayout,
+  AuthButton,
+  AuthLink,
+  TextInputIcon,
+} from "../components/auth";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 
@@ -22,6 +27,10 @@ const RowTextContainer = styled(Container)`
 
 const ButtonContainer = styled(Container)`
   margin-bottom: 19px;
+`;
+
+const RowLinkContainer = styled(Container)`
+  flex-direction: row;
 `;
 
 const TextInput = styled.TextInput`
@@ -101,12 +110,13 @@ export default function SignIn({ navigation }) {
           disabled={false}
         />
       </ButtonContainer>
-      <RowTextContainer style={{ marginBottom: 0 }}>
-        <RowText style={{ paddingRight: 16 }}>펫코가 처음이신가요?</RowText>
-        <Link onPress={goToSignUp}>
-          <RowText style={{ color: "#F5C01D" }}>회원가입하기</RowText>
-        </Link>
-      </RowTextContainer>
+      <RowLinkContainer style={{ marginBottom: 0 }}>
+        <AuthLink
+          onPress={goToSignUp}
+          desc="펫코가 처음이신가요?"
+          link="회원가입하기"
+        />
+      </RowLinkContainer>
     </AuthLayout>
   );
 }
