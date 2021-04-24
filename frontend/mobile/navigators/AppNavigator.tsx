@@ -16,13 +16,25 @@ export default function AppNavigation() {
   return (
     <Stack.Navigator>
       <Stack.Screen
+        name="SignIn"
+        component={SignIn}
         options={{
           headerShown: false,
         }}
-        name="SignIn"
-        component={SignIn}
       />
-      <Stack.Screen name="SignUp" component={SignUp} />
+      <Stack.Screen
+        name="SignUp"
+        component={SignUp}
+        options={{
+          headerTitle: "",
+          headerBackTitle: "    로그인",
+          headerBackTitleStyle: {
+            color: "#F5C01D",
+            fontWeight: "800",
+          },
+          headerBackImage: () => null,
+        }}
+      />
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="RegisterPets" component={RegisterPets} />
       <Stack.Screen name="SelectPet" component={SelectPet} />

@@ -5,22 +5,22 @@ import { AuthLayout, AuthButton, TextInputIcon } from "../components/auth";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 
-const DefaultContainer = styled.View`
+const Container = styled.View`
   justify-content: center;
   align-items: center;
   width: 100%;
 `;
 
-const InputContainer = styled(DefaultContainer)`
+const InputContainer = styled(Container)`
   margin-bottom: 18px;
 `;
 
-const RowTextContainer = styled(DefaultContainer)`
+const RowTextContainer = styled(Container)`
   flex-direction: row;
   margin-bottom: 20%;
 `;
 
-const ButtonContainer = styled(DefaultContainer)`
+const ButtonContainer = styled(Container)`
   margin-bottom: 19px;
 `;
 
@@ -44,6 +44,7 @@ export default function SignIn({ navigation }) {
   }, [register]);
   const goToHome = () => navigation.navigate("Home");
   const goToSignUp = () => navigation.navigate("SignUp");
+  const onSetValue = (name: string) => (text: string) => setValue(name, text);
   const onValid = (data: object) => {
     console.log(data);
     // TODO validation
@@ -51,8 +52,8 @@ export default function SignIn({ navigation }) {
   };
 
   const passwordInputRef = useRef();
-  const onTextInputNext = () => {
-    const { current }: any = passwordInputRef;
+  const onNext = (nextRef) => () => {
+    const { current }: any = nextRef;
     current?.focus();
   };
 
@@ -62,26 +63,26 @@ export default function SignIn({ navigation }) {
         <TextInputIcon icon="person-outline">
           <TextInput
             placeholder="아이디를 입력해주세요."
-            placeholderTextColor="#333"
+            placeholderTextColor="#777"
             returnKeyType="next"
             autoCorrect={false}
             autoCapitalize="none"
-            onSubmitEditing={onTextInputNext}
+            onSubmitEditing={onNext(passwordInputRef)}
             blurOnSubmit={false}
-            onChangeText={(text) => setValue("userId", text)}
+            onChangeText={onSetValue("userId")}
           />
         </TextInputIcon>
         <TextInputIcon icon="lock-closed-outline">
           <TextInput
             ref={passwordInputRef}
             placeholder="비밀번호를 입력해주세요."
-            placeholderTextColor="#333"
+            placeholderTextColor="#777"
             returnKeyType="done"
             autoCorrect={false}
             autoCapitalize="none"
             secureTextEntry
             onSubmitEditing={handleSubmit(onValid)}
-            onChangeText={(text) => setValue("password", text)}
+            onChangeText={onSetValue("password")}
           />
         </TextInputIcon>
       </InputContainer>
