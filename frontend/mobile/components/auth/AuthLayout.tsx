@@ -2,6 +2,7 @@ import React from "react";
 import {
   Keyboard,
   Platform,
+  ScrollView,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
 } from "react-native";
@@ -11,6 +12,7 @@ const DefaultContainer = styled.View`
   justify-content: center;
   align-items: center;
   width: 100%;
+  background-color: white;
 `;
 
 const Container = styled(DefaultContainer)`
@@ -21,6 +23,11 @@ const Container = styled(DefaultContainer)`
 const HeaderContainer = styled(DefaultContainer)`
   align-items: flex-start;
   margin-bottom: 50px;
+  margin-top: 50px;
+`;
+
+const FooterContainer = styled(DefaultContainer)`
+  margin-bottom: 80px;
 `;
 
 const Welcome = styled.Text`
@@ -32,19 +39,24 @@ const Welcome = styled.Text`
 
 export default function AuthLayout({ title, children }) {
   return (
-    <TouchableWithoutFeedback
-      style={{ flex: 1 }}
-      onPress={Keyboard.dismiss}
-      disabled={Platform.OS === "web"}
-    >
-      <Container>
-        <KeyboardAvoidingView style={{ width: "100%" }} behavior="position">
+    <Container>
+      {/* TODO KeyboardAvoidingView 구현 */}
+      <TouchableWithoutFeedback
+        style={{ flex: 1 }}
+        onPress={Keyboard.dismiss}
+        disabled={Platform.OS === "web"}
+      >
+        <ScrollView
+          style={{ width: "100%", flex: 1 }}
+          contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
+        >
           <HeaderContainer>
             <Welcome>{title}</Welcome>
           </HeaderContainer>
           {children}
-        </KeyboardAvoidingView>
-      </Container>
-    </TouchableWithoutFeedback>
+          <FooterContainer></FooterContainer>
+        </ScrollView>
+      </TouchableWithoutFeedback>
+    </Container>
   );
 }

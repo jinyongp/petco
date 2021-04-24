@@ -9,12 +9,38 @@ import {
   SignIn,
   SignUp,
 } from "../screens";
+import { Ionicons } from "@expo/vector-icons";
 
 const Stack = createStackNavigator();
 
 export default function AppNavigation() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerTitle: "",
+        headerBackTitle: "이전",
+        headerBackTitleStyle: {
+          color: "#666",
+          fontWeight: "400",
+          justifyContent: "center",
+        },
+        headerStyle: {
+          backgroundColor: "white",
+          shadowOpacity: 0,
+          shadowOffset: { height: 0, width: 0 },
+          shadowRadius: 0,
+          elevation: 0,
+        },
+        headerBackImage: () => (
+          <Ionicons
+            name="chevron-back"
+            size={30}
+            color="#666"
+            style={{ marginLeft: 5 }}
+          />
+        ),
+      }}
+    >
       <Stack.Screen
         name="SignIn"
         component={SignIn}
@@ -22,21 +48,9 @@ export default function AppNavigation() {
           headerShown: false,
         }}
       />
-      <Stack.Screen
-        name="SignUp"
-        component={SignUp}
-        options={{
-          headerTitle: "",
-          headerBackTitle: "    로그인",
-          headerBackTitleStyle: {
-            color: "#F5C01D",
-            fontWeight: "800",
-          },
-          headerBackImage: () => null,
-        }}
-      />
+      <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="RegisterPets" component={RegisterPets} />
+      <Stack.Screen name="RegisterPets" component={RegisterPets} options={{}} />
       <Stack.Screen name="SelectPet" component={SelectPet} />
       <Stack.Screen name="SearchLocation" component={SearchLocation} />
       <Stack.Screen name="SelectLocation" component={SelectLocation} />
