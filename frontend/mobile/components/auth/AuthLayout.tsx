@@ -23,6 +23,11 @@ const Container = styled(DefaultContainer)`
 const HeaderContainer = styled(DefaultContainer)`
   align-items: flex-start;
   margin-bottom: 50px;
+  margin-top: 50px;
+`;
+
+const FooterContainer = styled(DefaultContainer)`
+  margin-bottom: 80px;
 `;
 
 const Welcome = styled.Text`
@@ -33,43 +38,25 @@ const Welcome = styled.Text`
 `;
 
 export default function AuthLayout({ title, children }) {
-  const keyboardViewPropsByPlatform = () => {
-    const { OS } = Platform;
-    const props = (behavior, keyboardVerticalOffset = 0) => ({
-      behavior,
-      keyboardVerticalOffset,
-    });
-    switch (OS) {
-      case "android":
-        return props("height");
-      case "ios":
-        return props("padding");
-      default:
-        return props("position");
-    }
-  };
-
   return (
-    <KeyboardAvoidingView
-      style={{ width: "100%", flex: 1 }}
-      {...keyboardViewPropsByPlatform()}
-    >
+    <Container>
+      {/* TODO KeyboardAvoidingView 구현 */}
       <TouchableWithoutFeedback
         style={{ flex: 1 }}
         onPress={Keyboard.dismiss}
         disabled={Platform.OS === "web"}
       >
         <ScrollView
-          contentContainerStyle={{ flex: 1, justifyContent: "center" }}
+          style={{ width: "100%", flex: 1 }}
+          contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
         >
-          <Container>
-            <HeaderContainer>
-              <Welcome>{title}</Welcome>
-            </HeaderContainer>
-            {children}
-          </Container>
+          <HeaderContainer>
+            <Welcome>{title}</Welcome>
+          </HeaderContainer>
+          {children}
+          <FooterContainer></FooterContainer>
         </ScrollView>
       </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+    </Container>
   );
 }
