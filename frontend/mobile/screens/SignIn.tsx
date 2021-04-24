@@ -90,7 +90,6 @@ export default function SignIn({ navigation }) {
             autoCorrect={false}
             autoCapitalize="none"
             secureTextEntry
-            onSubmitEditing={handleSubmit(onValid)}
             onChangeText={onSetValue("password")}
           />
         </TextInputIcon>
