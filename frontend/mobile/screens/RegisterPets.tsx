@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useState } from "react";
-import Modal from "react-native-modal";
 import styled from "styled-components/native";
 import Dog from "../assets/icons/dog.svg";
 import Cat from "../assets/icons/cat.svg";
@@ -186,7 +185,6 @@ const RegisterPets = ({ navigation }) => {
             autoCorrect={false}
             autoCapitalize="none"
             blurOnSubmit={false}
-            onSubmitEditing={handleSubmit(onValid)}
             onChangeText={onSetValue("vaccination")}
           />
         </TextInputLabel>

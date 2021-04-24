@@ -108,7 +108,6 @@ export default function SignUp({ navigation }) {
             blurOnSubmit={false}
             ref={passwordCheckRef}
             secureTextEntry
-            onSubmitEditing={handleSubmit(onValid)}
             onChangeText={onSetValue("passwordCheck")}
           />
         </TextInputIcon>
