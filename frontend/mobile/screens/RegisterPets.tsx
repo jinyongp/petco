@@ -1,10 +1,13 @@
-import React, { useRef, useState } from "react";
-import { AuthLayout, AuthButton, TextInputLabel } from "../components/auth";
+import React, { useRef, useEffect, useState } from "react";
+import Modal from "react-native-modal";
 import styled from "styled-components/native";
 import Dog from "../assets/icons/dog.svg";
 import Cat from "../assets/icons/cat.svg";
+import LeftDog from "../assets/animals/dog105.svg";
+import RightCat from "../assets/animals/cat85.svg";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { AuthLayout, AuthButton, TextInputLabel } from "../components/auth";
+import { ConfirmModal } from "../components";
 
 const Container = styled.View`
   justify-content: center;
@@ -55,6 +58,8 @@ const TextInput = styled.TextInput`
   font-size: 15px;
 `;
 
+const ModalContainer = styled(Container)``;
+
 const RegisterPets = ({ navigation }) => {
   const { register, handleSubmit, setValue } = useForm();
   useEffect(() => {
@@ -78,9 +83,16 @@ const RegisterPets = ({ navigation }) => {
   const onValid = (data: object) => {
     console.log(data);
     // TODO validation
-    navigation.navigate("Home");
+
+    setIsModalVisible(true);
   };
   const onSetValue = (name: string) => (text: string) => setValue(name, text);
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const onCloseModal = () => {
+    setIsModalVisible(false);
+    navigation.navigate("Home");
+  };
 
   return (
     <AuthLayout title={`등록할 동물을${"\n"}선택해 주세요.`}>
@@ -180,8 +192,24 @@ const RegisterPets = ({ navigation }) => {
         </TextInputLabel>
       </InputContainer>
       <ButtonContainer>
-        <AuthButton onPress={() => {}} text="등록" disabled={false} />
+        <AuthButton
+          onPress={handleSubmit(onValid)}
+          text="등록"
+          disabled={false}
+        />
       </ButtonContainer>
+      <ModalContainer>
+        <ConfirmModal
+          isVisible={isModalVisible}
+          header="등록이 완료되었습니다!"
+          content={`등록한 반려동물 내역은${"\n"}내 정보에서 확인할 수 있습니다.`}
+          buttonText="완료"
+          onClose={onCloseModal}
+        >
+          <LeftDog width={100} height={100} />
+          <RightCat width={100} height={100} />
+        </ConfirmModal>
+      </ModalContainer>
     </AuthLayout>
   );
 };
