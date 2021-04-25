@@ -10,6 +10,15 @@ import { TextInputIcon } from "../components/auth";
 import EstimateSvg from "../assets/icons/estimate.svg";
 import StethoscopeSvg from "../assets/icons/stethoscope.svg";
 import ads from "../assets/images/ads.png";
+import { elevation } from "../style/css";
+
+interface ButtonProps {
+  readonly last?: boolean;
+}
+
+interface AdsProps {
+  readonly source: string;
+}
 
 const Container = styled(DefaultContainer)`
   flex: 1;
@@ -65,7 +74,8 @@ const ButtonWrapper = styled.View`
   flex-direction: row;
 `;
 
-const Button = styled.TouchableOpacity`
+const Button = styled.TouchableOpacity<ButtonProps>`
+  ${elevation}
   justify-content: center;
   align-items: center;
   border-radius: 30px;
@@ -73,11 +83,6 @@ const Button = styled.TouchableOpacity`
   height: 144px;
   border: 1px solid #ddd;
   background-color: #fff;
-  shadow-color: black;
-  shadow-opacity: 0.26;
-  shadow-offset: 0px 2px;
-  shadow-radius: 3px;
-  elevation: 5;
   margin-right: ${({ last }) => (last ? 0 : 20)}px;
 `;
 
@@ -98,14 +103,14 @@ const AdsWrapper = styled.TouchableHighlight`
   border-radius: 30px;
 `;
 
-const Ads = styled(Image)`
+const Ads = styled(Image)<AdsProps>`
   width: 100%;
   border-radius: 30px;
 `;
 
 export default function Home({ navigation }) {
   const goToSearchLocation = () => navigation.navigate("SearchLocation");
-  // TODO
+
   return (
     <Container>
       <DismissKeyboard>

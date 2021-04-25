@@ -7,6 +7,11 @@ import LeftDog from "../assets/animals/dog105.svg";
 import RightCat from "../assets/animals/cat85.svg";
 import { AuthLayout, AuthButton, TextInputLabel } from "../components/auth";
 import { ConfirmModal, DefaultContainer } from "../components";
+import { elevation } from "../style/css";
+
+interface ButtonWrapperProps {
+  readonly last?: boolean;
+}
 
 const SelectContainer = styled(DefaultContainer)`
   margin-bottom: 50px;
@@ -24,13 +29,14 @@ const ButtonContainer = styled(DefaultContainer)`
 
 const ModalContainer = styled(DefaultContainer)``;
 
-const ButtonWrapper = styled.View`
+const ButtonWrapper = styled.View<ButtonWrapperProps>`
   align-items: center;
   justify-content: center;
   margin-right: ${({ last }) => (last ? 0 : 40)}px;
 `;
 
 const PetTypeButton = styled.TouchableOpacity`
+  ${elevation}
   justify-content: center;
   align-items: center;
   border-radius: 30px;
@@ -38,11 +44,6 @@ const PetTypeButton = styled.TouchableOpacity`
   height: 111px;
   border: 1px solid #ddd;
   background-color: #fff;
-  shadow-color: black;
-  shadow-opacity: 0.26;
-  shadow-offset: 0px 2px;
-  shadow-radius: 3px;
-  elevation: 5;
 `;
 
 const PetTypeDesc = styled.Text`
