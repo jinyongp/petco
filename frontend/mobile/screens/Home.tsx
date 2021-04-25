@@ -109,12 +109,12 @@ const Ads = styled(Image)<AdsProps>`
 `;
 
 export default function Home({ navigation }) {
-  const goToSearchLocation = () => navigation.navigate("SearchLocation");
+  const goToSelectPet = () => navigation.navigate("SelectPet");
 
   return (
-    <Container>
+    <ScrollContainer>
       <DismissKeyboard>
-        <ScrollContainer>
+        <Container>
           <HeaderContainer>
             <RowTextWrapper>
               <Username>서강준</Username>
@@ -130,7 +130,7 @@ export default function Home({ navigation }) {
           <ButtonContainer>
             <Question>어떤 서비스를 원하시나요?</Question>
             <ButtonWrapper>
-              <Button onPress={goToSearchLocation}>
+              <Button onPress={goToSelectPet}>
                 <ButtonContent>
                   <EstimateSvg width={50} height={50} />
                   <ButtonDesc>견적 신청하기</ButtonDesc>
@@ -149,8 +149,8 @@ export default function Home({ navigation }) {
               <Ads source={ads} />
             </AdsWrapper>
           </AdsContainer>
-        </ScrollContainer>
+        </Container>
       </DismissKeyboard>
-    </Container>
+    </ScrollContainer>
   );
 }
