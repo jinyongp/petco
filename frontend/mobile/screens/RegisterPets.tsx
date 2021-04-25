@@ -1,32 +1,28 @@
 import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components/native";
+import { useForm } from "react-hook-form";
 import Dog from "../assets/icons/dog.svg";
 import Cat from "../assets/icons/cat.svg";
 import LeftDog from "../assets/animals/dog105.svg";
 import RightCat from "../assets/animals/cat85.svg";
-import { useForm } from "react-hook-form";
 import { AuthLayout, AuthButton, TextInputLabel } from "../components/auth";
-import { ConfirmModal } from "../components";
+import { ConfirmModal, DefaultContainer } from "../components";
 
-const Container = styled.View`
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-`;
-
-const SelectContainer = styled(Container)`
+const SelectContainer = styled(DefaultContainer)`
   margin-bottom: 50px;
   flex-direction: row;
 `;
 
-const InputContainer = styled(Container)`
+const InputContainer = styled(DefaultContainer)`
   margin-bottom: 30px;
 `;
 
-const ButtonContainer = styled(Container)`
+const ButtonContainer = styled(DefaultContainer)`
   margin-top: 30px;
   margin-bottom: 0px;
 `;
+
+const ModalContainer = styled(DefaultContainer)``;
 
 const ButtonWrapper = styled.View`
   align-items: center;
@@ -56,8 +52,6 @@ const PetTypeDesc = styled.Text`
 const TextInput = styled.TextInput`
   font-size: 15px;
 `;
-
-const ModalContainer = styled(Container)``;
 
 const RegisterPets = ({ navigation }) => {
   const { register, handleSubmit, setValue } = useForm();
