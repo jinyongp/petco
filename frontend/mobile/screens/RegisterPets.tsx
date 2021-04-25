@@ -203,10 +203,9 @@ const RegisterPets = ({ navigation }) => {
           content={`등록한 반려동물 내역은${"\n"}내 정보에서 확인할 수 있습니다.`}
           buttonText="완료"
           onClose={onCloseModal}
-        >
-          <LeftDog width={100} height={100} />
-          <RightCat width={100} height={100} />
-        </ConfirmModal>
+          LeftPetSvg={LeftDog}
+          RightPetSvg={RightCat}
+        />
       </ModalContainer>
     </AuthLayout>
   );
