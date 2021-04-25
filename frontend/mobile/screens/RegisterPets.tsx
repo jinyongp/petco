@@ -1,40 +1,42 @@
 import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components/native";
+import { useForm } from "react-hook-form";
 import Dog from "../assets/icons/dog.svg";
 import Cat from "../assets/icons/cat.svg";
 import LeftDog from "../assets/animals/dog105.svg";
 import RightCat from "../assets/animals/cat85.svg";
-import { useForm } from "react-hook-form";
 import { AuthLayout, AuthButton, TextInputLabel } from "../components/auth";
-import { ConfirmModal } from "../components";
+import { ConfirmModal, DefaultContainer } from "../components";
+import { elevation } from "../style/css";
 
-const Container = styled.View`
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-`;
+interface ButtonWrapperProps {
+  readonly last?: boolean;
+}
 
-const SelectContainer = styled(Container)`
+const SelectContainer = styled(DefaultContainer)`
   margin-bottom: 50px;
   flex-direction: row;
 `;
 
-const InputContainer = styled(Container)`
+const InputContainer = styled(DefaultContainer)`
   margin-bottom: 30px;
 `;
 
-const ButtonContainer = styled(Container)`
+const ButtonContainer = styled(DefaultContainer)`
   margin-top: 30px;
   margin-bottom: 0px;
 `;
 
-const ButtonWrapper = styled.View`
+const ModalContainer = styled(DefaultContainer)``;
+
+const ButtonWrapper = styled.View<ButtonWrapperProps>`
   align-items: center;
   justify-content: center;
   margin-right: ${({ last }) => (last ? 0 : 40)}px;
 `;
 
 const PetTypeButton = styled.TouchableOpacity`
+  ${elevation}
   justify-content: center;
   align-items: center;
   border-radius: 30px;
@@ -42,11 +44,6 @@ const PetTypeButton = styled.TouchableOpacity`
   height: 111px;
   border: 1px solid #ddd;
   background-color: #fff;
-  shadow-color: black;
-  shadow-opacity: 0.26;
-  shadow-offset: 0px 2px;
-  shadow-radius: 3px;
-  elevation: 5;
 `;
 
 const PetTypeDesc = styled.Text`
@@ -56,8 +53,6 @@ const PetTypeDesc = styled.Text`
 const TextInput = styled.TextInput`
   font-size: 15px;
 `;
-
-const ModalContainer = styled(Container)``;
 
 const RegisterPets = ({ navigation }) => {
   const { register, handleSubmit, setValue } = useForm();
@@ -203,10 +198,9 @@ const RegisterPets = ({ navigation }) => {
           content={`등록한 반려동물 내역은${"\n"}내 정보에서 확인할 수 있습니다.`}
           buttonText="완료"
           onClose={onCloseModal}
-        >
-          <LeftDog width={100} height={100} />
-          <RightCat width={100} height={100} />
-        </ConfirmModal>
+          LeftPetSvg={LeftDog}
+          RightPetSvg={RightCat}
+        />
       </ModalContainer>
     </AuthLayout>
   );

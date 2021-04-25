@@ -1,23 +1,24 @@
 import React from "react";
-import {
-  Image,
-  Keyboard,
-  Platform,
-  ScrollView,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { Image } from "react-native";
 import styled from "styled-components/native";
+import {
+  DefaultContainer,
+  DismissKeyboard,
+  ScrollContainer,
+} from "../components";
 import { TextInputIcon } from "../components/auth";
 import EstimateSvg from "../assets/icons/estimate.svg";
 import StethoscopeSvg from "../assets/icons/stethoscope.svg";
 import ads from "../assets/images/ads.png";
+import { elevation } from "../style/css";
 
-const DefaultContainer = styled.View`
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  background-color: #fff;
-`;
+interface ButtonProps {
+  readonly last?: boolean;
+}
+
+interface AdsProps {
+  readonly source: string;
+}
 
 const Container = styled(DefaultContainer)`
   flex: 1;
@@ -73,7 +74,8 @@ const ButtonWrapper = styled.View`
   flex-direction: row;
 `;
 
-const Button = styled.TouchableOpacity`
+const Button = styled.TouchableOpacity<ButtonProps>`
+  ${elevation}
   justify-content: center;
   align-items: center;
   border-radius: 30px;
@@ -81,11 +83,6 @@ const Button = styled.TouchableOpacity`
   height: 144px;
   border: 1px solid #ddd;
   background-color: #fff;
-  shadow-color: black;
-  shadow-opacity: 0.26;
-  shadow-offset: 0px 2px;
-  shadow-radius: 3px;
-  elevation: 5;
   margin-right: ${({ last }) => (last ? 0 : 20)}px;
 `;
 
@@ -106,25 +103,18 @@ const AdsWrapper = styled.TouchableHighlight`
   border-radius: 30px;
 `;
 
-const Ads = styled(Image)`
+const Ads = styled(Image)<AdsProps>`
   width: 100%;
   border-radius: 30px;
 `;
 
 export default function Home({ navigation }) {
-  const goToSearchLocation = () => navigation.navigate("SearchLocation");
-  // TODO
+  const goToSelectPet = () => navigation.navigate("SelectPet");
+
   return (
-    <Container>
-      <TouchableWithoutFeedback
-        style={{ flex: 1 }}
-        onPress={Keyboard.dismiss}
-        disabled={Platform.OS === "web"}
-      >
-        <ScrollView
-          style={{ width: "100%", flex: 1 }}
-          contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
-        >
+    <ScrollContainer>
+      <DismissKeyboard>
+        <Container>
           <HeaderContainer>
             <RowTextWrapper>
               <Username>서강준</Username>
@@ -140,7 +130,7 @@ export default function Home({ navigation }) {
           <ButtonContainer>
             <Question>어떤 서비스를 원하시나요?</Question>
             <ButtonWrapper>
-              <Button onPress={goToSearchLocation}>
+              <Button onPress={goToSelectPet}>
                 <ButtonContent>
                   <EstimateSvg width={50} height={50} />
                   <ButtonDesc>견적 신청하기</ButtonDesc>
@@ -159,8 +149,8 @@ export default function Home({ navigation }) {
               <Ads source={ads} />
             </AdsWrapper>
           </AdsContainer>
-        </ScrollView>
-      </TouchableWithoutFeedback>
-    </Container>
+        </Container>
+      </DismissKeyboard>
+    </ScrollContainer>
   );
 }

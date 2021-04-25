@@ -42,7 +42,8 @@ const ModalContent = styled.Text`
 
 export default function ConfirmModal({
   isVisible,
-  children,
+  LeftPetSvg,
+  RightPetSvg,
   onClose,
   header,
   content,
@@ -58,7 +59,10 @@ export default function ConfirmModal({
         isVisible={isVisible}
       >
         <ModalWrapper>
-          <AnimalWrapper>{children}</AnimalWrapper>
+          <AnimalWrapper>
+            <LeftPetSvg width={100} height={100} />
+            <RightPetSvg width={100} height={100} />
+          </AnimalWrapper>
           <ModalHeaderWrapper>
             <ModalHeader>{header}</ModalHeader>
           </ModalHeaderWrapper>

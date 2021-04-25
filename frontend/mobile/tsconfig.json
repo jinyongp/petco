@@ -13,10 +13,12 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
+    "types": ["styled-components-react-native"],
     "plugins": [
       {
-        "name": "ts-styled-plugin",
-        "validProperties": [
+        "name": "typescript-styled-plugin",
+        "lint": {
+          "validProperties": [
           "shadow-color",
           "shadow-opacity",
           "shadow-offset",
@@ -28,7 +30,8 @@
           "tint-color",
           "aspect-ratio",
           "elevation"
-        ]
+          ]
+        }
       }
     ]
   },
