@@ -8,7 +8,7 @@ const InputWrapper = styled.View`
   flex-direction: row;
   width: 100%;
   height: 56px;
-  padding: 0px 30px 0px 30px;
+  padding: 0px 80px 0px 30px;
   border: 1px solid #c4c4c4;
   border-radius: 30px;
   margin-bottom: 14px;

@@ -51,7 +51,7 @@ export default function ConfirmModal({
   return (
     <Container>
       <StyledModal
-        animationIn="rubberBand"
+        animationIn="zoomIn"
         animationOut="fadeOut"
         backdropTransitionOutTiming={0} // It solves a modal flickering occurred from android
         style={{ flex: 0 }}

@@ -25,7 +25,7 @@ export default function AppNavigation() {
           justifyContent: "center",
         },
         headerStyle: {
-          backgroundColor: "white",
+          backgroundColor: "#fff",
           shadowOpacity: 0,
           shadowOffset: { height: 0, width: 0 },
           shadowRadius: 0,
@@ -49,7 +49,16 @@ export default function AppNavigation() {
         }}
       />
       <Stack.Screen name="SignUp" component={SignUp} />
-      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerShown: false,
+          headerLeft: null,
+          // FIXME disable goBack SignIn Screen
+          // gestureEnabled: false, // all gesture disable
+        }}
+      />
       <Stack.Screen name="RegisterPets" component={RegisterPets} options={{}} />
       <Stack.Screen name="SelectPet" component={SelectPet} />
       <Stack.Screen name="SearchLocation" component={SearchLocation} />
