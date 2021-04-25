@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components/native";
+import { DefaultContainer } from "../components";
 import {
   AuthLayout,
   AuthLink,
@@ -8,21 +9,15 @@ import {
   AuthButton,
 } from "../components/auth";
 
-const Container = styled.View`
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-`;
-
-const InputContainer = styled(Container)`
+const InputContainer = styled(DefaultContainer)`
   margin-bottom: 50px;
 `;
 
-const ButtonContainer = styled(Container)`
+const ButtonContainer = styled(DefaultContainer)`
   margin-bottom: 40px;
 `;
 
-const RowTextContainer = styled(Container)`
+const RowTextContainer = styled(DefaultContainer)`
   margin-bottom: 30px;
 `;
 
