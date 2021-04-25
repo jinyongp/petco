@@ -1,23 +1,15 @@
 import React from "react";
-import {
-  Image,
-  Keyboard,
-  Platform,
-  ScrollView,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { Image } from "react-native";
 import styled from "styled-components/native";
+import {
+  DefaultContainer,
+  DismissKeyboard,
+  ScrollContainer,
+} from "../components";
 import { TextInputIcon } from "../components/auth";
 import EstimateSvg from "../assets/icons/estimate.svg";
 import StethoscopeSvg from "../assets/icons/stethoscope.svg";
 import ads from "../assets/images/ads.png";
-
-const DefaultContainer = styled.View`
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  background-color: #fff;
-`;
 
 const Container = styled(DefaultContainer)`
   flex: 1;
@@ -116,15 +108,8 @@ export default function Home({ navigation }) {
   // TODO
   return (
     <Container>
-      <TouchableWithoutFeedback
-        style={{ flex: 1 }}
-        onPress={Keyboard.dismiss}
-        disabled={Platform.OS === "web"}
-      >
-        <ScrollView
-          style={{ width: "100%", flex: 1 }}
-          contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
-        >
+      <DismissKeyboard>
+        <ScrollContainer>
           <HeaderContainer>
             <RowTextWrapper>
               <Username>서강준</Username>
@@ -159,8 +144,8 @@ export default function Home({ navigation }) {
               <Ads source={ads} />
             </AdsWrapper>
           </AdsContainer>
-        </ScrollView>
-      </TouchableWithoutFeedback>
+        </ScrollContainer>
+      </DismissKeyboard>
     </Container>
   );
 }
