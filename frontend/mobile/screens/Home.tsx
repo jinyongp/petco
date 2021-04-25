@@ -1,26 +1,166 @@
 import React from "react";
-import { Text, View, Button, StyleSheet } from "react-native";
+import {
+  Image,
+  Keyboard,
+  Platform,
+  ScrollView,
+  TouchableWithoutFeedback,
+} from "react-native";
+import styled from "styled-components/native";
+import { TextInputIcon } from "../components/auth";
+import EstimateSvg from "../assets/icons/estimate.svg";
+import StethoscopeSvg from "../assets/icons/stethoscope.svg";
+import ads from "../assets/images/ads.png";
 
-const Home = ({ navigation }) => {
+const DefaultContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: #fff;
+`;
+
+const Container = styled(DefaultContainer)`
+  flex: 1;
+  padding: 30px 5% 0 5%;
+`;
+
+const HeaderContainer = styled(DefaultContainer)`
+  align-items: flex-start;
+  margin-left: 20px;
+  margin-bottom: 34px;
+`;
+
+const SearchBarContainer = styled(DefaultContainer)`
+  margin-bottom: 36px;
+`;
+
+const ButtonContainer = styled(DefaultContainer)`
+  margin-bottom: 22px;
+`;
+
+const AdsContainer = styled(DefaultContainer)`
+  margin-bottom: 0px;
+`;
+
+const RowTextWrapper = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Username = styled.Text`
+  font-size: 26px;
+  font-weight: 700;
+`;
+
+const Welcome = styled.Text`
+  font-size: 26px;
+`;
+
+const TextInput = styled.TextInput`
+  flex: 1;
+  left: 40px;
+`;
+
+const Question = styled.Text`
+  padding-bottom: 23px;
+  transform: translateX(-75px);
+`;
+
+const ButtonWrapper = styled.View`
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+`;
+
+const Button = styled.TouchableOpacity`
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  width: 144px;
+  height: 144px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  shadow-color: black;
+  shadow-opacity: 0.26;
+  shadow-offset: 0px 2px;
+  shadow-radius: 3px;
+  elevation: 5;
+  margin-right: ${({ last }) => (last ? 0 : 20)}px;
+`;
+
+const ButtonContent = styled.View`
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
+const ButtonDesc = styled.Text`
+  margin-top: 20px;
+`;
+
+const AdsWrapper = styled.TouchableHighlight`
+  border: #eee;
+  width: 326px;
+  height: 173px;
+  border-radius: 30px;
+`;
+
+const Ads = styled(Image)`
+  width: 100%;
+  border-radius: 30px;
+`;
+
+export default function Home({ navigation }) {
+  const goToSearchLocation = () => navigation.navigate("SearchLocation");
+  // TODO
   return (
-    <View style={styles.container}>
-      <Text>HOME</Text>
-      <Button
-        title="견적 신청하기"
-        onPress={() => {
-          navigation.navigate("SelectPet");
-        }}
-      />
-    </View>
+    <Container>
+      <TouchableWithoutFeedback
+        style={{ flex: 1 }}
+        onPress={Keyboard.dismiss}
+        disabled={Platform.OS === "web"}
+      >
+        <ScrollView
+          style={{ width: "100%", flex: 1 }}
+          contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
+        >
+          <HeaderContainer>
+            <RowTextWrapper>
+              <Username>서강준</Username>
+              <Welcome>님,</Welcome>
+            </RowTextWrapper>
+            <Welcome>안녕하세요!</Welcome>
+          </HeaderContainer>
+          <SearchBarContainer>
+            <TextInputIcon icon="search-outline">
+              <TextInput />
+            </TextInputIcon>
+          </SearchBarContainer>
+          <ButtonContainer>
+            <Question>어떤 서비스를 원하시나요?</Question>
+            <ButtonWrapper>
+              <Button onPress={goToSearchLocation}>
+                <ButtonContent>
+                  <EstimateSvg width={50} height={50} />
+                  <ButtonDesc>견적 신청하기</ButtonDesc>
+                </ButtonContent>
+              </Button>
+              <Button last>
+                <ButtonContent>
+                  <StethoscopeSvg width={50} height={50} />
+                  <ButtonDesc>예정 신청하기</ButtonDesc>
+                </ButtonContent>
+              </Button>
+            </ButtonWrapper>
+          </ButtonContainer>
+          <AdsContainer>
+            <AdsWrapper>
+              <Ads source={ads} />
+            </AdsWrapper>
+          </AdsContainer>
+        </ScrollView>
+      </TouchableWithoutFeedback>
+    </Container>
   );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
-
-export default Home;
+}
