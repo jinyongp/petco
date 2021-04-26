@@ -13,7 +13,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 const Stack = createStackNavigator();
 
-export default function AppNavigation() {
+export default function AppNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
