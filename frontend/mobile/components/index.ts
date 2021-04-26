@@ -1,5 +1,6 @@
 // export { default as Component } from "./Component";
 // <-- import { Component } from "<relative_path>/components";
+export { default as Container } from "./Container";
 export { default as DefaultContainer } from "./DefaultContainer";
 export { default as ConfirmModal } from "./ConfirmModal";
 export { default as DismissKeyboard } from "./DismissKeyboard";
