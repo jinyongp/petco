@@ -1,30 +1,13 @@
 import React, { useRef, useEffect } from "react";
 import styled from "styled-components/native";
 import { useForm } from "react-hook-form";
-import { DefaultContainer } from "../components";
+import { Container } from "../components";
 import {
   AuthLayout,
   AuthButton,
   AuthLink,
   TextInputIcon,
 } from "../components/auth";
-
-const InputContainer = styled(DefaultContainer)`
-  margin-bottom: 18px;
-`;
-
-const RowTextContainer = styled(DefaultContainer)`
-  flex-direction: row;
-  margin-bottom: 20%;
-`;
-
-const ButtonContainer = styled(DefaultContainer)`
-  margin-bottom: 19px;
-`;
-
-const RowLinkContainer = styled(DefaultContainer)`
-  flex-direction: row;
-`;
 
 const TextInput = styled.TextInput`
   flex: 1;
@@ -61,7 +44,7 @@ export default function SignIn({ navigation }) {
 
   return (
     <AuthLayout title={`펫코에${"\n"}로그인하기`}>
-      <InputContainer>
+      <Container margin={{ marginBottom: 18 }}>
         <TextInputIcon icon="person-outline">
           <TextInput
             placeholder="아이디를 입력해주세요."
@@ -86,29 +69,29 @@ export default function SignIn({ navigation }) {
             onChangeText={onSetValue("password")}
           />
         </TextInputIcon>
-      </InputContainer>
-      <RowTextContainer>
+      </Container>
+      <Container row margin={{ marginBottom: "20%" }}>
         <Link style={{ paddingRight: 47 }}>
           <RowText>아이디 찾기</RowText>
         </Link>
         <Link>
           <RowText>비밀번호 찾기</RowText>
         </Link>
-      </RowTextContainer>
-      <ButtonContainer>
+      </Container>
+      <Container margin={{ marginBottom: 19 }}>
         <AuthButton
           onPress={handleSubmit(onValid)}
           text="로그인 하기"
           disabled={false}
         />
-      </ButtonContainer>
-      <RowLinkContainer style={{ marginBottom: 0 }}>
+      </Container>
+      <Container row>
         <AuthLink
           onPress={goToSignUp}
           desc="펫코가 처음이신가요?"
           link="회원가입하기"
         />
-      </RowLinkContainer>
+      </Container>
     </AuthLayout>
   );
 }
