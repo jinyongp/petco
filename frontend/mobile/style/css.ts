@@ -1,6 +1,7 @@
 import { css } from "styled-components/native";
 
 export const elevation = css`
+  background-color: #fff;
   shadow-color: black;
   shadow-opacity: 0.26;
   shadow-offset: 0px 2px;

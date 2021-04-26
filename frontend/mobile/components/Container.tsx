@@ -27,7 +27,6 @@ export default function Container({
   return (
     <DefaultContainer
       style={{
-        flex: 1,
         paddingTop: padding.top,
         paddingRight: padding.right,
         paddingBottom: padding.bottom,

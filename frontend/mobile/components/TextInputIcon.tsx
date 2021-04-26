@@ -54,6 +54,7 @@ export default function TextInputIcon({
         ref={inputRef}
         autoCorrect={false}
         autoCapitalize="none"
+        autoCompleteType="off"
         keyboardType={keyboardType}
         blurOnSubmit={blurOnSubmit}
         placeholder={placeholder}
