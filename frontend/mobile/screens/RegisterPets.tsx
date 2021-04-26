@@ -89,84 +89,60 @@ const RegisterPets = ({ navigation }) => {
         </ButtonWrapper>
       </Container>
       <Container margin={{ bottom: 30 }}>
-        <TextInputLabel label="반려동물 이름">
-          <TextInput
-            returnKeyType="next"
-            autoCorrect={false}
-            autoCapitalize="none"
-            blurOnSubmit={false}
-            onSubmitEditing={onNext(genderRef)}
-            onChangeText={onSetValue("name")}
-          />
-        </TextInputLabel>
+        <TextInputLabel
+          label="반려동물 이름"
+          returnKeyType="next"
+          onSubmitEditing={onNext(genderRef)}
+          onChangeText={onSetValue("name")}
+        />
       </Container>
       <Container margin={{ bottom: 30 }}>
         {/* FIXME Picker로 대체 */}
-        <TextInputLabel label="성별">
-          <TextInput
-            ref={genderRef}
-            returnKeyType="next"
-            autoCorrect={false}
-            autoCapitalize="none"
-            blurOnSubmit={false}
-            onSubmitEditing={onNext(birthRef)}
-            onChangeText={onSetValue("gender")}
-          />
-        </TextInputLabel>
+        <TextInputLabel
+          label="성별"
+          inputRef={genderRef}
+          returnKeyType="next"
+          onSubmitEditing={onNext(birthRef)}
+          onChangeText={onSetValue("gender")}
+        />
       </Container>
       <Container margin={{ bottom: 30 }}>
         {/* FIXME Picker로 대체 */}
-        <TextInputLabel label="생년월일">
-          <TextInput
-            ref={birthRef}
-            returnKeyType="next"
-            autoCorrect={false}
-            autoCapitalize="none"
-            blurOnSubmit={false}
-            onSubmitEditing={onNext(weightRef)}
-            onChangeText={onSetValue("birth")}
-          />
-        </TextInputLabel>
+        <TextInputLabel
+          label="생년월일"
+          inputRef={birthRef}
+          returnKeyType="next"
+          onSubmitEditing={onNext(weightRef)}
+          onChangeText={onSetValue("birth")}
+        />
       </Container>
       <Container margin={{ bottom: 30 }}>
-        <TextInputLabel label="몸무게">
-          <TextInput
-            ref={weightRef}
-            returnKeyType="next"
-            autoCorrect={false}
-            autoCapitalize="none"
-            blurOnSubmit={false}
-            onSubmitEditing={onNext(neutralizationRef)}
-            onChangeText={onSetValue("weight")}
-          />
-        </TextInputLabel>
+        <TextInputLabel
+          label="몸무게"
+          inputRef={weightRef}
+          returnKeyType="next"
+          onSubmitEditing={onNext(neutralizationRef)}
+          onChangeText={onSetValue("weight")}
+        />
       </Container>
       <Container margin={{ bottom: 30 }}>
         {/* FIXME Picker로 대체 */}
-        <TextInputLabel label="중성화 여부">
-          <TextInput
-            ref={neutralizationRef}
-            returnKeyType="next"
-            autoCorrect={false}
-            autoCapitalize="none"
-            blurOnSubmit={false}
-            onSubmitEditing={onNext(vaccinationRef)}
-            onChangeText={onSetValue("neutralization")}
-          />
-        </TextInputLabel>
+        <TextInputLabel
+          label="중성화 여부"
+          inputRef={neutralizationRef}
+          returnKeyType="next"
+          onSubmitEditing={onNext(vaccinationRef)}
+          onChangeText={onSetValue("neutralization")}
+        />
       </Container>
       <Container margin={{ bottom: 30 }}>
         {/* FIXME 데이터로 대체 */}
-        <TextInputLabel label="기초 접종 여부">
-          <TextInput
-            ref={vaccinationRef}
-            returnKeyType="next"
-            autoCorrect={false}
-            autoCapitalize="none"
-            blurOnSubmit={false}
-            onChangeText={onSetValue("vaccination")}
-          />
-        </TextInputLabel>
+        <TextInputLabel
+          label="기초 접종 여부"
+          inputRef={vaccinationRef}
+          returnKeyType="next"
+          onChangeText={onSetValue("vaccination")}
+        />
       </Container>
       <Container margin={{ top: 30 }}>
         <AuthButton
