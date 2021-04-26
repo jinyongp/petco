@@ -1,7 +1,7 @@
 import React from "react";
 import { Image } from "react-native";
 import styled from "styled-components/native";
-import { DefaultContainer, ScreenLayout } from "../components";
+import { Container, DefaultContainer, ScreenLayout } from "../components";
 import { TextInputIcon } from "../components/auth";
 import EstimateSvg from "../assets/icons/estimate.svg";
 import StethoscopeSvg from "../assets/icons/stethoscope.svg";
@@ -19,18 +19,6 @@ interface AdsProps {
 const HeaderContainer = styled(DefaultContainer)`
   align-items: flex-start;
   margin: 30px 0px 34px 20px;
-`;
-
-const SearchBarContainer = styled(DefaultContainer)`
-  margin-bottom: 36px;
-`;
-
-const ButtonContainer = styled(DefaultContainer)`
-  margin-bottom: 22px;
-`;
-
-const AdsContainer = styled(DefaultContainer)`
-  margin-bottom: 0px;
 `;
 
 const RowTextWrapper = styled.View`
@@ -110,12 +98,12 @@ export default function Home({ navigation }) {
         </RowTextWrapper>
         <Welcome>안녕하세요!</Welcome>
       </HeaderContainer>
-      <SearchBarContainer>
+      <Container margin={{ marginBottom: 36 }}>
         <TextInputIcon icon="search-outline">
           <TextInput />
         </TextInputIcon>
-      </SearchBarContainer>
-      <ButtonContainer>
+      </Container>
+      <Container margin={{ marginBottom: 22 }}>
         <Question>어떤 서비스를 원하시나요?</Question>
         <ButtonWrapper>
           <Button onPress={goToSelectPet}>
@@ -131,12 +119,12 @@ export default function Home({ navigation }) {
             </ButtonContent>
           </Button>
         </ButtonWrapper>
-      </ButtonContainer>
-      <AdsContainer>
+      </Container>
+      <Container margin={{ marginBottom: 30 }}>
         <AdsWrapper>
           <Ads source={ads} />
         </AdsWrapper>
-      </AdsContainer>
+      </Container>
     </ScreenLayout>
   );
 }
