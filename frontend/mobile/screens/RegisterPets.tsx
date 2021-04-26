@@ -6,28 +6,12 @@ import Cat from "../assets/icons/cat.svg";
 import LeftDog from "../assets/animals/dog105.svg";
 import RightCat from "../assets/animals/cat85.svg";
 import { AuthLayout, AuthButton, TextInputLabel } from "../components/auth";
-import { ConfirmModal, DefaultContainer } from "../components";
+import { ConfirmModal, Container, DefaultContainer } from "../components";
 import { elevation } from "../style/css";
 
 interface ButtonWrapperProps {
   readonly last?: boolean;
 }
-
-const SelectContainer = styled(DefaultContainer)`
-  margin-bottom: 50px;
-  flex-direction: row;
-`;
-
-const InputContainer = styled(DefaultContainer)`
-  margin-bottom: 30px;
-`;
-
-const ButtonContainer = styled(DefaultContainer)`
-  margin-top: 30px;
-  margin-bottom: 0px;
-`;
-
-const ModalContainer = styled(DefaultContainer)``;
 
 const ButtonWrapper = styled.View<ButtonWrapperProps>`
   align-items: center;
@@ -90,7 +74,7 @@ const RegisterPets = ({ navigation }) => {
 
   return (
     <AuthLayout title={`등록할 동물을${"\n"}선택해 주세요.`}>
-      <SelectContainer>
+      <Container row margin={{ bottom: 50 }}>
         <ButtonWrapper>
           <PetTypeButton>
             <Dog width={65} height={65} />
@@ -103,8 +87,8 @@ const RegisterPets = ({ navigation }) => {
           </PetTypeButton>
           <PetTypeDesc>고양이</PetTypeDesc>
         </ButtonWrapper>
-      </SelectContainer>
-      <InputContainer>
+      </Container>
+      <Container margin={{ bottom: 30 }}>
         <TextInputLabel label="반려동물 이름">
           <TextInput
             returnKeyType="next"
@@ -115,8 +99,8 @@ const RegisterPets = ({ navigation }) => {
             onChangeText={onSetValue("name")}
           />
         </TextInputLabel>
-      </InputContainer>
-      <InputContainer>
+      </Container>
+      <Container margin={{ bottom: 30 }}>
         {/* FIXME Picker로 대체 */}
         <TextInputLabel label="성별">
           <TextInput
@@ -129,8 +113,8 @@ const RegisterPets = ({ navigation }) => {
             onChangeText={onSetValue("gender")}
           />
         </TextInputLabel>
-      </InputContainer>
-      <InputContainer>
+      </Container>
+      <Container margin={{ bottom: 30 }}>
         {/* FIXME Picker로 대체 */}
         <TextInputLabel label="생년월일">
           <TextInput
@@ -143,8 +127,8 @@ const RegisterPets = ({ navigation }) => {
             onChangeText={onSetValue("birth")}
           />
         </TextInputLabel>
-      </InputContainer>
-      <InputContainer>
+      </Container>
+      <Container margin={{ bottom: 30 }}>
         <TextInputLabel label="몸무게">
           <TextInput
             ref={weightRef}
@@ -156,8 +140,8 @@ const RegisterPets = ({ navigation }) => {
             onChangeText={onSetValue("weight")}
           />
         </TextInputLabel>
-      </InputContainer>
-      <InputContainer>
+      </Container>
+      <Container margin={{ bottom: 30 }}>
         {/* FIXME Picker로 대체 */}
         <TextInputLabel label="중성화 여부">
           <TextInput
@@ -170,8 +154,8 @@ const RegisterPets = ({ navigation }) => {
             onChangeText={onSetValue("neutralization")}
           />
         </TextInputLabel>
-      </InputContainer>
-      <InputContainer>
+      </Container>
+      <Container margin={{ bottom: 30 }}>
         {/* FIXME 데이터로 대체 */}
         <TextInputLabel label="기초 접종 여부">
           <TextInput
@@ -183,15 +167,15 @@ const RegisterPets = ({ navigation }) => {
             onChangeText={onSetValue("vaccination")}
           />
         </TextInputLabel>
-      </InputContainer>
-      <ButtonContainer>
+      </Container>
+      <Container margin={{ top: 30 }}>
         <AuthButton
           onPress={handleSubmit(onValid)}
           text="등록"
           disabled={false}
         />
-      </ButtonContainer>
-      <ModalContainer>
+      </Container>
+      <Container>
         <ConfirmModal
           isVisible={isModalVisible}
           header="등록이 완료되었습니다!"
@@ -201,7 +185,7 @@ const RegisterPets = ({ navigation }) => {
           LeftPetSvg={LeftDog}
           RightPetSvg={RightCat}
         />
-      </ModalContainer>
+      </Container>
     </AuthLayout>
   );
 };

@@ -40,7 +40,7 @@ export default function SignUp({ navigation }) {
 
   return (
     <AuthLayout title={`펫코${"\n"}회원가입`}>
-      <Container margin={{ marginBottom: 50 }}>
+      <Container margin={{ bottom: 50 }}>
         <TextInputIcon icon="person-outline">
           <TextInput
             placeholder="아이디를 입력해 주세요."
@@ -95,14 +95,14 @@ export default function SignUp({ navigation }) {
           />
         </TextInputIcon>
       </Container>
-      <Container margin={{ marginBottom: 40 }}>
+      <Container margin={{ bottom: 40 }}>
         <AuthButton
           text="반려동물 등록하기"
           onPress={handleSubmit(onValid)}
           disabled={false}
         />
       </Container>
-      <Container margin={{ marginBottom: 30 }}>
+      <Container margin={{ bottom: 30 }}>
         <AuthLink
           onPress={goToSignIn}
           desc="이미 회원이신가요?"

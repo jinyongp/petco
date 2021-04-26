@@ -3,16 +3,16 @@ import DefaultContainer from "./DefaultContainer";
 
 interface ContainerProps {
   readonly padding?: {
-    paddingTop?: string | number;
-    paddingRight?: string | number;
-    paddingBottom?: string | number;
-    paddingLeft?: string | number;
+    top?: string | number;
+    right?: string | number;
+    bottom?: string | number;
+    left?: string | number;
   };
   readonly margin?: {
-    marginTop?: string | number;
-    marginRight?: string | number;
-    marginBottom?: string | number;
-    marginLeft?: string | number;
+    top?: string | number;
+    right?: string | number;
+    bottom?: string | number;
+    left?: string | number;
   };
   readonly row?: boolean;
   readonly children: any;
@@ -28,8 +28,14 @@ export default function Container({
     <DefaultContainer
       style={{
         flex: 1,
-        ...padding,
-        ...margin,
+        paddingTop: padding.top,
+        paddingRight: padding.right,
+        paddingBottom: padding.bottom,
+        paddingLeft: padding.left,
+        marginTop: margin.top,
+        marginRight: margin.right,
+        marginBottom: margin.bottom,
+        marginLeft: margin.left,
         flexDirection: row ? "row" : "column",
       }}
     >
@@ -40,16 +46,16 @@ export default function Container({
 
 Container.defaultProps = {
   padding: {
-    paddingTop: 0,
-    paddingRight: 0,
-    paddingBottom: 0,
-    paddingLeft: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
   },
   margin: {
-    marginTop: 0,
-    marginRight: 0,
-    marginBottom: 0,
-    marginLeft: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
   },
   row: false,
 };

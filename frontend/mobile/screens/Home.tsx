@@ -98,12 +98,12 @@ export default function Home({ navigation }) {
         </RowTextWrapper>
         <Welcome>안녕하세요!</Welcome>
       </HeaderContainer>
-      <Container margin={{ marginBottom: 36 }}>
+      <Container margin={{ bottom: 36 }}>
         <TextInputIcon icon="search-outline">
           <TextInput />
         </TextInputIcon>
       </Container>
-      <Container margin={{ marginBottom: 22 }}>
+      <Container margin={{ bottom: 22 }}>
         <Question>어떤 서비스를 원하시나요?</Question>
         <ButtonWrapper>
           <Button onPress={goToSelectPet}>
@@ -120,7 +120,7 @@ export default function Home({ navigation }) {
           </Button>
         </ButtonWrapper>
       </Container>
-      <Container margin={{ marginBottom: 30 }}>
+      <Container margin={{ bottom: 30 }}>
         <AdsWrapper>
           <Ads source={ads} />
         </AdsWrapper>

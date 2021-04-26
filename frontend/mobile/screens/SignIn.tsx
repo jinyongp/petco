@@ -44,7 +44,7 @@ export default function SignIn({ navigation }) {
 
   return (
     <AuthLayout title={`펫코에${"\n"}로그인하기`}>
-      <Container margin={{ marginBottom: 18 }}>
+      <Container margin={{ bottom: 18 }}>
         <TextInputIcon icon="person-outline">
           <TextInput
             placeholder="아이디를 입력해주세요."
@@ -70,7 +70,7 @@ export default function SignIn({ navigation }) {
           />
         </TextInputIcon>
       </Container>
-      <Container row margin={{ marginBottom: "20%" }}>
+      <Container row margin={{ bottom: "20%" }}>
         <Link style={{ paddingRight: 47 }}>
           <RowText>아이디 찾기</RowText>
         </Link>
@@ -78,7 +78,7 @@ export default function SignIn({ navigation }) {
           <RowText>비밀번호 찾기</RowText>
         </Link>
       </Container>
-      <Container margin={{ marginBottom: 19 }}>
+      <Container margin={{ bottom: 19 }}>
         <AuthButton
           onPress={handleSubmit(onValid)}
           text="로그인 하기"
