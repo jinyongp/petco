@@ -1,14 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
-import styled from "styled-components/native";
 import { Container } from "../components";
 import { TextInputIcon } from "../components";
 import { AuthLayout, AuthLink, AuthButton } from "../components/auth";
-
-const TextInput = styled.TextInput`
-  flex: 1;
-  left: 40px;
-`;
 
 export default function SignUp({ navigation }) {
   const { register, handleSubmit, setValue } = useForm();
@@ -37,59 +31,40 @@ export default function SignUp({ navigation }) {
   return (
     <AuthLayout title={`펫코${"\n"}회원가입`}>
       <Container margin={{ bottom: 50 }}>
-        <TextInputIcon icon="person-outline">
-          <TextInput
-            placeholder="아이디를 입력해 주세요."
-            placeholderTextColor="#777"
-            returnKeyType="next"
-            autoCorrect={false}
-            autoCapitalize="none"
-            blurOnSubmit={false}
-            onSubmitEditing={onNext(phoneNumberRef)}
-            onChangeText={onSetValue("userId")}
-          />
-        </TextInputIcon>
-        <TextInputIcon icon="phone-portrait-outline">
-          <TextInput
-            placeholder="핸드폰 번호를 입력해 주세요."
-            placeholderTextColor="#777"
-            keyboardType="number-pad"
-            returnKeyType="done"
-            autoCorrect={false}
-            autoCapitalize="none"
-            blurOnSubmit={false}
-            ref={phoneNumberRef}
-            onSubmitEditing={onNext(passwordRef)}
-            onChangeText={onSetValue("phoneNumber")}
-          />
-        </TextInputIcon>
-        <TextInputIcon icon="lock-closed-outline">
-          <TextInput
-            placeholder="비밀번호를 입력해 주세요."
-            placeholderTextColor="#777"
-            returnKeyType="next"
-            autoCorrect={false}
-            autoCapitalize="none"
-            blurOnSubmit={false}
-            ref={passwordRef}
-            secureTextEntry
-            onSubmitEditing={onNext(passwordCheckRef)}
-            onChangeText={onSetValue("password")}
-          />
-        </TextInputIcon>
-        <TextInputIcon icon="lock-closed-outline">
-          <TextInput
-            placeholder="비밀번호를 다시 입력해 주세요."
-            placeholderTextColor="#777"
-            returnKeyType="done"
-            autoCorrect={false}
-            autoCapitalize="none"
-            blurOnSubmit={false}
-            ref={passwordCheckRef}
-            secureTextEntry
-            onChangeText={onSetValue("passwordCheck")}
-          />
-        </TextInputIcon>
+        <TextInputIcon
+          icon="person-outline"
+          placeholder="아이디를 입력해 주세요."
+          returnKeyType="next"
+          onSubmitEditing={onNext(phoneNumberRef)}
+          onChangeText={onSetValue("userId")}
+        />
+        <TextInputIcon
+          icon="phone-portrait-outline"
+          placeholder="핸드폰 번호를 입력해 주세요."
+          keyboardType="number-pad"
+          returnKeyType="done"
+          inputRef={phoneNumberRef}
+          onSubmitEditing={onNext(passwordRef)}
+          onChangeText={onSetValue("phoneNumber")}
+        />
+        <TextInputIcon
+          icon="lock-closed-outline"
+          placeholder="비밀번호를 입력해 주세요."
+          returnKeyType="next"
+          inputRef={passwordRef}
+          onSubmitEditing={onNext(passwordCheckRef)}
+          onChangeText={onSetValue("password")}
+          secureTextEntry
+        />
+        <TextInputIcon
+          icon="lock-closed-outline"
+          placeholder="비밀번호를 다시 입력해 주세요."
+          returnKeyType="done"
+          inputRef={passwordCheckRef}
+          onChangeText={onSetValue("passwordCheck")}
+          blurOnSubmit
+          secureTextEntry
+        />
       </Container>
       <Container margin={{ bottom: 40 }}>
         <AuthButton

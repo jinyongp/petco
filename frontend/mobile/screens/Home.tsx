@@ -2,7 +2,7 @@ import React from "react";
 import { Image } from "react-native";
 import styled from "styled-components/native";
 import { Container, DefaultContainer, ScreenLayout } from "../components";
-import { TextInputIcon } from "../components/auth";
+import { TextInputIcon } from "../components";
 import EstimateSvg from "../assets/icons/estimate.svg";
 import StethoscopeSvg from "../assets/icons/stethoscope.svg";
 import ads from "../assets/images/ads.png";
@@ -34,11 +34,6 @@ const Username = styled.Text`
 
 const Welcome = styled.Text`
   font-size: 26px;
-`;
-
-const TextInput = styled.TextInput`
-  flex: 1;
-  left: 40px;
 `;
 
 const Question = styled.Text`
@@ -99,9 +94,7 @@ export default function Home({ navigation }) {
         <Welcome>안녕하세요!</Welcome>
       </HeaderContainer>
       <Container margin={{ bottom: 36 }}>
-        <TextInputIcon icon="search-outline">
-          <TextInput />
-        </TextInputIcon>
+        <TextInputIcon icon="search-outline" />
       </Container>
       <Container margin={{ bottom: 22 }}>
         <Question>어떤 서비스를 원하시나요?</Question>
