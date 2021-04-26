@@ -1,12 +1,7 @@
 import React from "react";
 import { Image } from "react-native";
 import styled from "styled-components/native";
-import {
-  DefaultContainer,
-  DismissKeyboard,
-  ScreenLayout,
-  ScrollContainer,
-} from "../components";
+import { DefaultContainer, ScreenLayout } from "../components";
 import { TextInputIcon } from "../components/auth";
 import EstimateSvg from "../assets/icons/estimate.svg";
 import StethoscopeSvg from "../assets/icons/stethoscope.svg";
@@ -107,45 +102,41 @@ export default function Home({ navigation }) {
   const goToSelectPet = () => navigation.navigate("SelectPet");
 
   return (
-    <ScrollContainer>
-      <DismissKeyboard>
-        <ScreenLayout>
-          <HeaderContainer>
-            <RowTextWrapper>
-              <Username>서강준</Username>
-              <Welcome>님,</Welcome>
-            </RowTextWrapper>
-            <Welcome>안녕하세요!</Welcome>
-          </HeaderContainer>
-          <SearchBarContainer>
-            <TextInputIcon icon="search-outline">
-              <TextInput />
-            </TextInputIcon>
-          </SearchBarContainer>
-          <ButtonContainer>
-            <Question>어떤 서비스를 원하시나요?</Question>
-            <ButtonWrapper>
-              <Button onPress={goToSelectPet}>
-                <ButtonContent>
-                  <EstimateSvg width={50} height={50} />
-                  <ButtonDesc>견적 신청하기</ButtonDesc>
-                </ButtonContent>
-              </Button>
-              <Button last>
-                <ButtonContent>
-                  <StethoscopeSvg width={50} height={50} />
-                  <ButtonDesc>예정 신청하기</ButtonDesc>
-                </ButtonContent>
-              </Button>
-            </ButtonWrapper>
-          </ButtonContainer>
-          <AdsContainer>
-            <AdsWrapper>
-              <Ads source={ads} />
-            </AdsWrapper>
-          </AdsContainer>
-        </ScreenLayout>
-      </DismissKeyboard>
-    </ScrollContainer>
+    <ScreenLayout>
+      <HeaderContainer>
+        <RowTextWrapper>
+          <Username>서강준</Username>
+          <Welcome>님,</Welcome>
+        </RowTextWrapper>
+        <Welcome>안녕하세요!</Welcome>
+      </HeaderContainer>
+      <SearchBarContainer>
+        <TextInputIcon icon="search-outline">
+          <TextInput />
+        </TextInputIcon>
+      </SearchBarContainer>
+      <ButtonContainer>
+        <Question>어떤 서비스를 원하시나요?</Question>
+        <ButtonWrapper>
+          <Button onPress={goToSelectPet}>
+            <ButtonContent>
+              <EstimateSvg width={50} height={50} />
+              <ButtonDesc>견적 신청하기</ButtonDesc>
+            </ButtonContent>
+          </Button>
+          <Button last>
+            <ButtonContent>
+              <StethoscopeSvg width={50} height={50} />
+              <ButtonDesc>예정 신청하기</ButtonDesc>
+            </ButtonContent>
+          </Button>
+        </ButtonWrapper>
+      </ButtonContainer>
+      <AdsContainer>
+        <AdsWrapper>
+          <Ads source={ads} />
+        </AdsWrapper>
+      </AdsContainer>
+    </ScreenLayout>
   );
 }
