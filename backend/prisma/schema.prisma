@@ -33,7 +33,7 @@ model pets {
   birth        String
   gender       String
   weight       String
-  type         String
+  type         pet_type
   in_neutered  Boolean        @default(false)
   vaccinated   Boolean        @default(false)
   created_at   DateTime       @default(now())
@@ -106,4 +106,9 @@ enum status {
   request
   confirm
   cancel
+}
+
+enum pet_type {
+  cat
+  dog
 }
