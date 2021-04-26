@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "styled-components/native";
-import DismissKeyboard from "../DismissKeyboard";
-import ScrollContainer from "../ScrollContainer";
 import ScreenLayout from "../ScreenLayout";
 import DefaultContainer from "../DefaultContainer";
 
@@ -26,15 +24,11 @@ export default function AuthLayout({ title, children }) {
   return (
     <ScreenLayout>
       {/* TODO KeyboardAvoidingView 구현 */}
-      <DismissKeyboard>
-        <ScrollContainer>
-          <HeaderContainer>
-            <Welcome>{title}</Welcome>
-          </HeaderContainer>
-          {children}
-          <FooterContainer></FooterContainer>
-        </ScrollContainer>
-      </DismissKeyboard>
+      <HeaderContainer>
+        <Welcome>{title}</Welcome>
+      </HeaderContainer>
+      {children}
+      <FooterContainer />
     </ScreenLayout>
   );
 }

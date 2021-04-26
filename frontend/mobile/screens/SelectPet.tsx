@@ -2,7 +2,7 @@ import React from "react";
 import { Image } from "react-native";
 import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
-import { DefaultContainer, ScrollContainer } from "../components";
+import { Container, DefaultContainer, ScrollContainer } from "../components";
 import { elevation } from "../style/css";
 import navi from "../assets/images/navi.png";
 import choco from "../assets/images/choco.png";
@@ -10,15 +10,6 @@ import choco from "../assets/images/choco.png";
 interface ImageProps {
   readonly source: string;
 }
-
-const Container = styled(DefaultContainer)`
-  flex: 1;
-  padding: 30px 0px 30px 0px;
-`;
-
-const HeaderContainer = styled(DefaultContainer)`
-  margin-bottom: 50px;
-`;
 
 const Header = styled.Text`
   font-size: 20px;
@@ -28,7 +19,7 @@ const PetList = styled(DefaultContainer)`
   margin-bottom: 0px;
 `;
 
-const PetContainer = styled.TouchableOpacity`
+const PetSelectButton = styled.TouchableOpacity`
   ${elevation}
   justify-content: center;
   align-items: center;
@@ -88,13 +79,13 @@ const SelectPet = ({ navigation }) => {
 
   return (
     <ScrollContainer>
-      <Container>
-        <HeaderContainer>
+      <Container padding={{ top: 30, bottom: 30 }}>
+        <Container margin={{ bottom: 50 }}>
           <Header>진료받을 반려동물을 선택해 주세요.</Header>
-        </HeaderContainer>
+        </Container>
         <PetList>
           {userPets.map(({ name, birth, profile }, index) => (
-            <PetContainer onPress={goToSearchLocation} key={index}>
+            <PetSelectButton onPress={goToSearchLocation} key={index}>
               <ProfileWrapper>
                 <Profile source={profile} />
               </ProfileWrapper>
@@ -102,11 +93,11 @@ const SelectPet = ({ navigation }) => {
                 <Name>{name}</Name>
                 <Birth>생년월일: {birth}</Birth>
               </VerticalView>
-            </PetContainer>
+            </PetSelectButton>
           ))}
-          <PetContainer onPress={goToRegisterPets}>
+          <PetSelectButton onPress={goToRegisterPets}>
             <Ionicons name="add-sharp" size={45} />
-          </PetContainer>
+          </PetSelectButton>
         </PetList>
       </Container>
     </ScrollContainer>

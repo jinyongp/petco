@@ -1,4 +1,5 @@
 import React from "react";
+import { TextInput } from "react-native";
 import styled from "styled-components/native";
 
 const Container = styled.View`
@@ -23,11 +24,30 @@ const InputWrapper = styled.View`
   border-radius: 30px;
 `;
 
-export default function TextInputIcon({ label, children }) {
+const InnerTextInput = styled.TextInput`
+  font-size: 15px;
+`;
+
+type TextInputProps = React.ComponentProps<typeof TextInput>;
+type TextInputIconProps = TextInputProps & {
+  label: string;
+  inputRef?: any;
+};
+
+export default function TextInputLabel({
+  label,
+  inputRef,
+}: TextInputIconProps): JSX.Element {
   return (
     <Container>
       <Label>{label}</Label>
-      <InputWrapper>{children}</InputWrapper>
+      <InputWrapper>
+        <InnerTextInput ref={inputRef} />
+      </InputWrapper>
     </Container>
   );
 }
+
+TextInputLabel.defaultProps = {
+  blurOnSubmit: false,
+};

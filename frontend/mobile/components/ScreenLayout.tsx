@@ -1,7 +1,9 @@
 import React from "react";
-import { ActivityIndicator } from "react-native";
+import { SafeAreaView, ActivityIndicator } from "react-native";
 import styled from "styled-components/native";
 import DefaultContainer from "./DefaultContainer";
+import DismissKeyboard from "./DismissKeyboard";
+import ScrollContainer from "./ScrollContainer";
 
 const Container = styled(DefaultContainer)`
   flex: 1;
@@ -9,7 +11,15 @@ const Container = styled(DefaultContainer)`
 `;
 
 export default function ScreenLayout({ loading, children }) {
-  return <Container>{loading ? <ActivityIndicator /> : children}</Container>;
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+      <ScrollContainer>
+        <DismissKeyboard>
+          <Container>{loading ? <ActivityIndicator /> : children}</Container>
+        </DismissKeyboard>
+      </ScrollContainer>
+    </SafeAreaView>
+  );
 }
 
 ScreenLayout.defaultProps = {
