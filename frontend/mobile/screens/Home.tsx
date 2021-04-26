@@ -1,8 +1,12 @@
 import React from "react";
 import { Image } from "react-native";
 import styled from "styled-components/native";
-import { Container, DefaultContainer, ScreenLayout } from "../components";
-import { TextInputIcon } from "../components";
+import {
+  Container,
+  TextInputIcon,
+  DefaultContainer,
+  ScreenLayout,
+} from "../components";
 import EstimateSvg from "../assets/icons/estimate.svg";
 import StethoscopeSvg from "../assets/icons/stethoscope.svg";
 import ads from "../assets/images/ads.png";
