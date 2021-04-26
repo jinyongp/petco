@@ -2,12 +2,8 @@ import React, { useRef, useEffect } from "react";
 import styled from "styled-components/native";
 import { useForm } from "react-hook-form";
 import { Container } from "../components";
-import {
-  AuthLayout,
-  AuthButton,
-  AuthLink,
-  TextInputIcon,
-} from "../components/auth";
+import { TextInputIcon } from "../components";
+import { AuthLayout, AuthButton, AuthLink } from "../components/auth";
 
 const TextInput = styled.TextInput`
   flex: 1;

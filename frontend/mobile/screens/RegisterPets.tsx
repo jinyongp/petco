@@ -5,8 +5,8 @@ import Dog from "../assets/icons/dog.svg";
 import Cat from "../assets/icons/cat.svg";
 import LeftDog from "../assets/animals/dog105.svg";
 import RightCat from "../assets/animals/cat85.svg";
-import { AuthLayout, AuthButton, TextInputLabel } from "../components/auth";
-import { ConfirmModal, Container, DefaultContainer } from "../components";
+import { AuthLayout, AuthButton } from "../components/auth";
+import { ConfirmModal, Container, TextInputLabel } from "../components";
 import { elevation } from "../style/css";
 
 interface ButtonWrapperProps {
