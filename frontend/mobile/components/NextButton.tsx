@@ -15,7 +15,7 @@ const InnerText = styled.Text`
   text-align: center;
 `;
 
-export default function AuthButton({ onPress, text, disabled }) {
+export default function NextButton({ onPress, text, disabled }) {
   return (
     <Button onPress={onPress} disabled={disabled} accessible={!disabled}>
       <InnerText>{text}</InnerText>
@@ -23,6 +23,6 @@ export default function AuthButton({ onPress, text, disabled }) {
   );
 }
 
-AuthButton.defaultProps = {
+NextButton.defaultProps = {
   disabled: false,
 };

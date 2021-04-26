@@ -5,8 +5,13 @@ import Dog from "../assets/icons/dog.svg";
 import Cat from "../assets/icons/cat.svg";
 import LeftDog from "../assets/animals/dog105.svg";
 import RightCat from "../assets/animals/cat85.svg";
-import { AuthLayout, AuthButton } from "../components/auth";
-import { ConfirmModal, Container, TextInputLabel } from "../components";
+import { AuthLayout } from "../components/auth";
+import {
+  ConfirmModal,
+  Container,
+  TextInputLabel,
+  NextButton,
+} from "../components";
 import { elevation } from "../style/css";
 
 interface ButtonWrapperProps {
@@ -145,7 +150,7 @@ const RegisterPets = ({ navigation }) => {
         />
       </Container>
       <Container margin={{ top: 30 }}>
-        <AuthButton
+        <NextButton
           onPress={handleSubmit(onValid)}
           text="등록"
           disabled={false}

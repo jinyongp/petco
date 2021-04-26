@@ -1,8 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
-import { Container } from "../components";
-import { TextInputIcon } from "../components";
-import { AuthLayout, AuthLink, AuthButton } from "../components/auth";
+import { Container, TextInputIcon, NextButton } from "../components";
+import { AuthLayout, AuthLink } from "../components/auth";
 
 export default function SignUp({ navigation }) {
   const { register, handleSubmit, setValue } = useForm();
@@ -67,7 +66,7 @@ export default function SignUp({ navigation }) {
         />
       </Container>
       <Container margin={{ bottom: 40 }}>
-        <AuthButton
+        <NextButton
           text="반려동물 등록하기"
           onPress={handleSubmit(onValid)}
           disabled={false}

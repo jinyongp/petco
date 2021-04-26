@@ -1,9 +1,8 @@
 import React, { useRef, useEffect } from "react";
 import styled from "styled-components/native";
 import { useForm } from "react-hook-form";
-import { Container } from "../components";
-import { TextInputIcon } from "../components";
-import { AuthLayout, AuthButton, AuthLink } from "../components/auth";
+import { Container, TextInputIcon, NextButton } from "../components";
+import { AuthLayout, AuthLink } from "../components/auth";
 
 const Link = styled.TouchableOpacity``;
 
@@ -62,7 +61,7 @@ export default function SignIn({ navigation }) {
         </Link>
       </Container>
       <Container margin={{ bottom: 19 }}>
-        <AuthButton
+        <NextButton
           onPress={handleSubmit(onValid)}
           text="로그인 하기"
           disabled={false}

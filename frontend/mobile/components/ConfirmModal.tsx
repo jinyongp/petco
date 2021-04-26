@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "react-native-modal";
 import styled from "styled-components/native";
-import { AuthButton } from "./auth";
+import NextButton from "./NextButton";
 
 const Container = styled.View``;
 
@@ -67,7 +67,7 @@ export default function ConfirmModal({
             <ModalHeader>{header}</ModalHeader>
           </ModalHeaderWrapper>
           <ModalContent>{content}</ModalContent>
-          <AuthButton onPress={onClose} text={buttonText} disabled={false} />
+          <NextButton onPress={onClose} text={buttonText} disabled={false} />
         </ModalWrapper>
       </StyledModal>
     </Container>
