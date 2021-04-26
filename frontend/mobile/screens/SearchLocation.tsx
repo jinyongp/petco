@@ -33,6 +33,7 @@ const Label = styled.Text`
 `;
 
 const SearchLocation = ({ navigation }) => {
+  const goToSelectLocation = () => navigation.navigate("SelectLocation");
   return (
     <ScreenLayout>
       <Container margin={{ bottom: 20 }}>
@@ -45,7 +46,7 @@ const SearchLocation = ({ navigation }) => {
         />
       </Container>
       <Container>
-        <SelectLocationButton>
+        <SelectLocationButton onPress={goToSelectLocation}>
           <LocationIcon name="locate-outline" size={24} />
           <Label>현재 위치로 주소찾기</Label>
         </SelectLocationButton>
