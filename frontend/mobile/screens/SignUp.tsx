@@ -1,25 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components/native";
-import { DefaultContainer } from "../components";
+import { Container } from "../components";
 import {
   AuthLayout,
   AuthLink,
   TextInputIcon,
   AuthButton,
 } from "../components/auth";
-
-const InputContainer = styled(DefaultContainer)`
-  margin-bottom: 50px;
-`;
-
-const ButtonContainer = styled(DefaultContainer)`
-  margin-bottom: 40px;
-`;
-
-const RowTextContainer = styled(DefaultContainer)`
-  margin-bottom: 30px;
-`;
 
 const TextInput = styled.TextInput`
   flex: 1;
@@ -52,7 +40,7 @@ export default function SignUp({ navigation }) {
 
   return (
     <AuthLayout title={`펫코${"\n"}회원가입`}>
-      <InputContainer>
+      <Container margin={{ marginBottom: 50 }}>
         <TextInputIcon icon="person-outline">
           <TextInput
             placeholder="아이디를 입력해 주세요."
@@ -106,21 +94,21 @@ export default function SignUp({ navigation }) {
             onChangeText={onSetValue("passwordCheck")}
           />
         </TextInputIcon>
-      </InputContainer>
-      <ButtonContainer>
+      </Container>
+      <Container margin={{ marginBottom: 40 }}>
         <AuthButton
           text="반려동물 등록하기"
           onPress={handleSubmit(onValid)}
           disabled={false}
         />
-      </ButtonContainer>
-      <RowTextContainer>
+      </Container>
+      <Container margin={{ marginBottom: 30 }}>
         <AuthLink
           onPress={goToSignIn}
           desc="이미 회원이신가요?"
           link="로그인 하기"
         />
-      </RowTextContainer>
+      </Container>
     </AuthLayout>
   );
 }
