@@ -1,5 +1,5 @@
 import React from "react";
-import { ActivityIndicator } from "react-native";
+import { SafeAreaView, ActivityIndicator } from "react-native";
 import styled from "styled-components/native";
 import DefaultContainer from "./DefaultContainer";
 
@@ -9,7 +9,11 @@ const Container = styled(DefaultContainer)`
 `;
 
 export default function ScreenLayout({ loading, children }) {
-  return <Container>{loading ? <ActivityIndicator /> : children}</Container>;
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+      <Container>{loading ? <ActivityIndicator /> : children}</Container>
+    </SafeAreaView>
+  );
 }
 
 ScreenLayout.defaultProps = {

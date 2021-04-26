@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 import {
   DefaultContainer,
   DismissKeyboard,
+  ScreenLayout,
   ScrollContainer,
 } from "../components";
 import { TextInputIcon } from "../components/auth";
@@ -20,15 +21,9 @@ interface AdsProps {
   readonly source: string;
 }
 
-const Container = styled(DefaultContainer)`
-  flex: 1;
-  padding: 30px 5% 0 5%;
-`;
-
 const HeaderContainer = styled(DefaultContainer)`
   align-items: flex-start;
-  margin-left: 20px;
-  margin-bottom: 34px;
+  margin: 30px 0px 34px 20px;
 `;
 
 const SearchBarContainer = styled(DefaultContainer)`
@@ -114,7 +109,7 @@ export default function Home({ navigation }) {
   return (
     <ScrollContainer>
       <DismissKeyboard>
-        <Container>
+        <ScreenLayout>
           <HeaderContainer>
             <RowTextWrapper>
               <Username>서강준</Username>
@@ -149,7 +144,7 @@ export default function Home({ navigation }) {
               <Ads source={ads} />
             </AdsWrapper>
           </AdsContainer>
-        </Container>
+        </ScreenLayout>
       </DismissKeyboard>
     </ScrollContainer>
   );
