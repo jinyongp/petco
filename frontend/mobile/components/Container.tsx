@@ -1,21 +1,28 @@
 import React from "react";
-import DefaultContainer from "./DefaultContainer";
+import { StyleProp, View, ViewStyle } from "react-native";
+import PropTypes from "prop-types";
 
 interface ContainerProps {
-  readonly padding?: {
-    top?: string | number;
-    right?: string | number;
-    bottom?: string | number;
-    left?: string | number;
-  };
-  readonly margin?: {
-    top?: string | number;
-    right?: string | number;
-    bottom?: string | number;
-    left?: string | number;
-  };
+  readonly padding?:
+    | string
+    | number
+    | {
+        top?: string | number;
+        right?: string | number;
+        bottom?: string | number;
+        left?: string | number;
+      };
+  readonly margin?:
+    | string
+    | number
+    | {
+        top?: string | number;
+        right?: string | number;
+        bottom?: string | number;
+        left?: string | number;
+      };
   readonly row?: boolean;
-  readonly children: any;
+  readonly children: React.ReactNode;
 }
 
 export default function Container({
@@ -23,38 +30,53 @@ export default function Container({
   margin,
   row,
   children,
-}: ContainerProps) {
-  return (
-    <DefaultContainer
-      style={{
-        paddingTop: padding.top,
-        paddingRight: padding.right,
-        paddingBottom: padding.bottom,
-        paddingLeft: padding.left,
-        marginTop: margin.top,
-        marginRight: margin.right,
-        marginBottom: margin.bottom,
-        marginLeft: margin.left,
-        flexDirection: row ? "row" : "column",
-      }}
-    >
-      {children}
-    </DefaultContainer>
-  );
+}: ContainerProps): JSX.Element {
+  const containerStyle: StyleProp<ViewStyle> = {
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    backgroundColor: "#fff",
+    flexDirection: row ? "row" : "column",
+  };
+
+  if (typeof padding === "object") {
+    containerStyle.paddingTop = padding.top;
+    containerStyle.paddingRight = padding.right;
+    containerStyle.paddingBottom = padding.bottom;
+    containerStyle.paddingLeft = padding.left;
+  } else if (typeof padding in ["number", "string"]) {
+    containerStyle.padding = padding;
+  }
+
+  if (typeof margin === "object") {
+    containerStyle.marginTop = margin.top;
+    containerStyle.marginRight = margin.right;
+    containerStyle.marginBottom = margin.bottom;
+    containerStyle.marginLeft = margin.left;
+  } else if (typeof margin in ["number", "string"]) {
+    containerStyle.margin = margin;
+  }
+
+  return <View style={containerStyle}>{children}</View>;
 }
 
 Container.defaultProps = {
-  padding: {
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-  },
-  margin: {
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-  },
+  padding: 0,
+  margin: 0,
   row: false,
+};
+
+Container.propTypes = {
+  padding: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+    PropTypes.object,
+  ]),
+  margin: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+    PropTypes.object,
+  ]),
+  row: PropTypes.bool,
+  children: PropTypes.node.isRequired,
 };
