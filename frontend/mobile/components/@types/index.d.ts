@@ -56,3 +56,8 @@ export interface TextInputIconProps extends TextInputProps, IconProps {
   readonly icon: React.ComponentProps<typeof Ionicons>["name"];
   readonly inputRef?: any;
 }
+
+export interface TextInputLabelProps extends TextInputProps {
+  readonly label: string;
+  readonly inputRef?: any;
+}
