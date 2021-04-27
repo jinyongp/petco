@@ -1,5 +1,8 @@
 import { SvgProps } from "react-native-svg";
 import { GestureResponderEvent } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { TextInputProps } from "@types/react-native";
+import { IconProps } from "@types/react-native-vector-icons/Icon";
 
 type onPressType = (event: GestureResponderEvent) => void;
 
@@ -47,4 +50,9 @@ export interface ConfirmModalProps {
 
 export interface ScreenLayoutProps extends CommonProps {
   readonly loading?: boolean;
+}
+
+export interface TextInputIconProps extends TextInputProps, IconProps {
+  readonly icon: React.ComponentProps<typeof Ionicons>["name"];
+  readonly inputRef?: any;
 }
