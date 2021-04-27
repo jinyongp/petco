@@ -2,23 +2,22 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { SafeAreaView } from "react-native";
 import AppNavigator from "./AppNavigator";
-import { Ionicons } from "@expo/vector-icons";
+import { TabIcon } from "../components/nav";
 import { Home, MyApplyList, MyProfile } from "../screens";
 
 const Tabs = createBottomTabNavigator();
 
 export default function TabNavigator() {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#fec544" }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <Tabs.Navigator
         initialRouteName="Home"
         tabBarOptions={{
           activeTintColor: "black",
-          activeBackgroundColor: "#fec544",
           showLabel: false,
           tabStyle: {
-            borderTopRightRadius: 80,
-            borderTopLeftRadius: 80,
+            borderTopRightRadius: 30,
+            borderTopLeftRadius: 30,
           },
         }}
       >
@@ -27,10 +26,10 @@ export default function TabNavigator() {
           component={Home}
           options={{
             tabBarIcon: ({ focused, color }) => (
-              <Ionicons
+              <TabIcon
                 name={focused ? "home" : "home-outline"}
                 color={color}
-                size={focused ? 26 : 22}
+                current={focused}
               />
             ),
           }}
@@ -40,10 +39,10 @@ export default function TabNavigator() {
           component={MyApplyList}
           options={{
             tabBarIcon: ({ focused, color }) => (
-              <Ionicons
+              <TabIcon
                 name={focused ? "paw" : "paw-outline"}
                 color={color}
-                size={focused ? 26 : 22}
+                current={focused}
               />
             ),
           }}
@@ -53,10 +52,10 @@ export default function TabNavigator() {
           component={MyProfile}
           options={{
             tabBarIcon: ({ focused, color }) => (
-              <Ionicons
+              <TabIcon
                 name={focused ? "person-circle" : "person-circle-outline"}
                 color={color}
-                size={focused ? 26 : 22}
+                current={focused}
               />
             ),
           }}
