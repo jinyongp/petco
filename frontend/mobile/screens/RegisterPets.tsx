@@ -39,10 +39,6 @@ const PetTypeDesc = styled.Text`
   padding: 14px;
 `;
 
-const TextInput = styled.TextInput`
-  font-size: 15px;
-`;
-
 const RegisterPets = ({ navigation }) => {
   const { register, handleSubmit, setValue } = useForm();
   useEffect(() => {
