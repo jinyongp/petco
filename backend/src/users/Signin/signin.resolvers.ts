@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken"
 const users = require("../../connect").users
 const resolvers: Resolvers = {
   Query:{
-    signIn: async (_,{userId,password}):Promise<any>=>{      
+    async signIn(_,{userId,password}):Promise<any>{      
       if(!userId) return {flag:0 ,message: "아이디를 입력해 주세요"}
       if(!password) return {flag:0, message: "비밀번호를 입력해 주세요"}
       const user = await users.users.findFirst({ where:{ userId:userId } });

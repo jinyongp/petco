@@ -7,8 +7,8 @@ const resolvers: Resolvers = {
 
   },
   Mutation:{
-    signUp: async (_,{userId,password,email,username,phone_number,is_valid,
-                      pet_name,pet_birth,pet_gender,pet_weight,pet_type,pet_in_neutered,pet_vaccinated}):Promise<any>=>{
+    async signUp  (_,{userId,password,email,username,phone_number,is_valid,
+                      pet_name,pet_birth,pet_gender,pet_weight,pet_type,pet_in_neutered,pet_vaccinated}):Promise<any>{
       //모든값 입력되었는지 검사
       if(!userId) return { flag:0 ,message: "아이디를 입력하여 주십시오"}
       if(!password) return { flag:0 ,message: "비밀번호를 입력하여 주십시오"}
