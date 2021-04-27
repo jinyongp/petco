@@ -3,13 +3,17 @@ import { GestureResponderEvent } from "react-native";
 
 type onPressType = (event: GestureResponderEvent) => void;
 
+export interface CommonProps {
+  readonly children: React.ReactNode;
+}
+
 export interface NextButtonProps {
   readonly onPress?: onPressType;
   readonly text: string;
   readonly disabled?: boolean;
 }
 
-export interface ContainerProps {
+export interface ContainerProps extends CommonProps {
   readonly padding?:
     | string
     | number
@@ -29,7 +33,6 @@ export interface ContainerProps {
         left?: string | number;
       };
   readonly row?: boolean;
-  readonly children: React.ReactNode;
 }
 
 export interface ConfirmModalProps {
@@ -40,4 +43,8 @@ export interface ConfirmModalProps {
   readonly buttonText: string;
   readonly LeftPetSvg?: React.FC<SvgProps>;
   readonly RightPetSvg?: React.FC<SvgProps>;
+}
+
+export interface ScreenLayoutProps extends CommonProps {
+  readonly loading?: boolean;
 }
