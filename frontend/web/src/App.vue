@@ -1,19 +1,19 @@
 <template>
   <div id="app">
-    <Home msg="펫코에 오신것을 환영합니다" />
+    <router-view />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import Home from "./components/Home.vue";
 
-@Component({
-  components: {
-    Home
+@Component
+export default class App extends Vue {
+  created() {
+    console.log("router", this.$router);
+    console.log("route", this.$route);
   }
-})
-export default class App extends Vue {}
+}
 </script>
 
 <style>
