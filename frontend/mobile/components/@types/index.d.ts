@@ -52,7 +52,9 @@ export interface ScreenLayoutProps extends CommonProps {
   readonly loading?: boolean;
 }
 
-export interface TextInputIconProps extends TextInputProps, IconProps {
+export interface TextInputIconProps
+  extends TextInputProps,
+    Omit<IconProps, "name"> {
   readonly icon: React.ComponentProps<typeof Ionicons>["name"];
   readonly inputRef?: any;
 }
