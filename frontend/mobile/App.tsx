@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import AppLoading from "expo-app-loading";
-import { AppNavigator } from "./navigators";
+import { AuthNavigator, TabNavigator } from "./navigators";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -23,11 +24,11 @@ export default function App() {
   }
 
   return (
-    <>
+    <SafeAreaProvider>
       <StatusBar barStyle="dark-content" />
       <NavigationContainer>
-        <AppNavigator />
+        <TabNavigator />
       </NavigationContainer>
-    </>
+    </SafeAreaProvider>
   );
 }
