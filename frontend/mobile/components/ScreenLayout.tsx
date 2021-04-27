@@ -27,5 +27,5 @@ ScreenLayout.defaultProps = {
 
 ScreenLayout.propTypes = {
   loading: PropTypes.bool,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };

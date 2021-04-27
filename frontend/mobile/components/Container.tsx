@@ -56,5 +56,5 @@ Container.propTypes = {
     PropTypes.object,
   ]),
   row: PropTypes.bool,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };

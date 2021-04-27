@@ -7,7 +7,7 @@ import { IconProps } from "@types/react-native-vector-icons/Icon";
 type onPressType = (event: GestureResponderEvent) => void;
 
 export interface CommonProps {
-  readonly children: React.ReactNode;
+  readonly children?: React.ReactNode;
 }
 
 export interface NextButtonProps {

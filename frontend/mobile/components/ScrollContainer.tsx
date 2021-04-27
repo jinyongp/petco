@@ -16,5 +16,5 @@ export default function ScrollContainer({
 }
 
 ScrollContainer.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };

@@ -18,5 +18,5 @@ export default function DismissKeyboard({
 }
 
 DismissKeyboard.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };
