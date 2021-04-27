@@ -67,3 +67,9 @@ export interface TextInputLabelProps extends TextInputProps {
 export interface AuthLayoutProps extends CommonProps {
   readonly title: string;
 }
+
+export interface AuthLinkProps {
+  readonly onPress: onPressType;
+  readonly desc: string;
+  readonly link: string;
+}

@@ -1,13 +1,8 @@
 import React from "react";
 import styled from "styled-components/native";
 import PropTypes from "prop-types";
-
-const Container = styled.View`
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-`;
+import Container from "../Container";
+import { AuthLinkProps } from "../@types";
 
 const RowText = styled.Text`
   font-size: 15px;
@@ -16,9 +11,13 @@ const RowText = styled.Text`
 
 const Link = styled.TouchableOpacity``;
 
-export default function AuthLink({ onPress, desc, link }) {
+export default function AuthLink({
+  onPress,
+  desc,
+  link,
+}: AuthLinkProps): JSX.Element {
   return (
-    <Container>
+    <Container row>
       <RowText style={{ paddingRight: 16 }}>{desc}</RowText>
       <Link onPress={onPress}>
         <RowText style={{ color: "#F5C01D" }}>{link}</RowText>
