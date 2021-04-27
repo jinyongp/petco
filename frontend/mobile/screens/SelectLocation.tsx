@@ -27,7 +27,8 @@ const SelectLocation = () => {
   return (
     <ScreenLayout>
       <Container margin={{ bottom: 20 }}>
-        <MapContainer /> {/* TODO MapView */}
+        {/* TODO MapView */}
+        <MapContainer />
       </Container>
       <Container margin={{ bottom: 43 }}>
         <Building>역삼 럭키 아파트</Building>

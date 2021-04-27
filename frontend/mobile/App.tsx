@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-import { StyleSheet, StatusBar } from "react-native";
+import { StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import AppLoading from "expo-app-loading";
-import { AppNavigation } from "./navigators";
+import { AuthNavigator, TabNavigator } from "./navigators";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
   const onFinish = () => setLoading(false);
-  const startAsync = () => {
+  const startAsync = async () => {
     // TODO async 작업
     const waitFiveSeconds = new Promise((res) => setTimeout(res, 500));
-    return Promise.all([waitFiveSeconds]);
+    await Promise.all([waitFiveSeconds]);
   };
   if (loading) {
     return (
@@ -23,20 +24,11 @@ export default function App() {
   }
 
   return (
-    <>
+    <SafeAreaProvider>
       <StatusBar barStyle="dark-content" />
       <NavigationContainer>
-        <AppNavigation />
+        <TabNavigator />
       </NavigationContainer>
-    </>
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import styled from "styled-components/native";
 import { useForm } from "react-hook-form";
 import Dog from "../assets/icons/dog.svg";
@@ -39,11 +40,8 @@ const PetTypeDesc = styled.Text`
   padding: 14px;
 `;
 
-const TextInput = styled.TextInput`
-  font-size: 15px;
-`;
-
-const RegisterPets = ({ navigation }) => {
+const RegisterPets = () => {
+  const navigation = useNavigation();
   const { register, handleSubmit, setValue } = useForm();
   useEffect(() => {
     register("name");
@@ -74,7 +72,7 @@ const RegisterPets = ({ navigation }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const onCloseModal = () => {
     setIsModalVisible(false);
-    navigation.navigate("Home");
+    navigation.goBack();
   };
 
   return (
@@ -96,7 +94,6 @@ const RegisterPets = ({ navigation }) => {
       <Container margin={{ bottom: 30 }}>
         <TextInputLabel
           label="반려동물 이름"
-          returnKeyType="next"
           onSubmitEditing={onNext(genderRef)}
           onChangeText={onSetValue("name")}
         />
@@ -106,7 +103,6 @@ const RegisterPets = ({ navigation }) => {
         <TextInputLabel
           label="성별"
           inputRef={genderRef}
-          returnKeyType="next"
           onSubmitEditing={onNext(birthRef)}
           onChangeText={onSetValue("gender")}
         />
@@ -116,7 +112,6 @@ const RegisterPets = ({ navigation }) => {
         <TextInputLabel
           label="생년월일"
           inputRef={birthRef}
-          returnKeyType="next"
           onSubmitEditing={onNext(weightRef)}
           onChangeText={onSetValue("birth")}
         />
@@ -125,7 +120,6 @@ const RegisterPets = ({ navigation }) => {
         <TextInputLabel
           label="몸무게"
           inputRef={weightRef}
-          returnKeyType="next"
           onSubmitEditing={onNext(neutralizationRef)}
           onChangeText={onSetValue("weight")}
         />
@@ -135,7 +129,6 @@ const RegisterPets = ({ navigation }) => {
         <TextInputLabel
           label="중성화 여부"
           inputRef={neutralizationRef}
-          returnKeyType="next"
           onSubmitEditing={onNext(vaccinationRef)}
           onChangeText={onSetValue("neutralization")}
         />
@@ -145,7 +138,6 @@ const RegisterPets = ({ navigation }) => {
         <TextInputLabel
           label="기초 접종 여부"
           inputRef={vaccinationRef}
-          returnKeyType="next"
           onChangeText={onSetValue("vaccination")}
         />
       </Container>

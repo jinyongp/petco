@@ -72,4 +72,5 @@ TextInputIcon.defaultProps = {
   size: 24,
   color: "black",
   blurOnSubmit: false,
+  returnKeyType: "next",
 };

@@ -98,7 +98,11 @@ export default function Home({ navigation }) {
         <Welcome>안녕하세요!</Welcome>
       </HeaderContainer>
       <Container margin={{ bottom: 36 }}>
-        <TextInputIcon icon="search-outline" />
+        <TextInputIcon
+          icon="search-outline"
+          returnKeyType="done"
+          blurOnSubmit
+        />
       </Container>
       <Container margin={{ bottom: 22 }}>
         <Question>어떤 서비스를 원하시나요?</Question>

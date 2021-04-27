@@ -7,3 +7,5 @@ export { default as Home } from "./Home";
 export { default as SearchLocation } from "./SearchLocation";
 export { default as SelectLocation } from "./SelectLocation";
 export { default as SelectPet } from "./SelectPet";
+export { default as MyProfile } from "./MyProfile";
+export { default as MyApplyList } from "./MyApplyList";
