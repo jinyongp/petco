@@ -63,3 +63,7 @@ export interface TextInputLabelProps extends TextInputProps {
   readonly label: string;
   readonly inputRef?: any;
 }
+
+export interface AuthLayoutProps extends CommonProps {
+  readonly title: string;
+}
