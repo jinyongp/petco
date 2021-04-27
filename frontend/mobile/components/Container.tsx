@@ -1,29 +1,7 @@
 import React from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
 import PropTypes from "prop-types";
-
-interface ContainerProps {
-  readonly padding?:
-    | string
-    | number
-    | {
-        top?: string | number;
-        right?: string | number;
-        bottom?: string | number;
-        left?: string | number;
-      };
-  readonly margin?:
-    | string
-    | number
-    | {
-        top?: string | number;
-        right?: string | number;
-        bottom?: string | number;
-        left?: string | number;
-      };
-  readonly row?: boolean;
-  readonly children: React.ReactNode;
-}
+import { ContainerProps } from "./@types";
 
 export default function Container({
   padding,
@@ -44,7 +22,7 @@ export default function Container({
     containerStyle.paddingRight = padding.right;
     containerStyle.paddingBottom = padding.bottom;
     containerStyle.paddingLeft = padding.left;
-  } else if (typeof padding in ["number", "string"]) {
+  } else if (["number", "string"].includes(typeof padding)) {
     containerStyle.padding = padding;
   }
 
@@ -53,7 +31,7 @@ export default function Container({
     containerStyle.marginRight = margin.right;
     containerStyle.marginBottom = margin.bottom;
     containerStyle.marginLeft = margin.left;
-  } else if (typeof margin in ["number", "string"]) {
+  } else if (["number", "string"].includes(typeof margin)) {
     containerStyle.margin = margin;
   }
 
