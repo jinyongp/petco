@@ -10,6 +10,10 @@
 - [Configuration Reference](https://cli.vuejs.org/config/)
 - [Vue.js TypeScript Support](https://v3.vuejs.org/guide/typescript-support.html#official-declaration-in-npm-packages)
 
+### Vue-Router
+
+- [Getting startd with Vue-router](https://router.vuejs.org/guide/)
+
 ### Apollo Client
 
 - [Getting Started with Apollo Client](https://www.apollographql.com/docs/react/get-started/)
