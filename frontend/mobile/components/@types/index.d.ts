@@ -73,3 +73,8 @@ export interface AuthLinkProps {
   readonly desc: string;
   readonly link: string;
 }
+
+export interface TabIconProps extends IconProps {
+  readonly name: React.ComponentProps<typeof Ionicons>["name"];
+  readonly current: boolean;
+}

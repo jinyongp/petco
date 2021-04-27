@@ -1,9 +1,7 @@
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
-
-type TabIconProps = React.ComponentProps<typeof Ionicons> & {
-  current: boolean;
-};
+import { TabIconProps } from "../@types";
+import PropTypes from "prop-types";
 
 export default function TabIcon({
   name,
@@ -19,3 +17,10 @@ export default function TabIcon({
     />
   );
 }
+
+TabIcon.propTypes = {
+  name: PropTypes.string.isRequired,
+  size: PropTypes.number,
+  color: PropTypes.string,
+  current: PropTypes.bool,
+};
