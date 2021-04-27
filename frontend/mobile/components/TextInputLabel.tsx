@@ -37,12 +37,30 @@ type TextInputIconProps = TextInputProps & {
 export default function TextInputLabel({
   label,
   inputRef,
+  placeholder,
+  returnKeyType,
+  blurOnSubmit,
+  keyboardType,
+  onSubmitEditing,
+  onChangeText,
 }: TextInputIconProps): JSX.Element {
   return (
     <Container>
       <Label>{label}</Label>
       <InputWrapper>
-        <InnerTextInput ref={inputRef} />
+        <InnerTextInput
+          ref={inputRef}
+          autoCorrect={false}
+          autoCapitalize="none"
+          autoCompleteType="off"
+          keyboardType={keyboardType}
+          blurOnSubmit={blurOnSubmit}
+          placeholder={placeholder}
+          placeholderTextColor="#777"
+          returnKeyType={returnKeyType}
+          onChangeText={onChangeText}
+          onSubmitEditing={onSubmitEditing}
+        />
       </InputWrapper>
     </Container>
   );
@@ -50,4 +68,5 @@ export default function TextInputLabel({
 
 TextInputLabel.defaultProps = {
   blurOnSubmit: false,
+  returnKeyType: "next",
 };
