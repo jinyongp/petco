@@ -1,6 +1,7 @@
 import React from "react";
-import { TextInput } from "react-native";
 import styled from "styled-components/native";
+import { TextInputLabelProps } from "./@types";
+import PropTypes from "prop-types";
 
 const Container = styled.View`
   justify-content: center;
@@ -28,12 +29,6 @@ const InnerTextInput = styled.TextInput`
   font-size: 15px;
 `;
 
-type TextInputProps = React.ComponentProps<typeof TextInput>;
-type TextInputIconProps = TextInputProps & {
-  label: string;
-  inputRef?: any;
-};
-
 export default function TextInputLabel({
   label,
   inputRef,
@@ -43,7 +38,7 @@ export default function TextInputLabel({
   keyboardType,
   onSubmitEditing,
   onChangeText,
-}: TextInputIconProps): JSX.Element {
+}: TextInputLabelProps): JSX.Element {
   return (
     <Container>
       <Label>{label}</Label>
@@ -69,4 +64,16 @@ export default function TextInputLabel({
 TextInputLabel.defaultProps = {
   blurOnSubmit: false,
   returnKeyType: "next",
+};
+
+TextInputLabel.propTypes = {
+  label: PropTypes.string.isRequired,
+  inputRef: PropTypes.any,
+  placeholder: PropTypes.string,
+  returnKeyType: PropTypes.string,
+  blurOnSubmit: PropTypes.bool,
+  keyboardType: PropTypes.string,
+  onChangeText: PropTypes.func,
+  onSubmitEditing: PropTypes.func,
+  secureTextEntry: PropTypes.bool,
 };

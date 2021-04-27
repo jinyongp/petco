@@ -1,9 +1,10 @@
 import React from "react";
 import Modal from "react-native-modal";
 import styled from "styled-components/native";
+import Container from "./Container";
 import NextButton from "./NextButton";
-
-const Container = styled.View``;
+import PropTypes from "prop-types";
+import { ConfirmModalProps } from "./@types";
 
 const StyledModal = styled(Modal)`
   background-color: #fff;
@@ -11,21 +12,7 @@ const StyledModal = styled(Modal)`
   width: 325px;
   height: 400px;
   margin: auto auto;
-`;
-
-const ModalWrapper = styled(Container)`
-  width: 100%;
   padding: 40px;
-`;
-
-const AnimalWrapper = styled.View`
-  flex-direction: row;
-  justify-content: center;
-  margin-bottom: 40px;
-`;
-
-const ModalHeaderWrapper = styled.View`
-  align-items: center;
 `;
 
 const ModalHeader = styled.Text`
@@ -48,28 +35,38 @@ export default function ConfirmModal({
   header,
   content,
   buttonText,
-}) {
+}: ConfirmModalProps): JSX.Element {
   return (
-    <Container>
-      <StyledModal
-        animationIn="zoomIn"
-        animationOut="fadeOut"
-        backdropTransitionOutTiming={0} // It solves a modal flickering occurred from android
-        style={{ flex: 0 }}
-        isVisible={isVisible}
-      >
-        <ModalWrapper>
-          <AnimalWrapper>
-            <LeftPetSvg width={100} height={100} />
-            <RightPetSvg width={100} height={100} />
-          </AnimalWrapper>
-          <ModalHeaderWrapper>
-            <ModalHeader>{header}</ModalHeader>
-          </ModalHeaderWrapper>
-          <ModalContent>{content}</ModalContent>
-          <NextButton onPress={onClose} text={buttonText} disabled={false} />
-        </ModalWrapper>
-      </StyledModal>
-    </Container>
+    <StyledModal
+      animationIn="zoomIn"
+      animationOut="fadeOut"
+      backdropTransitionOutTiming={0} // It solves a modal flickering occurred from android
+      style={{ flex: 0 }}
+      isVisible={isVisible}
+    >
+      <Container>
+        <Container row margin={{ bottom: 40 }}>
+          <LeftPetSvg width={100} height={100} />
+          <RightPetSvg width={100} height={100} />
+        </Container>
+        <Container>
+          <ModalHeader>{header}</ModalHeader>
+        </Container>
+        <ModalContent>{content}</ModalContent>
+        <NextButton onPress={onClose} text={buttonText} disabled={false} />
+      </Container>
+    </StyledModal>
   );
 }
+
+ConfirmModal.defaultProps = {};
+
+ConfirmModal.propTypes = {
+  isVisible: PropTypes.bool.isRequired,
+  LeftPetSvg: PropTypes.func,
+  RightPetSvg: PropTypes.func,
+  onClose: PropTypes.func.isRequired,
+  header: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+  buttonText: PropTypes.string.isRequired,
+};

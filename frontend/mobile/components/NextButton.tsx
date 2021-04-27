@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
+import PropTypes from "prop-types";
+import { NextButtonProps } from "./@types";
 
 const Button = styled.TouchableOpacity`
   background-color: #fec544;
@@ -15,7 +17,11 @@ const InnerText = styled.Text`
   text-align: center;
 `;
 
-export default function NextButton({ onPress, text, disabled }) {
+export default function NextButton({
+  onPress,
+  text,
+  disabled,
+}: NextButtonProps): JSX.Element {
   return (
     <Button onPress={onPress} disabled={disabled} accessible={!disabled}>
       <InnerText>{text}</InnerText>
@@ -24,5 +30,12 @@ export default function NextButton({ onPress, text, disabled }) {
 }
 
 NextButton.defaultProps = {
+  onPress: () => {},
   disabled: false,
+};
+
+NextButton.propTypes = {
+  onPress: PropTypes.func,
+  text: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
 };

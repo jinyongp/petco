@@ -3,8 +3,13 @@ import { ActivityIndicator } from "react-native";
 import Container from "./Container";
 import DismissKeyboard from "./DismissKeyboard";
 import ScrollContainer from "./ScrollContainer";
+import PropTypes from "prop-types";
+import { ScreenLayoutProps } from "./@types";
 
-export default function ScreenLayout({ loading, children }) {
+export default function ScreenLayout({
+  loading,
+  children,
+}: ScreenLayoutProps): JSX.Element {
   return (
     <ScrollContainer>
       <DismissKeyboard>
@@ -18,4 +23,9 @@ export default function ScreenLayout({ loading, children }) {
 
 ScreenLayout.defaultProps = {
   loading: false,
+};
+
+ScreenLayout.propTypes = {
+  loading: PropTypes.bool,
+  children: PropTypes.node,
 };

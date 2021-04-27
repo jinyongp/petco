@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
-import { TextInput } from "react-native";
+import { TextInputIconProps } from "./@types";
+import PropTypes from "prop-types";
 
 const InputWrapper = styled.View`
   justify-content: center;
@@ -20,14 +21,6 @@ const InnerTextInput = styled.TextInput`
   left: 40px;
   font-size: 15px;
 `;
-
-type IoniconsProps = React.ComponentProps<typeof Ionicons>;
-type TextInputProps = React.ComponentProps<typeof TextInput>;
-type TextInputIconProps = Omit<IoniconsProps, "name"> &
-  TextInputProps & {
-    icon: IoniconsProps["name"];
-    inputRef?: any;
-  };
 
 export default function TextInputIcon({
   icon,
@@ -73,4 +66,18 @@ TextInputIcon.defaultProps = {
   color: "black",
   blurOnSubmit: false,
   returnKeyType: "next",
+};
+
+TextInputIcon.propTypes = {
+  icon: PropTypes.string.isRequired,
+  size: PropTypes.number,
+  color: PropTypes.string,
+  inputRef: PropTypes.any,
+  placeholder: PropTypes.string,
+  returnKeyType: PropTypes.string,
+  blurOnSubmit: PropTypes.bool,
+  keyboardType: PropTypes.string,
+  onChangeText: PropTypes.func,
+  onSubmitEditing: PropTypes.func,
+  secureTextEntry: PropTypes.bool,
 };
