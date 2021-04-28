@@ -3,10 +3,14 @@ import client from "../../client"
 import bcrypt from "bcrypt"
 const resolvers:Resolvers  = {
   Mutation:{
-    userModify: async (_,{id,password,email,phone_number,is_valid})=>{
-      password = await bcrypt.hash(password, 10)
+    userModify: async (_,args)=>{
+      const {id,password,email,phone_number,is_valid} = args
+      const passwordHash = await bcrypt.hash(password, 10)
       const user = await client.users.update({
-        data:{ password,email, phone_number,is_valid },
+        data:{
+          email, phone_number,is_valid,
+          password:passwordHash
+        },
         where:{ id }
       })
       .catch(err=>{ return {result:false,message:"회원정보 수정에 실패하였습니다.",error:err }})

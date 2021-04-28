@@ -6,7 +6,16 @@ export default gql`
     dog
   }
   type Pet {
-    id: Int!
+    id: Int
+    name: String
+    avatar: String
+    birth:  String
+    gender: String
+    weight: String
+    type: PetType
+    in_neutered: Boolean
+    vaccinated: Boolean
+    user_id: Int
     # TODO - type definitions
   }
 `;

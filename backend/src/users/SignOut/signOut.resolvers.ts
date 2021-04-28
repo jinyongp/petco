@@ -3,7 +3,8 @@ import { Resolvers } from "../../types";
 import client from "../../client"
 const resolvers: Resolvers = {
   Mutation:{
-    signOut: async (_,{id}):Promise<any>=>{
+    signOut: async (_,args):Promise<any>=>{
+      const {id} = args
       const user = await client.users.delete({
         where:{id}
       })
