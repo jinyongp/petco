@@ -1,8 +1,6 @@
 <template>
   <div class="hello">
-    <div>{{ result }}</div>
-    <hr />
-    <hr />
+    <img class="img" src="../assets/Flying_iPhone_X_Mockups.png" />
     <SignIn />
   </div>
 </template>
@@ -18,6 +16,37 @@ import SignIn from "../components/SignIn.vue";
 })
 export default class Home extends Vue {
   @Prop() private msg!: string;
-  result = "펫코 시스템을 이용하시려면 로그인이 필요합니다";
 }
 </script>
+
+<style scoped>
+.img {
+  /* Mask Group */
+
+  position: absolute;
+  width: 434px;
+  height: 453px;
+  left: 159px;
+  top: 280px;
+
+  /* Rectangle 245 */
+
+  position: absolute;
+  width: 434px;
+  height: 453px;
+  left: 159px;
+  top: 280px;
+
+  background: #c4c4c4;
+
+  /* image 12 */
+
+  position: absolute;
+  width: 788px;
+  height: 729px;
+  left: -5px;
+  top: 135px;
+
+  background: url(/src/assets/Flying_iPhone_X_Mockups.png);
+}
+</style>
