@@ -6,18 +6,11 @@ import Container from "../Container";
 import { AuthLayoutProps } from "../@types";
 import PropTypes from "prop-types";
 
-// TODO Container가 flex-box를 지원하도록 변경
-const HeaderContainer = styled(DefaultContainer)`
-  align-items: flex-start;
-  margin-bottom: 50px;
-  margin-top: 50px;
-`;
-
 const Welcome = styled.Text`
   font-size: 30px;
   font-weight: 700;
   line-height: 40px;
-  margin: 10px;
+  margin-left: 10px;
 `;
 
 export default function AuthLayout({
@@ -27,11 +20,10 @@ export default function AuthLayout({
   return (
     <ScreenLayout>
       {/* TODO KeyboardAvoidingView 구현 */}
-      <HeaderContainer>
+      <Container style={{ alignItems: "flex-start" }} margin={{ bottom: 40 }}>
         <Welcome>{title}</Welcome>
-      </HeaderContainer>
-      {children}
-      <Container margin={{ bottom: 80 }} />
+      </Container>
+      <Container>{children}</Container>
     </ScreenLayout>
   );
 }
