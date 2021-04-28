@@ -1,14 +1,16 @@
 <template>
-  <div>{{ msg }}</div>
+  <div>
+    <AppointList />
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import AppointList from "../components/AppointList.vue";
+
 export default Vue.extend({
-  data() {
-    return {
-      msg: "펫코 예약 시스템입니다",
-    };
+  components: {
+    AppointList,
   },
 });
 </script>
