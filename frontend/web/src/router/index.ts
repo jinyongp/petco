@@ -2,7 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 import Home from "../views/Home.vue";
-import Hospital from "../views/Hospital.vue";
+import Appointment from "../views/Appointment.vue";
+import Support from "../views/Support.vue";
 
 Vue.use(VueRouter);
 
@@ -14,9 +15,14 @@ const routes = [
     component: Home,
   },
   {
-    name: "hospital",
-    path: "/hospital",
-    component: Hospital,
+    name: "appointment",
+    path: "/appointment",
+    component: Appointment,
+  },
+  {
+    name: "support",
+    path: "/support",
+    component: Support,
   },
 ];
 
