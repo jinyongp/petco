@@ -1,5 +1,5 @@
 import { SvgProps } from "react-native-svg";
-import { GestureResponderEvent } from "react-native";
+import { GestureResponderEvent, StyleProp, ViewStyle } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { TextInputProps } from "@types/react-native";
 import { IconProps } from "@types/react-native-vector-icons/Icon";
@@ -36,6 +36,7 @@ export interface ContainerProps extends CommonProps {
         left?: string | number;
       };
   readonly row?: boolean;
+  readonly style?: ViewStyle;
 }
 
 export interface ConfirmModalProps {

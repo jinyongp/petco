@@ -8,6 +8,7 @@ export default function Container({
   margin,
   row,
   children,
+  style,
 }: ContainerProps): JSX.Element {
   const containerStyle: StyleProp<ViewStyle> = {
     justifyContent: "center",
@@ -15,6 +16,7 @@ export default function Container({
     width: "100%",
     backgroundColor: "#fff",
     flexDirection: row ? "row" : "column",
+    ...style,
   };
 
   if (typeof padding === "object") {
@@ -56,5 +58,6 @@ Container.propTypes = {
     PropTypes.object,
   ]),
   row: PropTypes.bool,
+  style: PropTypes.object,
   children: PropTypes.node,
 };

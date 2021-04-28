@@ -77,87 +77,89 @@ const RegisterPets = () => {
 
   return (
     <AuthLayout title={`등록할 동물을${"\n"}선택해 주세요.`}>
-      <Container row margin={{ bottom: 50 }}>
-        <ButtonWrapper>
-          <PetTypeButton>
-            <Dog width={65} height={65} />
-          </PetTypeButton>
-          <PetTypeDesc>강아지</PetTypeDesc>
-        </ButtonWrapper>
-        <ButtonWrapper last={true}>
-          <PetTypeButton>
-            <Cat width={65} height={65} />
-          </PetTypeButton>
-          <PetTypeDesc>고양이</PetTypeDesc>
-        </ButtonWrapper>
-      </Container>
-      <Container margin={{ bottom: 30 }}>
-        <TextInputLabel
-          label="반려동물 이름"
-          onSubmitEditing={onNext(genderRef)}
-          onChangeText={onSetValue("name")}
-        />
-      </Container>
-      <Container margin={{ bottom: 30 }}>
-        {/* FIXME Picker로 대체 */}
-        <TextInputLabel
-          label="성별"
-          inputRef={genderRef}
-          onSubmitEditing={onNext(birthRef)}
-          onChangeText={onSetValue("gender")}
-        />
-      </Container>
-      <Container margin={{ bottom: 30 }}>
-        {/* FIXME Picker로 대체 */}
-        <TextInputLabel
-          label="생년월일"
-          inputRef={birthRef}
-          onSubmitEditing={onNext(weightRef)}
-          onChangeText={onSetValue("birth")}
-        />
-      </Container>
-      <Container margin={{ bottom: 30 }}>
-        <TextInputLabel
-          label="몸무게"
-          inputRef={weightRef}
-          onSubmitEditing={onNext(neutralizationRef)}
-          onChangeText={onSetValue("weight")}
-        />
-      </Container>
-      <Container margin={{ bottom: 30 }}>
-        {/* FIXME Picker로 대체 */}
-        <TextInputLabel
-          label="중성화 여부"
-          inputRef={neutralizationRef}
-          onSubmitEditing={onNext(vaccinationRef)}
-          onChangeText={onSetValue("neutralization")}
-        />
-      </Container>
-      <Container margin={{ bottom: 30 }}>
-        {/* FIXME 데이터로 대체 */}
-        <TextInputLabel
-          label="기초 접종 여부"
-          inputRef={vaccinationRef}
-          onChangeText={onSetValue("vaccination")}
-        />
-      </Container>
-      <Container margin={{ top: 30 }}>
-        <NextButton
-          onPress={handleSubmit(onValid)}
-          text="등록"
-          disabled={false}
-        />
-      </Container>
-      <Container>
-        <ConfirmModal
-          isVisible={isModalVisible}
-          header="등록이 완료되었습니다!"
-          content={`등록한 반려동물 내역은${"\n"}내 정보에서 확인할 수 있습니다.`}
-          buttonText="완료"
-          onClose={onCloseModal}
-          LeftPetSvg={LeftDog}
-          RightPetSvg={RightCat}
-        />
+      <Container margin={{ bottom: 60 }}>
+        <Container row margin={{ bottom: 50 }}>
+          <ButtonWrapper>
+            <PetTypeButton>
+              <Dog width={65} height={65} />
+            </PetTypeButton>
+            <PetTypeDesc>강아지</PetTypeDesc>
+          </ButtonWrapper>
+          <ButtonWrapper last={true}>
+            <PetTypeButton>
+              <Cat width={65} height={65} />
+            </PetTypeButton>
+            <PetTypeDesc>고양이</PetTypeDesc>
+          </ButtonWrapper>
+        </Container>
+        <Container margin={{ bottom: 30 }}>
+          <TextInputLabel
+            label="반려동물 이름"
+            onSubmitEditing={onNext(genderRef)}
+            onChangeText={onSetValue("name")}
+          />
+        </Container>
+        <Container margin={{ bottom: 30 }}>
+          {/* FIXME Picker로 대체 */}
+          <TextInputLabel
+            label="성별"
+            inputRef={genderRef}
+            onSubmitEditing={onNext(birthRef)}
+            onChangeText={onSetValue("gender")}
+          />
+        </Container>
+        <Container margin={{ bottom: 30 }}>
+          {/* FIXME Picker로 대체 */}
+          <TextInputLabel
+            label="생년월일"
+            inputRef={birthRef}
+            onSubmitEditing={onNext(weightRef)}
+            onChangeText={onSetValue("birth")}
+          />
+        </Container>
+        <Container margin={{ bottom: 30 }}>
+          <TextInputLabel
+            label="몸무게"
+            inputRef={weightRef}
+            onSubmitEditing={onNext(neutralizationRef)}
+            onChangeText={onSetValue("weight")}
+          />
+        </Container>
+        <Container margin={{ bottom: 30 }}>
+          {/* FIXME Picker로 대체 */}
+          <TextInputLabel
+            label="중성화 여부"
+            inputRef={neutralizationRef}
+            onSubmitEditing={onNext(vaccinationRef)}
+            onChangeText={onSetValue("neutralization")}
+          />
+        </Container>
+        <Container margin={{ bottom: 30 }}>
+          {/* FIXME 데이터로 대체 */}
+          <TextInputLabel
+            label="기초 접종 여부"
+            inputRef={vaccinationRef}
+            onChangeText={onSetValue("vaccination")}
+          />
+        </Container>
+        <Container margin={{ top: 30 }}>
+          <NextButton
+            onPress={handleSubmit(onValid)}
+            text="등록"
+            disabled={false}
+          />
+        </Container>
+        <Container>
+          <ConfirmModal
+            isVisible={isModalVisible}
+            header="등록이 완료되었습니다!"
+            content={`등록한 반려동물 내역은${"\n"}내 정보에서 확인할 수 있습니다.`}
+            buttonText="완료"
+            onClose={onCloseModal}
+            LeftPetSvg={LeftDog}
+            RightPetSvg={RightCat}
+          />
+        </Container>
       </Container>
     </AuthLayout>
   );
