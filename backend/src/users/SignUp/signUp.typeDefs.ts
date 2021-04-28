@@ -18,13 +18,6 @@ export default gql`
       phone_number:String
       username:String
       is_valid:Boolean
-      pet_name:String
-      pet_birth:String
-      pet_gender:String
-      pet_weight:String
-      pet_type:PetType
-      pet_in_neutered:Boolean
-      pet_vaccinated:Boolean
     ): SignUpPayLoad
   }
 `;
