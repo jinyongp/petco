@@ -1,13 +1,14 @@
 import { Resolvers } from "../../types";
-const prisma = require("../../connect")
+import client from "../../client"
 const resolvers: Resolvers = {
   Query: {
-    async profile(_, { id,userId }):Promise<any> {
+    profile: async (_, { id,userId }):Promise<any>=>{
       // TODO - show profile
-      const user = await prisma.users.findFirst({
+      const user = await client.users.findFirst({
         where:{ id,userId }
       })
-      return {user:{...user,password:null}};
+      if(!user) return { result:false,user:{...user},message:"회원정보를 불러올 수 없습니다."}
+      return {result:true,user:{...user}};
     },
   },
 };

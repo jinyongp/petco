@@ -3,6 +3,7 @@ export default gql`
   type SignUpPayLoad{
     result: Boolean
     message: String
+    user:User
   }
   type Query{
     userIdDuplicateTest(userId:String): SignUpPayLoad
