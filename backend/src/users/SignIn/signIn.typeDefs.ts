@@ -1,10 +1,10 @@
 import { gql } from "apollo-server";
 export default gql`
-  type SignInPlayLoad{
-    flag: Int
+  type SignInPayLoad{
+    result: Boolean
     token: String
   }
   type Query{
-    signIn(userId:String,password:String):SignInPlayLoad
+    signIn(userId:String,password:String):SignInPayLoad
   }
 `;
