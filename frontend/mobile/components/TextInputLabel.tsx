@@ -1,18 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components/native";
 import { TextInputLabelProps } from "./@types";
 import PropTypes from "prop-types";
+import Container from "./Container";
+import DefaultContainer from "./DefaultContainer";
 
-const Container = styled.View`
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-`;
+const LabelContainer = styled(DefaultContainer)``;
 
 const Label = styled.Text`
   align-self: flex-start;
   margin-left: 20px;
-  margin-bottom: 18px;
+  margin-bottom: 10px;
   font-size: 14px;
 `;
 
@@ -39,9 +37,12 @@ export default function TextInputLabel({
   onSubmitEditing,
   onChangeText,
 }: TextInputLabelProps): JSX.Element {
+  const [focused, setFocused] = useState(false);
   return (
     <Container>
-      <Label>{label}</Label>
+      <LabelContainer>
+        <Label>{label}</Label>
+      </LabelContainer>
       <InputWrapper>
         <InnerTextInput
           ref={inputRef}
@@ -55,6 +56,8 @@ export default function TextInputLabel({
           returnKeyType={returnKeyType}
           onChangeText={onChangeText}
           onSubmitEditing={onSubmitEditing}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
         />
       </InputWrapper>
     </Container>
