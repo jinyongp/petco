@@ -1,10 +1,13 @@
 import { Resolvers } from "../../types";
-
+const prisma = require("../../connect")
 const resolvers: Resolvers = {
   Query: {
-    profile(_, { username }) {
+    async profile(_, { id,userId }):Promise<any> {
       // TODO - show profile
-      return { user: { id: 1, username } };
+      const user = await prisma.users.findFirst({
+        where:{ id,userId }
+      })
+      return {user:{...user,password:null}};
     },
   },
 };
