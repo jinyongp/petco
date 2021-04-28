@@ -3,6 +3,8 @@ import styled from "styled-components/native";
 import { useForm } from "react-hook-form";
 import { Container, TextInputIcon, NextButton } from "../components";
 import { AuthLayout, AuthLink } from "../components/auth";
+import Dog from "../assets/animals/dog103.svg";
+import Cat from "../assets/animals/cat82.svg";
 
 const Link = styled.TouchableOpacity``;
 
@@ -52,7 +54,7 @@ export default function SignIn({ navigation }) {
           secureTextEntry
         />
       </Container>
-      <Container row margin={{ bottom: "20%" }}>
+      <Container row margin={{ bottom: 40 }}>
         <Link style={{ paddingRight: 47 }}>
           <RowText>아이디 찾기</RowText>
         </Link>
@@ -60,19 +62,23 @@ export default function SignIn({ navigation }) {
           <RowText>비밀번호 찾기</RowText>
         </Link>
       </Container>
-      <Container margin={{ bottom: 19 }}>
+      <Container margin={{ bottom: 16 }}>
         <NextButton
           onPress={handleSubmit(onValid)}
           text="로그인 하기"
           disabled={false}
         />
       </Container>
-      <Container row>
+      <Container row margin={{ bottom: 33 }}>
         <AuthLink
           onPress={goToSignUp}
           desc="펫코가 처음이신가요?"
           link="회원가입하기"
         />
+      </Container>
+      <Container row>
+        <Dog width={100} height={100} />
+        <Cat width={100} height={100} />
       </Container>
     </AuthLayout>
   );
