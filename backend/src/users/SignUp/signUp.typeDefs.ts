@@ -1,12 +1,12 @@
 import { gql } from "apollo-server";
 export default gql`
-  type SignUpPlayLoad{
-    flag: Int
+  type SignUpPayLoad{
+    result: Boolean
     message: String
   }
   type Query{
-    userIdDuplicateTest(userId:String): SignInPlayLoad
-    emailDuplicateTest(email:String): SignInPlayLoad
+    userIdDuplicateTest(userId:String): SignUpPayLoad
+    emailDuplicateTest(email:String): SignUpPayLoad
   }
   type Mutation{
     signUp(
@@ -24,6 +24,6 @@ export default gql`
       pet_type:PetType
       pet_in_neutered:Boolean
       pet_vaccinated:Boolean
-    ): SignUpPlayLoad
+    ): SignUpPayLoad
   }
 `;
