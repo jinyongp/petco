@@ -1,7 +1,7 @@
 require("dotenv").config();
 import { Resolvers } from "../../types";
 import bcrypt from "bcrypt"
-const prisma = require("../../connect")
+const prisma = require("../../client")
 const resolvers: Resolvers = {
   Mutation:{
     signUp: async (_,{userId,password,email,username,phone_number,is_valid,

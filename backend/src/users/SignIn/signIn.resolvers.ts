@@ -2,7 +2,7 @@ require("dotenv").config();
 import { Resolvers } from "../../types";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
-const users = require("../../connect").users
+const users = require("../../client").users
 const resolvers: Resolvers = {
   Query:{
     signIn: async (_,{userId,password}):Promise<any>=>{      
