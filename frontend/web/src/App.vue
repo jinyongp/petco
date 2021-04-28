@@ -19,9 +19,17 @@ import { Component, Vue } from "vue-property-decorator";
 
 @Component
 export default class App extends Vue {
+  isFocus: boolean = true;
   created() {
     console.log("router", this.$router);
     console.log("route", this.$route);
+  }
+  offFocus() {
+    this.isFocus = false;
+  }
+  isFocusClick() {
+    this.isFocus = true;
+    this.$router.push("/appointment");
   }
 }
 </script>
