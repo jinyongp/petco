@@ -14,7 +14,6 @@ export default function AuthNavigator() {
         }}
       />
       <Stack.Screen name="SignUp" component={SignUp} />
-      <Stack.Screen name="RegisterPets" component={RegisterPets} />
     </Stack.Navigator>
   );
 }
