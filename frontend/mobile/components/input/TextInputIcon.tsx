@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components/native";
-import { Ionicons } from "@expo/vector-icons";
-import { TextInputIconProps } from "./@types";
 import PropTypes from "prop-types";
+import { Ionicons } from "@expo/vector-icons";
+import { TextInputIconProps } from "../@types";
 
 const InputWrapper = styled.View`
   justify-content: center;

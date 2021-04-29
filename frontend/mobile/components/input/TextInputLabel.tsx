@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
-import { TextInputLabelProps } from "./@types";
 import PropTypes from "prop-types";
-import Container from "./Container";
-import DefaultContainer from "./DefaultContainer";
+import Container from "../Container";
+import { TextInputLabelProps } from "../@types";
+import DefaultContainer from "../DefaultContainer";
 
 const LabelContainer = styled(DefaultContainer)``;
 

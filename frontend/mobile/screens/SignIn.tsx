@@ -1,14 +1,15 @@
 import React, { useRef, useEffect } from "react";
 import styled from "styled-components/native";
-import { useForm } from "react-hook-form";
-import { Container, TextInputIcon, NextButton } from "../components";
-import { AuthLayout, AuthLink } from "../components/auth";
-import Dog from "../assets/animals/dog103.svg";
-import Cat from "../assets/animals/cat82.svg";
-import { gql, useMutation } from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
+import { useForm } from "react-hook-form";
+import { gql, useMutation } from "@apollo/client";
+import { Container, NextButton } from "../components";
+import { AuthLayout, AuthLink } from "../components/auth";
+import { TextInputIcon } from "../components/input";
 import { isLoggedIn } from "../apollo";
 import { SignInPayload, SignInInput } from "./@types";
+import Dog from "../assets/animals/dog103.svg";
+import Cat from "../assets/animals/cat82.svg";
 
 const Link = styled.TouchableOpacity``;
 

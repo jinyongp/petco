@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components/native";
-import { Container, ScreenLayout, TextInputIcon } from "../components";
 import { Ionicons } from "@expo/vector-icons";
+import { Container, ScreenLayout } from "../components";
+import { TextInputIcon } from "../components/input";
 import { elevation } from "../style/css";
 
 const Header = styled.Text`

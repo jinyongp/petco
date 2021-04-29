@@ -2,18 +2,14 @@ import React, { useRef, useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import styled from "styled-components/native";
 import { useForm } from "react-hook-form";
+import { AuthLayout } from "../components/auth";
+import { ConfirmModal, Container, NextButton } from "../components";
+import { TextInputLabel } from "../components/input";
+import { elevation } from "../style/css";
 import Dog from "../assets/icons/dog.svg";
 import Cat from "../assets/icons/cat.svg";
 import LeftDog from "../assets/animals/dog105.svg";
 import RightCat from "../assets/animals/cat85.svg";
-import { AuthLayout } from "../components/auth";
-import {
-  ConfirmModal,
-  Container,
-  TextInputLabel,
-  NextButton,
-} from "../components";
-import { elevation } from "../style/css";
 
 interface ButtonWrapperProps {
   readonly last?: boolean;
