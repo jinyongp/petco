@@ -9,7 +9,7 @@ const resolvers: Resolvers = {
         where:{ id,userId }
       })
       .catch(err=>{ return { result:false,user:{...user},message:"회원정보를 불러올 수 없습니다.",error:err}});
-      return {result:true,user:{...user}};
+      return {result:true,user:{...user,password:null}};
     },
   },
 };
