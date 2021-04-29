@@ -3,13 +3,12 @@ import client from "../../client"
 
 const resolvers:Resolvers={
   Mutation:{
-    modifyPet: async (_,args):Promise<any>=>{
-      const {id} = args
-      delete args.id
+    modifyPet: async (_,data):Promise<any>=>{
+      const {id} = data
+      delete data.id
+      data.updated_at = new Date();
       const pet = await client.pets.update({
-        data:{
-          ...args
-        },
+        data,
         where:{id}
       })
       .catch(err=> {return {result:false,message:"반려동물 정보수정에 실패하였습니다.",error:err}})
