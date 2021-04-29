@@ -1,13 +1,13 @@
 <template>
-  <div id="app">
+  <div id="app" class="filters">
     <div class="logo">PETCO</div>
     <router-link to="/" class="to-home">
       <div>login</div>
     </router-link>
-    <router-link to="/appointment" class="to-appointment">
+    <router-link to="/appointment" class="to-appointment" tag="button">
       <div>예약 현황</div>
     </router-link>
-    <router-link to="/support" class="to-support">
+    <router-link to="/support" class="to-support" tag="button">
       <div>지원</div>
     </router-link>
     <router-view />
@@ -29,7 +29,6 @@ export default class App extends Vue {
   }
   isFocusClick() {
     this.isFocus = true;
-    this.$router.push("/appointment");
   }
 }
 </script>
@@ -60,11 +59,13 @@ export default class App extends Vue {
 }
 .to-appointment {
   position: absolute;
-  width: 114px;
+  width: 140px;
   height: 15px;
   left: 784px;
   top: 70px;
 
+  background: white;
+  border: white;
   font-family: NanumGothic;
   font-style: normal;
   font-weight: bold;
@@ -76,11 +77,13 @@ export default class App extends Vue {
 }
 .to-support {
   position: absolute;
-  width: 53px;
+  width: 70px;
   height: 28px;
   left: 953px;
   top: 70px;
 
+  background: white;
+  border: white;
   font-family: NanumGothic;
   font-style: normal;
   font-weight: bold;
@@ -88,7 +91,7 @@ export default class App extends Vue {
   line-height: 26px;
   letter-spacing: -0.3px;
 
-  color: #fec544;
+  color: #000000;
 }
 .to-home {
   position: absolute;
@@ -114,5 +117,8 @@ export default class App extends Vue {
   letter-spacing: -0.3px;
 
   color: #000000;
+}
+.filters button.router-link-active {
+  color: #fec544;
 }
 </style>
