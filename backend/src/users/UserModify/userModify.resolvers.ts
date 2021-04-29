@@ -7,7 +7,6 @@ const resolvers:Resolvers  = {
       const {id,password} = data
       const passwordHash = await bcrypt.hash(password, 10)
       data.password = passwordHash
-      data.updated_at = new Date();
       const user = await client.users.update({
         data,
         where:{ id }
