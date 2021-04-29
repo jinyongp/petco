@@ -26,6 +26,7 @@ export default function TextInputIcon({
   icon,
   size,
   color,
+  value,
   inputRef,
   placeholder,
   returnKeyType,
@@ -45,6 +46,7 @@ export default function TextInputIcon({
       />
       <InnerTextInput
         ref={inputRef}
+        value={value}
         autoCorrect={false}
         autoCapitalize="none"
         autoCompleteType="off"
@@ -71,6 +73,7 @@ TextInputIcon.defaultProps = {
 TextInputIcon.propTypes = {
   icon: PropTypes.string.isRequired,
   size: PropTypes.number,
+  value: PropTypes.string,
   color: PropTypes.string,
   inputRef: PropTypes.any,
   placeholder: PropTypes.string,
