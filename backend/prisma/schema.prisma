@@ -21,7 +21,7 @@ model users {
   is_valid     Boolean        @default(false)
   pets         pets[]
   created_at   DateTime       @default(now())
-  updated_at   DateTime       @default(now())
+  updated_at   DateTime       @updatedAt
   appointments appointments[]
   estimates    estimates[]
 }
@@ -37,7 +37,7 @@ model pets {
   in_neutered  Boolean        @default(false)
   vaccinated   Boolean        @default(false)
   created_at   DateTime       @default(now())
-  updated_at   DateTime       @default(now())
+  updated_at   DateTime       @updatedAt
   users        users?         @relation(fields: [user_id], references: [id])
   user_id      Int?
   appointments appointments[]
@@ -55,7 +55,7 @@ model appointments {
   pets       pets?    @relation(fields: [pet_id], references: [id])
   pet_id     Int?
   created_at DateTime @default(now())
-  updated_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model estimates {
@@ -69,7 +69,7 @@ model estimates {
   pets            pets?    @relation(fields: [pet_id], references: [id])
   pet_id          Int?
   created_at      DateTime @default(now())
-  updated_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
 }
 
 model vets {
@@ -80,7 +80,7 @@ model vets {
   location     String
   number       String
   created_at   DateTime       @default(now())
-  updated_at   DateTime       @default(now())
+  updated_at   DateTime       @updatedAt
   appointments appointments[]
   estimates    estimates[]
 }
@@ -89,7 +89,7 @@ model major_medical_subjects {
   id                     Int                      @id @default(autoincrement())
   subject                String
   created_at             DateTime                 @default(now())
-  updated_at             DateTime                 @default(now())
+  updated_at             DateTime                 @updatedAt
   minor_medical_subjects minor_medical_subjects[]
 }
 
@@ -97,7 +97,7 @@ model minor_medical_subjects {
   id                     Int                     @id @default(autoincrement())
   subject                String
   created_at             DateTime                @default(now())
-  updated_at             DateTime                @default(now())
+  updated_at             DateTime                @updatedAt
   major_medical_subjects major_medical_subjects? @relation(fields: [major_id], references: [id])
   major_id               Int?
 }
