@@ -6,7 +6,6 @@ const resolvers:Resolvers={
     modifyPet: async (_,data):Promise<any>=>{
       const {id} = data
       delete data.id
-      data.updated_at = new Date();
       const pet = await client.pets.update({
         data,
         where:{id}
