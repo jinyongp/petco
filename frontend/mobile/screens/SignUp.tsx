@@ -1,30 +1,54 @@
+import { gql, useMutation } from "@apollo/client";
+import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { Container, TextInputIcon, NextButton } from "../components";
 import { AuthLayout, AuthLink } from "../components/auth";
+import { SignUpInput, SignUpPayload } from "./@types";
 
-export default function SignUp({ navigation }) {
-  const { register, handleSubmit, setValue } = useForm();
+const SIGNUP_MUTATION = gql`
+  mutation CreateAccount($input: CreateAccountInput) {
+    createAccount(input: $input) {
+      error
+      user {
+        id
+      }
+    }
+  }
+`;
+
+export default function SignUp() {
+  const navigation = useNavigation();
+  const { register, handleSubmit, setValue, watch, getValues } = useForm();
+  const onCompleted = ({ createAccount: { error, user } }: SignUpPayload) => {
+    // TODO error handling
+    const { userId, password } = getValues();
+    error || navigation.navigate("SignIn", { userId, password });
+  };
+  const [signUp, { loading }] = useMutation(SIGNUP_MUTATION, {
+    onCompleted,
+  });
   useEffect(() => {
-    register("userId");
-    register("phoneNumber");
-    register("password");
-    register("passwordCheck");
+    register("userId", { required: true });
+    register("email", { required: true });
+    register("phone", { required: true });
+    register("password", { required: true });
+    register("passwordCheck", { required: true });
   }, [register]);
 
-  const phoneNumberRef = useRef();
+  const emailRef = useRef();
+  const phoneRef = useRef();
   const passwordRef = useRef();
   const passwordCheckRef = useRef();
-  const onNext = (nextRef) => () => {
+  const onNext = (nextRef: React.MutableRefObject<undefined>) => () => {
     const { current }: any = nextRef;
     current?.focus();
   };
   const goToSignIn = () => navigation.navigate("SignIn");
   const onSetValue = (name: string) => (text: string) => setValue(name, text);
-  const onValid = (data: object) => {
-    console.log(data);
-    // TODO validation
-    navigation.navigate("RegisterPets");
+  const onValid = (input: SignUpInput) => {
+    delete input["passwordCheck"];
+    loading || signUp({ variables: { input } });
   };
 
   return (
@@ -34,17 +58,26 @@ export default function SignUp({ navigation }) {
           icon="person-outline"
           placeholder="아이디를 입력해 주세요."
           returnKeyType="next"
-          onSubmitEditing={onNext(phoneNumberRef)}
+          onSubmitEditing={onNext(emailRef)}
           onChangeText={onSetValue("userId")}
+        />
+        <TextInputIcon
+          icon="mail-outline"
+          placeholder="이메일을 입력해 주세요."
+          returnKeyType="next"
+          keyboardType="email-address"
+          inputRef={emailRef}
+          onSubmitEditing={onNext(phoneRef)}
+          onChangeText={onSetValue("email")}
         />
         <TextInputIcon
           icon="phone-portrait-outline"
           placeholder="핸드폰 번호를 입력해 주세요."
           keyboardType="number-pad"
           returnKeyType="done"
-          inputRef={phoneNumberRef}
+          inputRef={phoneRef}
           onSubmitEditing={onNext(passwordRef)}
-          onChangeText={onSetValue("phoneNumber")}
+          onChangeText={onSetValue("phone")}
         />
         <TextInputIcon
           icon="lock-closed-outline"
@@ -67,9 +100,15 @@ export default function SignUp({ navigation }) {
       </Container>
       <Container margin={{ bottom: 16 }}>
         <NextButton
-          text="반려동물 등록하기"
+          text={loading ? "회원가입 중..." : "회원가입 하기"}
           onPress={handleSubmit(onValid)}
-          disabled={false}
+          disabled={
+            !watch("userId") ||
+            !watch("email") ||
+            !watch("phone") ||
+            !watch("password") ||
+            !watch("passwordCheck")
+          }
         />
       </Container>
       <Container margin={{ bottom: 56 }}>
