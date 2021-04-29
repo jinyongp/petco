@@ -8,7 +8,8 @@ const resolvers:Resolvers  = {
       const passwordHash = await bcrypt.hash(password, 10)
       const user = await client.users.update({
         data:{
-          email, phone_number,is_valid,
+          ...args,
+          updated_at: new Date(),
           password:passwordHash
         },
         where:{ id }
