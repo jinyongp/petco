@@ -5,6 +5,7 @@ export default gql`
     result: Boolean
     user: User
     message:String
+    error:String
   }
   type Query {
     profile(id: Int,userId:String): ProfilePayload

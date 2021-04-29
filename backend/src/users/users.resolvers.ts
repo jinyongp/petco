@@ -1,9 +1,5 @@
 import { Resolvers } from "../types";
 
-const resolvers: Resolvers = {
-  Query:{
-    
-  }  
-};
+const resolvers: Resolvers = {};
 
 export default resolvers;
