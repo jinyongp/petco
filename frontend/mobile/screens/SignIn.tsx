@@ -5,6 +5,10 @@ import { Container, TextInputIcon, NextButton } from "../components";
 import { AuthLayout, AuthLink } from "../components/auth";
 import Dog from "../assets/animals/dog103.svg";
 import Cat from "../assets/animals/cat82.svg";
+import { gql, useMutation } from "@apollo/client";
+import { useNavigation } from "@react-navigation/native";
+import { isLoggedIn } from "../apollo";
+import { SignInPayload, SignInInput } from "./@types";
 
 const Link = styled.TouchableOpacity``;
 
@@ -13,23 +17,45 @@ const RowText = styled.Text`
   font-weight: 600;
 `;
 
-export default function SignIn({ navigation }) {
-  const { register, handleSubmit, setValue } = useForm();
+const SIGNIN_MUTATION = gql`
+  mutation Login($userId: String!, $password: String!) {
+    login(userId: $userId, password: $password) {
+      ok
+      token
+      error
+    }
+  }
+`;
+
+export default function SignIn({ route: { params } }) {
+  const navigation = useNavigation();
+  const { register, handleSubmit, setValue, watch } = useForm({
+    // FIXME 회원 가입 시 작성한 계정을 기본값으로 설정한다 - 동작 안함
+    defaultValues: {
+      userId: params?.userId,
+      password: params?.password,
+    },
+  });
   useEffect(() => {
-    register("userId");
-    register("password");
+    register("userId", { required: true });
+    register("password", { required: true });
   }, [register]);
-  const goToHome = () => navigation.navigate("Home");
-  const goToSignUp = () => navigation.navigate("SignUp");
-  const onSetValue = (name: string) => (text: string) => setValue(name, text);
-  const onValid = (data: object) => {
-    console.log(data);
-    // TODO validation
-    goToHome();
+
+  const onCompleted = ({ login: { ok, token, error } }: SignInPayload) => {
+    // TODO token, error handling
+    isLoggedIn(ok);
+  };
+  const [signIn, { loading }] = useMutation(SIGNIN_MUTATION, {
+    onCompleted,
+  });
+
+  const onSetValue = (name: any) => (text: string) => setValue(name, text);
+  const onValid = (variables: SignInInput) => {
+    loading || signIn({ variables });
   };
 
   const passwordInputRef = useRef();
-  const onNext = (nextRef) => () => {
+  const onNext = (nextRef: React.MutableRefObject<undefined>) => () => {
     const { current }: any = nextRef;
     current?.focus();
   };
@@ -39,6 +65,7 @@ export default function SignIn({ navigation }) {
       <Container margin={{ bottom: 18 }}>
         <TextInputIcon
           icon="person-outline"
+          value={watch("userId")}
           placeholder="아이디를 입력해주세요."
           returnKeyType="next"
           onSubmitEditing={onNext(passwordInputRef)}
@@ -46,6 +73,7 @@ export default function SignIn({ navigation }) {
         />
         <TextInputIcon
           icon="lock-closed-outline"
+          value={watch("password")}
           inputRef={passwordInputRef}
           placeholder="비밀번호를 입력해주세요."
           returnKeyType="done"
@@ -65,13 +93,13 @@ export default function SignIn({ navigation }) {
       <Container margin={{ bottom: 16 }}>
         <NextButton
           onPress={handleSubmit(onValid)}
-          text="로그인 하기"
-          disabled={false}
+          text={loading ? "로그인 중..." : "로그인 하기"}
+          disabled={!watch("userId") || !watch("password")}
         />
       </Container>
       <Container row margin={{ bottom: 33 }}>
         <AuthLink
-          onPress={goToSignUp}
+          onPress={() => navigation.navigate("SignUp")}
           desc="펫코가 처음이신가요?"
           link="회원가입하기"
         />

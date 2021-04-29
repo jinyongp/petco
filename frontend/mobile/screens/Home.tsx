@@ -1,5 +1,6 @@
 import React from "react";
 import { Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import styled from "styled-components/native";
 import {
   Container,
@@ -85,7 +86,8 @@ const Ads = styled(Image)<AdsProps>`
   border-radius: 30px;
 `;
 
-export default function Home({ navigation }) {
+export default function Home() {
+  const navigation = useNavigation();
   const goToSelectPet = () => navigation.navigate("SelectPet");
 
   return (

@@ -4,8 +4,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import AppLoading from "expo-app-loading";
 import { AuthNavigator, TabNavigator } from "./navigators";
+import { ApolloProvider, useReactiveVar } from "@apollo/client";
+import client, { isLoggedIn } from "./apollo";
 
 export default function App() {
+  const isLoggedInVar = useReactiveVar(isLoggedIn);
   const [loading, setLoading] = useState(true);
   const onFinish = () => setLoading(false);
   const startAsync = async () => {
@@ -24,11 +27,13 @@ export default function App() {
   }
 
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle="dark-content" />
-      <NavigationContainer>
-        <TabNavigator />
-      </NavigationContainer>
-    </SafeAreaProvider>
+    <ApolloProvider client={client}>
+      <SafeAreaProvider>
+        <StatusBar barStyle="dark-content" />
+        <NavigationContainer>
+          {isLoggedInVar ? <TabNavigator /> : <AuthNavigator />}
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </ApolloProvider>
   );
 }
