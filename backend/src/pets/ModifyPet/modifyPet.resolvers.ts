@@ -8,7 +8,8 @@ const resolvers:Resolvers={
       delete args.id
       const pet = await client.pets.update({
         data:{
-          ...args
+          ...args,
+          updated_at: new Date()
         },
         where:{id}
       })
