@@ -9,12 +9,12 @@ const Button = styled.TouchableOpacity``;
 
 const InnerText = styled.Text``;
 
-export default function MyProfile() {
+export default function MyPage() {
   const navigation = useNavigation();
   return (
     <ScreenLayout>
       <Container>
-        <Header>MyProfile</Header>
+        <Header>MyPage</Header>
         <Button onPress={() => navigation.navigate("RegisterPets")}>
           <InnerText>Register Pet</InnerText>
         </Button>
