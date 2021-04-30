@@ -1,9 +1,10 @@
+import React, { useEffect, useRef } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
-import React, { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
-import { Container, TextInputIcon, NextButton } from "../components";
+import { Container, NextButton } from "../components";
 import { AuthLayout, AuthLink } from "../components/auth";
+import { TextInputIcon } from "../components/input";
 import { SignUpInput, SignUpPayload } from "./@types";
 
 const SIGNUP_MUTATION = gql`

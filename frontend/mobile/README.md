@@ -30,6 +30,8 @@
 
 ## References
 
-- [expo AppLoading](https://docs.expo.io/versions/latest/sdk/app-loading/)
+- [expo AppLoading](https://docs.expo.io/versions/latest/sk/app-loading/)
 - [expo Assets](https://docs.expo.io/guides/assets/)
 - [react hook form](https://react-hook-form.com/)
+- [react native modal selector](https://github.com/peacechen/react-native-modal-selector)
+- [react native date picker](https://github.com/react-native-datetimepicker/datetimepicker)

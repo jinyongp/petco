@@ -3,6 +3,11 @@ import { GestureResponderEvent, StyleProp, ViewStyle } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { TextInputProps } from "@types/react-native";
 import { IconProps } from "@types/react-native-vector-icons/Icon";
+import {
+  IOSNativeProps,
+  AndroidNativeProps,
+} from "@react-native-community/datetimepicker";
+import ModalSelector from "react-native-modal-selector";
 
 type onPressType = (event: GestureResponderEvent) => void;
 
@@ -62,6 +67,7 @@ export interface TextInputIconProps
 
 export interface TextInputLabelProps extends TextInputProps {
   readonly label: string;
+  readonly error?: string;
   readonly inputRef?: any;
 }
 
@@ -78,4 +84,16 @@ export interface AuthLinkProps {
 export interface TabIconProps extends IconProps {
   readonly name: React.ComponentProps<typeof Ionicons>["name"];
   readonly current: boolean;
+}
+
+export interface PickerLabelProps
+  extends React.ComponentProps<typeof ModalSelector> {
+  readonly label: string;
+}
+
+export interface DatePickerLabelProps
+  extends Omit<IOSNativeProps, "value">,
+    Omit<AndroidNativeProps, "value"> {
+  readonly label: string;
+  readonly onChange: (date: string) => void;
 }
