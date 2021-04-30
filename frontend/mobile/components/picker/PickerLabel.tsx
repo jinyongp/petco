@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import Picker from "react-native-modal-selector";
+import Picker, { IOption } from "react-native-modal-selector";
 import styled from "styled-components/native";
 import { DefaultContainer, Container } from "..";
+import { PickerLabelProps } from "../@types";
 
 const LabelContainer = styled(DefaultContainer)`
   margin-bottom: 10px;
@@ -27,7 +28,11 @@ const InnerText = styled.Text`
   font-size: 15px;
 `;
 
-export default function PickerLabel({ label, data, onChange }) {
+export default function PickerLabel({
+  label,
+  data,
+  onChange,
+}: PickerLabelProps): JSX.Element {
   const [selectedValue, setSelectedValue] = useState("");
   return (
     <Container>
@@ -36,7 +41,7 @@ export default function PickerLabel({ label, data, onChange }) {
       </LabelContainer>
       <PickerWrapper>
         <Picker
-          onChange={({ label: value }) => {
+          onChange={({ label: value }: IOption) => {
             setSelectedValue(value);
             onChange(value);
           }}
@@ -85,7 +90,3 @@ export default function PickerLabel({ label, data, onChange }) {
     </Container>
   );
 }
-
-PickerLabel.defaultProps = {
-  onChange: () => {},
-};
