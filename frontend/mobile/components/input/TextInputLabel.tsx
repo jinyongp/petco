@@ -5,12 +5,15 @@ import Container from "../Container";
 import { TextInputLabelProps } from "../@types";
 import DefaultContainer from "../DefaultContainer";
 
-const LabelContainer = styled(DefaultContainer)``;
+const LabelContainer = styled(DefaultContainer)`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 0 20px;
+`;
 
 const Label = styled.Text`
-  align-self: flex-start;
-  margin-left: 20px;
-  margin-bottom: 10px;
   font-size: 14px;
 `;
 
@@ -23,13 +26,22 @@ const InputWrapper = styled.View`
   border-radius: 30px;
 `;
 
+const InnerErrorMsg = styled.Text`
+  font-size: 13px;
+  color: #ff0000aa;
+`;
+
 const InnerTextInput = styled.TextInput`
   font-size: 15px;
 `;
 
 export default function TextInputLabel({
   label,
+  error,
+  value,
   inputRef,
+  onBlur,
+  onFocus,
   placeholder,
   returnKeyType,
   blurOnSubmit,
@@ -37,27 +49,28 @@ export default function TextInputLabel({
   onSubmitEditing,
   onChangeText,
 }: TextInputLabelProps): JSX.Element {
-  const [focused, setFocused] = useState(false);
   return (
     <Container>
       <LabelContainer>
         <Label>{label}</Label>
+        <InnerErrorMsg>{error}</InnerErrorMsg>
       </LabelContainer>
-      <InputWrapper>
+      <InputWrapper style={{ borderColor: error ? "#ff000066" : "#c4c4c4" }}>
         <InnerTextInput
           ref={inputRef}
+          value={value}
           autoCorrect={false}
           autoCapitalize="none"
           autoCompleteType="off"
           keyboardType={keyboardType}
           blurOnSubmit={blurOnSubmit}
           placeholder={placeholder}
-          placeholderTextColor="#777"
+          placeholderTextColor="#00000030"
           returnKeyType={returnKeyType}
           onChangeText={onChangeText}
           onSubmitEditing={onSubmitEditing}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
+          onFocus={onFocus}
+          onBlur={onBlur}
         />
       </InputWrapper>
     </Container>
@@ -65,13 +78,17 @@ export default function TextInputLabel({
 }
 
 TextInputLabel.defaultProps = {
+  error: "",
   blurOnSubmit: false,
   returnKeyType: "next",
 };
 
 TextInputLabel.propTypes = {
   label: PropTypes.string.isRequired,
+  value: PropTypes.string,
   inputRef: PropTypes.any,
+  onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
   placeholder: PropTypes.string,
   returnKeyType: PropTypes.string,
   blurOnSubmit: PropTypes.bool,

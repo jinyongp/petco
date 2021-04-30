@@ -62,6 +62,7 @@ export interface TextInputIconProps
 
 export interface TextInputLabelProps extends TextInputProps {
   readonly label: string;
+  readonly error?: string;
   readonly inputRef?: any;
 }
 
