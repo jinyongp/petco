@@ -10,7 +10,7 @@ import Dog from "../assets/icons/dog.svg";
 import Cat from "../assets/icons/cat.svg";
 import LeftDog from "../assets/animals/dog105.svg";
 import RightCat from "../assets/animals/cat85.svg";
-import { PickerLabel } from "../components/picker";
+import { DatePickerLabel, PickerLabel } from "../components/picker";
 
 interface ButtonWrapperProps {
   readonly last?: boolean;
@@ -35,8 +35,8 @@ const PetTypeButton = styled.TouchableOpacity`
 
 const WeightUnit = styled.Text`
   position: absolute;
-  right: 50;
-  top: 43;
+  right: 50px;
+  top: 43px;
   font-size: 15px;
 `;
 
@@ -47,7 +47,9 @@ const PetTypeDesc = styled.Text`
 // TODO validation check
 const RegisterPets = () => {
   const navigation = useNavigation();
-  const { register, handleSubmit, setValue, watch } = useForm();
+  const [weightOver, setWeightOver] = useState(false);
+  const [weightError, setWeightError] = useState(false);
+  const { register, handleSubmit, setValue, watch, getValues } = useForm();
   useEffect(() => {
     register("name");
     register("gender");
@@ -91,7 +93,7 @@ const RegisterPets = () => {
         <Container margin={{ bottom: 30 }}>
           <TextInputLabel
             label="반려동물 이름"
-            placeholder="이름"
+            placeholder="이름을 입력해주세요."
             onChangeText={onSetValue("name")}
             blurOnSubmit
           />
@@ -99,26 +101,41 @@ const RegisterPets = () => {
         <Container margin={{ bottom: 30 }}>
           <PickerLabel
             label="성별"
-            onChange={({ label }) => onSetValue("gender")(label)}
+            onChange={onSetValue("gender")}
             data={[{ label: "수컷(남)" }, { label: "암컷(여)" }]}
           />
         </Container>
         <Container margin={{ bottom: 30 }}>
-          {/* FIXME Picker로 대체 */}
-          <TextInputLabel
-            label="생년월일"
-            keyboardType="decimal-pad"
-            onChangeText={onSetValue("birth")}
-            blurOnSubmit
-          />
+          <DatePickerLabel label="생년월일" onChange={onSetValue("birth")} />
         </Container>
         <Container margin={{ bottom: 30 }}>
           <TextInputLabel
             label="몸무게"
+            value={watch("weight")}
+            placeholder="몸무게를 입력해주세요."
             returnKeyType="done"
             keyboardType="decimal-pad"
-            onChangeText={() => onSetValue("weight")}
+            onChangeText={onSetValue("weight")}
+            error={(() => {
+              if (weightOver) return "너무 큰 숫자가 입력되었습니다.";
+              if (weightError) return "올바르지 않은 형식입니다.";
+            })()}
             blurOnSubmit
+            onBlur={() => {
+              const { weight } = getValues();
+              const w = parseFloat(weight);
+              if (w > 150) {
+                setWeightOver(true);
+                setWeightError(false);
+              } else if (isNaN(w)) {
+                setWeightError(true);
+                setWeightOver(false);
+              } else {
+                setWeightError(false);
+                setWeightOver(false);
+                setValue("weight", String(w.toFixed(1)));
+              }
+            }}
           />
           <WeightUnit>kg</WeightUnit>
         </Container>
@@ -126,21 +143,30 @@ const RegisterPets = () => {
           <PickerLabel
             label="중성화 여부"
             data={[{ label: "네" }, { label: "아니요" }]}
-            onChange={({ label }) => onSetValue("neutralization")(label)}
+            onChange={onSetValue("neutralization")}
           />
         </Container>
         <Container margin={{ bottom: 30 }}>
           <PickerLabel
             label="기초 접종 여부"
             data={[{ label: "네" }, { label: "아니요" }, { label: "몰라요" }]}
-            onChange={({ label }) => onSetValue("vaccination")(label)}
+            onChange={onSetValue("vaccination")}
           />
         </Container>
         <Container margin={{ top: 30 }}>
           <NextButton
             onPress={handleSubmit(onValid)}
             text="등록"
-            disabled={false}
+            disabled={
+              !watch("name") ||
+              !watch("gender") ||
+              !watch("birth") ||
+              !watch("weight") ||
+              !watch("neutralization") ||
+              !watch("vaccination") ||
+              weightError ||
+              weightOver
+            }
           />
         </Container>
         <Container>
