@@ -23,7 +23,12 @@ const PickerWrapper = styled.View`
   overflow: hidden;
 `;
 
+const InnerText = styled.Text`
+  font-size: 15px;
+`;
+
 export default function PickerLabel({ label, data, onChange }) {
+  const [selectedValue, setSelectedValue] = useState("");
   return (
     <Container>
       <LabelContainer>
@@ -31,10 +36,12 @@ export default function PickerLabel({ label, data, onChange }) {
       </LabelContainer>
       <PickerWrapper>
         <Picker
-          onChange={onChange}
+          onChange={({ label: value }) => {
+            setSelectedValue(value);
+            onChange(value);
+          }}
           animationType="none"
           cancelText="뒤로"
-          initValue="선택해주세요"
           initValueTextStyle={{ alignSelf: "flex-start" }}
           // overlayStyle={{ padding: "20%" }}
           selectStyle={{ borderColor: "transparent" }}
@@ -69,7 +76,11 @@ export default function PickerLabel({ label, data, onChange }) {
               key,
             })
           )}
-        />
+        >
+          <InnerText style={{ color: selectedValue ? "#000" : "#00000030" }}>
+            {selectedValue || "입력칸을 눌러 선택해주세요."}
+          </InnerText>
+        </Picker>
       </PickerWrapper>
     </Container>
   );
