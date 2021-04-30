@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components/native";
 import DatePicker from "@react-native-community/datetimepicker";
 import { Container, DefaultContainer } from "..";
-import { Platform } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import { DatePickerLabelProps } from "../@types";
+import PropTypes from "prop-types";
 
 const LabelContainer = styled(DefaultContainer)`
   flex-direction: row;
@@ -33,7 +34,10 @@ const PickerWrapper = styled.View`
   overflow: hidden;
 `;
 
-export default function DatePickerLabel({ label, onChange }) {
+export default function DatePickerLabel({
+  label,
+  onChange,
+}: DatePickerLabelProps): JSX.Element {
   const [show, setShow] = useState(false);
   const [date, setDate] = useState(null);
   const printFormattedDate = (date: Date) => {
@@ -70,7 +74,7 @@ export default function DatePickerLabel({ label, onChange }) {
             display="spinner"
             style={{ backgroundColor: "#fff", height: 60 }}
             onChange={(_, date) => {
-              date && onChange(date);
+              date && onChange(String(date));
               date && setDate(date);
               setShow(false);
             }}
@@ -82,3 +86,8 @@ export default function DatePickerLabel({ label, onChange }) {
     </Container>
   );
 }
+
+DatePickerLabel.propTypes = {
+  label: PropTypes.string.isRequired,
+  onChange: PropTypes.func,
+};
