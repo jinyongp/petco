@@ -10,6 +10,7 @@ import Dog from "../assets/icons/dog.svg";
 import Cat from "../assets/icons/cat.svg";
 import LeftDog from "../assets/animals/dog105.svg";
 import RightCat from "../assets/animals/cat85.svg";
+import { PickerLabel } from "../components/picker";
 
 interface ButtonWrapperProps {
   readonly last?: boolean;
@@ -32,13 +33,21 @@ const PetTypeButton = styled.TouchableOpacity`
   background-color: #fff;
 `;
 
+const WeightUnit = styled.Text`
+  position: absolute;
+  right: 50;
+  top: 43;
+  font-size: 15px;
+`;
+
 const PetTypeDesc = styled.Text`
   padding: 14px;
 `;
 
+// TODO validation check
 const RegisterPets = () => {
   const navigation = useNavigation();
-  const { register, handleSubmit, setValue } = useForm();
+  const { register, handleSubmit, setValue, watch } = useForm();
   useEffect(() => {
     register("name");
     register("gender");
@@ -48,15 +57,6 @@ const RegisterPets = () => {
     register("vaccination");
   }, [register]);
 
-  const genderRef = useRef();
-  const birthRef = useRef();
-  const weightRef = useRef();
-  const neutralizationRef = useRef();
-  const vaccinationRef = useRef();
-  const onNext = (nextRef) => () => {
-    const { current }: any = nextRef;
-    current?.focus();
-  };
   const onValid = (data: object) => {
     console.log(data);
     // TODO validation
@@ -91,51 +91,49 @@ const RegisterPets = () => {
         <Container margin={{ bottom: 30 }}>
           <TextInputLabel
             label="반려동물 이름"
-            onSubmitEditing={onNext(genderRef)}
+            placeholder="이름"
             onChangeText={onSetValue("name")}
+            blurOnSubmit
           />
         </Container>
         <Container margin={{ bottom: 30 }}>
-          {/* FIXME Picker로 대체 */}
-          <TextInputLabel
+          <PickerLabel
             label="성별"
-            inputRef={genderRef}
-            onSubmitEditing={onNext(birthRef)}
-            onChangeText={onSetValue("gender")}
+            onChange={({ label }) => onSetValue("gender")(label)}
+            data={[{ label: "수컷(남)" }, { label: "암컷(여)" }]}
           />
         </Container>
         <Container margin={{ bottom: 30 }}>
           {/* FIXME Picker로 대체 */}
           <TextInputLabel
             label="생년월일"
-            inputRef={birthRef}
-            onSubmitEditing={onNext(weightRef)}
+            keyboardType="decimal-pad"
             onChangeText={onSetValue("birth")}
+            blurOnSubmit
           />
         </Container>
         <Container margin={{ bottom: 30 }}>
           <TextInputLabel
             label="몸무게"
-            inputRef={weightRef}
-            onSubmitEditing={onNext(neutralizationRef)}
-            onChangeText={onSetValue("weight")}
+            returnKeyType="done"
+            keyboardType="decimal-pad"
+            onChangeText={() => onSetValue("weight")}
+            blurOnSubmit
           />
+          <WeightUnit>kg</WeightUnit>
         </Container>
         <Container margin={{ bottom: 30 }}>
-          {/* FIXME Picker로 대체 */}
-          <TextInputLabel
+          <PickerLabel
             label="중성화 여부"
-            inputRef={neutralizationRef}
-            onSubmitEditing={onNext(vaccinationRef)}
-            onChangeText={onSetValue("neutralization")}
+            data={[{ label: "네" }, { label: "아니요" }]}
+            onChange={({ label }) => onSetValue("neutralization")(label)}
           />
         </Container>
         <Container margin={{ bottom: 30 }}>
-          {/* FIXME 데이터로 대체 */}
-          <TextInputLabel
+          <PickerLabel
             label="기초 접종 여부"
-            inputRef={vaccinationRef}
-            onChangeText={onSetValue("vaccination")}
+            data={[{ label: "네" }, { label: "아니요" }, { label: "몰라요" }]}
+            onChange={({ label }) => onSetValue("vaccination")(label)}
           />
         </Container>
         <Container margin={{ top: 30 }}>
