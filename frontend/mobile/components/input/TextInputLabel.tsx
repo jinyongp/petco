@@ -62,6 +62,7 @@ export default function TextInputLabel({
           autoCorrect={false}
           autoCapitalize="none"
           autoCompleteType="off"
+          clearTextOnFocus={Boolean(error)}
           keyboardType={keyboardType}
           blurOnSubmit={blurOnSubmit}
           placeholder={placeholder}
