@@ -15,7 +15,7 @@ model users {
   username     String
   userId       String         @unique
   email        String         @unique
-  avatar       String
+  avatar       String         @default("no photo")
   password     String
   phone_number String         @unique
   is_valid     Boolean        @default(false)
@@ -29,7 +29,7 @@ model users {
 model pets {
   id           Int            @id @default(autoincrement())
   name         String
-  avatar       String
+  avatar       String         @default("no photo")
   birth        String
   gender       String
   weight       String
