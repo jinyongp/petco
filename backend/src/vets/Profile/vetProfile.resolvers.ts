@@ -3,7 +3,7 @@ import client from "../../client"
 
 const resolvers:Resolvers = {
   Query:{
-    vetProfile: async (_,where)=>{
+    vetProfile: async (_,where):Promise<any>=>{
       const vet = await client.vets.findFirst({ where })
       .catch(err=>{ return { result:false, message:"병원정보를 불러올 수 없습니다.", error:err }});
       
