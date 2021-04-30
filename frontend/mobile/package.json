@@ -3,6 +3,7 @@
   "dependencies": {
     "@apollo/client": "^3.3.15",
     "@expo/vector-icons": "^12.0.0",
+    "@react-native-community/datetimepicker": "3.2.0",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/bottom-tabs": "^5.11.10",
     "@react-navigation/native": "^5.0.5",
