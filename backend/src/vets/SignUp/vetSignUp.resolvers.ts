@@ -13,11 +13,9 @@ const resolvers:Resolvers = {
 
       const passwordHash = await bcrypt.hash(password,10);
       data.password = passwordHash
-      const vet = await client.vets.create({
-        data
-      })
+      const vet = await client.vets.create({ data })
       .catch(err=>{ return {result:false,message:"병원등록에 실패하였습니다.",error:err} })
-      return {result:true,vet:vet,message:"병원등록에 성공하였습니다."}
+      return {result:true,vet:{...vet,password:null},message:"병원등록에 성공하였습니다."}
     }
   }
 }

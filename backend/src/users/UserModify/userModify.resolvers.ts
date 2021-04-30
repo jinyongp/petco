@@ -13,7 +13,7 @@ const resolvers:Resolvers  = {
       })
       .catch(err=>{ return {result:false,message:"회원정보 수정에 실패하였습니다.",error:err }})
       
-      return {result:true, user:{...user}, message:"회원정보 수정이 완료되었습니다."}
+      return {result:true, user, message:"회원정보 수정이 완료되었습니다."}
     }
   }
 }

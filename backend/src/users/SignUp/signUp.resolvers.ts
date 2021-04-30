@@ -15,9 +15,7 @@ const resolvers: Resolvers = {
 
       const passwordHash = await bcrypt.hash(password, 10)
       data.password = passwordHash
-      const user = await client.users.create({
-        data
-      });
+      const user = await client.users.create({ data });
       if(!user) return { result:false, message:"회원가입에 실패하였습니다."}
       return {user:{...user,password:null},result:true, message:"회원가입에 성공하였습니다."}
     }
