@@ -1,4 +1,5 @@
 import React from "react";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { ActivityIndicator } from "react-native";
 import Container from "./Container";
 import DismissKeyboard from "./DismissKeyboard";
@@ -14,7 +15,9 @@ export default function ScreenLayout({
     <ScrollContainer>
       <DismissKeyboard>
         <Container padding={{ left: "5%", right: "5%" }}>
-          {loading ? <ActivityIndicator /> : children}
+          <KeyboardAwareScrollView style={{ width: "100%" }} extraHeight={0}>
+            {loading ? <ActivityIndicator /> : children}
+          </KeyboardAwareScrollView>
         </Container>
       </DismissKeyboard>
     </ScrollContainer>
