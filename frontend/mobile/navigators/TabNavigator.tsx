@@ -4,7 +4,7 @@ import { Tabs } from "./Factory";
 import {
   HomeStackNavigator,
   MyApplyListStackNavigator,
-  MyProfileStackNavigator,
+  MyPageStackNavigator,
 } from "./stack";
 
 export default function TabNavigator() {
@@ -48,7 +48,7 @@ export default function TabNavigator() {
       />
       <Tabs.Screen
         name="MyProfile"
-        component={MyProfileStackNavigator}
+        component={MyPageStackNavigator}
         options={{
           tabBarIcon: ({ focused, color }) => (
             <TabIcon

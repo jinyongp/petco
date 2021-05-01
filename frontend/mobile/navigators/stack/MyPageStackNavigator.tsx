@@ -1,12 +1,18 @@
 import React from "react";
-import { MyProfile, RegisterPets } from "../../screens";
+import { MyPage, RegisterPets } from "../../screens";
 import { Stack } from "../Factory";
 import { stackNavigationOptions } from "../global/options";
 
-export default function MyProfileStackNavigator() {
+export default function MyPageStackNavigator() {
   return (
     <Stack.Navigator screenOptions={stackNavigationOptions}>
-      <Stack.Screen name="MyProfile" component={MyProfile} />
+      <Stack.Screen
+        name="MyProfile"
+        component={MyPage}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen name="RegisterPets" component={RegisterPets} />
     </Stack.Navigator>
   );
