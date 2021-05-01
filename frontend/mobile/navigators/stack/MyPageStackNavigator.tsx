@@ -6,7 +6,13 @@ import { stackNavigationOptions } from "../global/options";
 export default function MyPageStackNavigator() {
   return (
     <Stack.Navigator screenOptions={stackNavigationOptions}>
-      <Stack.Screen name="MyProfile" component={MyPage} />
+      <Stack.Screen
+        name="MyProfile"
+        component={MyPage}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen name="RegisterPets" component={RegisterPets} />
     </Stack.Navigator>
   );
