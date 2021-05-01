@@ -13,7 +13,7 @@ export default function TabIcon({
     <Ionicons
       name={name}
       color={current ? "#fec544" : color}
-      size={size || current ? 24 : 22}
+      size={size || current ? 30 : 28}
     />
   );
 }
