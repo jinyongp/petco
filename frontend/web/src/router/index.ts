@@ -4,6 +4,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Appointment from "../views/Appointment.vue";
 import Support from "../views/Support.vue";
+import MyPage from "../views/MyPage.vue";
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,11 @@ const routes = [
     component: Home,
   },
   {
+    name: "home",
+    path: "/home",
+    component: Home,
+  },
+  {
     name: "appointment",
     path: "/appointment",
     component: Appointment,
@@ -23,6 +29,11 @@ const routes = [
     name: "support",
     path: "/support",
     component: Support,
+  },
+  {
+    name: "mypage",
+    path: "/myapage",
+    component: MyPage,
   },
 ];
 
