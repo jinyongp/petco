@@ -4,7 +4,6 @@ export default gql`
     result:Boolean
     message:String
     user:User
-    error:String
   }
   type Mutation{
     userModify(

@@ -4,7 +4,6 @@ export default gql`
     pet:Pet
     result:Boolean
     message:String
-    error:String
   }
   type Mutation{
     addPet(

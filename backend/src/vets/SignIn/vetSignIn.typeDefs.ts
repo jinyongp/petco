@@ -5,7 +5,6 @@ export default gql`
     result:Boolean
     token:String
     message:String
-    error:String
   }
   type Query{
     vetSignIn(hospital_id:String,password:String):VetSignInPayLoad

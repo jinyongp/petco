@@ -6,7 +6,6 @@ export default gql`
     vet:Vet
     token:String
     message:String
-    error:String
   }
   type Mutation{
     vetModify(

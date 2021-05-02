@@ -5,7 +5,6 @@ export default gql`
     result:Boolean
     appointment:Appointment
     message:String
-    error:String
   }
   type Mutation{
     requestAppointment(

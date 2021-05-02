@@ -6,12 +6,9 @@ const resolvers:Resolvers={
     modifyPet: async (_,data):Promise<any>=>{
       const {id} = data
       delete data.id
-      const pet = await client.pets.update({
-        data,
-        where:{id}
-      })
-      .catch(err=> {return {result:false,message:"반려동물 정보수정에 실패하였습니다.",error:err}})
-      return {result:true,pet:pet,message:"반려동물 정보수정에 성공하였습니다."}
+      const pet = await client.pets.update({data,where:{id}}).catch(()=> {return null})
+      if(!pet) return {result:false,message:"반려동물 정보수정에 실패하였습니다."}
+      return {result:true,pet,message:"반려동물 정보수정에 성공하였습니다."}
     }
   }
 }

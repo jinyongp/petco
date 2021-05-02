@@ -5,7 +5,6 @@ export default gql`
     result: Boolean
     pets: [Pet]
     message:String
-    error:String
   }
   type Query{
     petProfile(user_id:Int):PetProfilePayLoad
