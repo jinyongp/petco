@@ -46,8 +46,8 @@ model pets {
 
 model appointments {
   id         Int      @id @default(autoincrement())
-  status     status
-  date       DateTime
+  status     status   @default(request)
+  date       String
   vets       vets?    @relation(fields: [vet_id], references: [id])
   vet_id     Int?
   users      users?   @relation(fields: [user_id], references: [id])
@@ -61,7 +61,7 @@ model appointments {
 model estimates {
   id              Int      @id @default(autoincrement())
   request_comment String
-  status          status
+  status          status   @default(request)
   vets            vets?    @relation(fields: [vet_id], references: [id])
   vet_id          Int?
   users           users?   @relation(fields: [user_id], references: [id])

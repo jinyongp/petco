@@ -5,7 +5,6 @@ export default gql`
     result: Boolean
     vet: Vet
     message: String
-    error: String
   }
   type Mutation{
     vetSignUp(

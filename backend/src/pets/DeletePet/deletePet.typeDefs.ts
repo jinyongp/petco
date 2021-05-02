@@ -5,7 +5,6 @@ export default gql`
     result:Boolean
     pet:Pet
     message:String
-    error:String
   }
   type Mutation{
     deletePet(id:Int):DeletePetPayLoad

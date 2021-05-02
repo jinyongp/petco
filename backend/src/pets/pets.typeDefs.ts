@@ -16,6 +16,8 @@ export default gql`
     in_neutered: Boolean
     vaccinated: Boolean
     user_id: Int
+    created_at:String
+    updated_at:String
     # TODO - type definitions
   }
 `;

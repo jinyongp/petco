@@ -1,11 +1,12 @@
 import {gql} from "apollo-server"
 
 export default gql`
-  type VetSignOutPayLoad{
+  type CancelAppointmentPayLoad{
     result:Boolean
+    appointment:Appointment
     message:String
   }
   type Mutation{
-    vetSignOut(id:Int):VetSignOutPayLoad
+    cancelAppointment(id:Int):CancelAppointmentPayLoad
   }
 `;
