@@ -1,18 +1,28 @@
 <template>
   <div>
-    <div class="text">{{ msg }}</div>
-    <div class="textField"></div>
+    <div v-if="loginDone">
+      <div class="text">{{ msg }}</div>
+      <div class="textField"></div>
+    </div>
+    <div v-else>
+      <div class="text">{{ msg }}</div>
+      <div class="textField"></div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+// import gql from "graphql-tag";
+
 export default Vue.extend({
   data() {
     return {
-      msg: "무엇을 도와드릴까요?"
+      msg: "무엇을 도와드릴까요?",
+      loginDone: false,
     };
-  }
+  },
+  apollo: {},
 });
 </script>
 

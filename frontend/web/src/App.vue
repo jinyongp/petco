@@ -1,15 +1,40 @@
 <template>
   <div id="app" class="filters">
     <div class="logo">PETCO</div>
-    <router-link to="/" class="to-home">
-      <div>login</div>
-    </router-link>
-    <router-link to="/appointment" class="to-appointment" tag="button">
-      <div>예약 현황</div>
-    </router-link>
-    <router-link to="/support" class="to-support" tag="button">
-      <div>지원</div>
-    </router-link>
+    <div v-if="loginDone">
+      <button class="to-log">Log out</button>
+      <router-link to="/home" class="to-home" tag="button">
+        <div>홈</div>
+      </router-link>
+      <router-link to="/appointment" class="to-appointment" tag="button">
+        <div>예약 현황</div>
+      </router-link>
+      <router-link to="/support" class="to-support" tag="button">
+        <div>견적관리</div>
+      </router-link>
+      <router-link to="/mypage" class="to-mypage" tag="button">
+        <div>마이페이지</div>
+      </router-link>
+    </div>
+    <div v-else>
+      <router-link to="/" class="to-log">
+        <div>Log in</div>
+      </router-link>
+      <router-link to="/home" class="to-home" tag="button">
+        <div>홈</div>
+      </router-link>
+      <router-link to="/support" class="to-support" tag="button">
+        <div>견적관리</div>
+      </router-link>
+      <router-link to="/appointment" class="to-appointment" tag="button">
+        <div>예약 현황</div>
+      </router-link>
+
+      <router-link to="/mypage" class="to-mypage" tag="button">
+        <div>마이페이지</div>
+      </router-link>
+    </div>
+
     <router-view />
   </div>
 </template>
@@ -19,16 +44,10 @@ import { Component, Vue } from "vue-property-decorator";
 
 @Component
 export default class App extends Vue {
-  isFocus: boolean = true;
+  loginDone: boolean = false;
   created() {
     console.log("router", this.$router);
     console.log("route", this.$route);
-  }
-  offFocus() {
-    this.isFocus = false;
-  }
-  isFocusClick() {
-    this.isFocus = true;
   }
 }
 </script>
@@ -57,33 +76,51 @@ export default class App extends Vue {
 
   color: #000000;
 }
-.to-appointment {
+.to-home {
   position: absolute;
-  width: 140px;
-  height: 15px;
-  left: 784px;
-  top: 70px;
+  width: 24px;
+  height: 28px;
+  left: 462px;
+  top: 75px;
 
-  background: white;
-  border: white;
   font-family: NanumGothic;
   font-style: normal;
   font-weight: bold;
   font-size: 26px;
   line-height: 26px;
   letter-spacing: -0.3px;
+
+  background: white;
+  border: white;
+
+  color: #000000;
+}
+.to-appointment {
+  position: absolute;
+  width: 120px;
+  height: 28px;
+  left: 708px;
+  top: 75px;
+
+  font-family: NanumGothic;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 26px;
+  line-height: 26px;
+  letter-spacing: -0.3px;
+
+  background: white;
+  border: white;
 
   color: #000000;
 }
 .to-support {
   position: absolute;
-  width: 70px;
+  width: 120px;
   height: 28px;
-  left: 953px;
-  top: 70px;
+  left: 544px;
+  top: 75px;
 
-  background: white;
-  border: white;
   font-family: NanumGothic;
   font-style: normal;
   font-weight: bold;
@@ -91,9 +128,12 @@ export default class App extends Vue {
   line-height: 26px;
   letter-spacing: -0.3px;
 
+  background: white;
+  border: white;
+
   color: #000000;
 }
-.to-home {
+.to-log {
   position: absolute;
   width: 158px;
   height: 61px;
@@ -115,6 +155,25 @@ export default class App extends Vue {
   font-size: 26px;
   line-height: 26px;
   letter-spacing: -0.3px;
+
+  color: #000000;
+}
+.to-mypage {
+  position: absolute;
+  width: 140px;
+  height: 28px;
+  left: 880px;
+  top: 75px;
+
+  font-family: NanumGothic;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 26px;
+  line-height: 26px;
+  letter-spacing: -0.3px;
+
+  background: white;
+  border: white;
 
   color: #000000;
 }

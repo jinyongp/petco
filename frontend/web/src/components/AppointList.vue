@@ -1,12 +1,23 @@
 <template>
   <div>
-    <div v-for="appoint in appoints" :key="appoint.id" class="col" cols="12" lg="3" md="3">
+    <div
+      v-for="appoint in appoints"
+      :key="appoint.id"
+      class="col"
+      cols="12"
+      lg="3"
+      md="3"
+    >
       <div class="card">
         <div class="name">{{ appoint.name }}</div>
         <div class="birth">생년월일 : {{ appoint.date }}</div>
         <div class="text">몸무게 : {{ appoint.weight }} kg</div>
-        <div class="text">중성화 여부 : {{ isTrue(appoint.neutralization) }}</div>
-        <div class="text">백신접종 여부 : {{ isTrue(appoint.vaccination) }}</div>
+        <div class="text">
+          중성화 여부 : {{ isTrue(appoint.neutralization) }}
+        </div>
+        <div class="text">
+          백신접종 여부 : {{ isTrue(appoint.vaccination) }}
+        </div>
       </div>
     </div>
   </div>
@@ -14,6 +25,8 @@
 
 <script lang="ts">
 import Vue from "vue";
+// import gql from "graphql-tag";
+
 export default Vue.extend({
   data() {
     return {
@@ -24,7 +37,7 @@ export default Vue.extend({
           date: "2013.03.17",
           weight: 3.8,
           neutralization: true,
-          vaccination: true
+          vaccination: true,
         },
         {
           id: 2,
@@ -32,16 +45,43 @@ export default Vue.extend({
           date: "2017.05.27",
           weight: 2.1,
           neutralization: false,
-          vaccination: true
-        }
-      ]
+          vaccination: true,
+        },
+      ],
     };
   },
+  // apollo: {
+  //   appoints: gql` query{
+  //     appoints{
+  //       id
+  //       name
+  //       date
+  //       weight
+  //       neutralization
+  //       vaccination
+  //     }
+  //   }`,
+  // },
   methods: {
     isTrue(prop: any) {
       return prop === true ? "O" : "X";
-    }
-  }
+    },
+    // async cancelAppoint() {
+    //   const result = await this.$apollo.mutate({
+    //     mutation: gql`
+    //       mutation cancelAppoint($appointment: String!) {
+    //         cancelAppoint(appointment: $appointment) {
+    //           ok
+    //           error
+    //         }
+    //       }
+    //     `,
+    //     variables: {
+    //       appointment: this.appointment,
+    //     },
+    //   });
+    // },
+  },
 });
 </script>
 
