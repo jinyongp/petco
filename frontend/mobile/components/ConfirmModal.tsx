@@ -1,31 +1,10 @@
 import React from "react";
 import Modal from "react-native-modal";
-import styled from "styled-components/native";
+import { StyleSheet, Text } from "react-native";
 import Container from "./Container";
-import NextButton from "./NextButton";
 import PropTypes from "prop-types";
 import { ConfirmModalProps } from "./@types";
-
-const StyledModal = styled(Modal)`
-  background-color: #fff;
-  border-radius: 30px;
-  width: 325px;
-  height: 400px;
-  margin: auto auto;
-  padding: 40px;
-`;
-
-const ModalHeader = styled.Text`
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 30px;
-`;
-
-const ModalContent = styled.Text`
-  font-size: 15px;
-  text-align: center;
-  margin-bottom: 40px;
-`;
+import { TouchableButton } from "./button";
 
 export default function ConfirmModal({
   isVisible,
@@ -34,30 +13,60 @@ export default function ConfirmModal({
   onClose,
   header,
   content,
-  buttonText,
 }: ConfirmModalProps): JSX.Element {
   return (
-    <StyledModal
+    <Modal
       animationIn="zoomIn"
       animationOut="fadeOut"
       backdropTransitionOutTiming={0} // It solves a modal flickering occurred from android
-      style={{ flex: 0 }}
+      style={styles.modal}
       isVisible={isVisible}
     >
       <Container>
         <Container row margin={{ bottom: 40 }}>
-          <LeftPetSvg width={100} height={100} />
-          <RightPetSvg width={100} height={100} />
+          {LeftPetSvg && <LeftPetSvg width={100} height={100} />}
+          {RightPetSvg && <RightPetSvg width={100} height={100} />}
         </Container>
         <Container>
-          <ModalHeader>{header}</ModalHeader>
+          <Text style={styles.header}>{header}</Text>
         </Container>
-        <ModalContent>{content}</ModalContent>
-        <NextButton onPress={onClose} text={buttonText} disabled={false} />
+        <Text style={styles.content}>{content}</Text>
+        <TouchableButton
+          onPress={onClose}
+          disabled={false}
+          width="100%"
+          height={50}
+          title="완료"
+        />
       </Container>
-    </StyledModal>
+    </Modal>
   );
 }
+
+const styles = StyleSheet.create({
+  modal: {
+    flex: 0,
+    backgroundColor: "white",
+    borderRadius: 30,
+    width: 325,
+    height: 400,
+    marginTop: "auto",
+    marginBottom: "auto",
+    marginRight: "auto",
+    marginLeft: "auto",
+    padding: 40,
+  },
+  header: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 30,
+  },
+  content: {
+    fontSize: 15,
+    textAlign: "center",
+    marginBottom: 40,
+  },
+});
 
 ConfirmModal.defaultProps = {};
 

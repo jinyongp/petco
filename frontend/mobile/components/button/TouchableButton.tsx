@@ -1,7 +1,7 @@
 import React from "react";
 import { Pressable, StyleSheet, ViewStyle } from "react-native";
 import { colors } from "../../style/colors";
-import { Container } from "..";
+import Container from "../Container";
 import { TouchableButtonProps } from "../@types";
 import { ButtonTitle } from "../text";
 
