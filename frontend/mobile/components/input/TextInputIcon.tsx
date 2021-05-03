@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     height: 50,
-    marginVertical: 12.5,
     paddingRight: 120,
     shadowColor: "rgba(0, 0, 0, 0.25)",
     shadowOffset: { width: 0, height: 2 },
@@ -68,6 +67,7 @@ const styles = StyleSheet.create({
     left: 78,
     width: "100%",
     fontSize: 15,
+    fontFamily: "nanum-regular",
   },
 });
 

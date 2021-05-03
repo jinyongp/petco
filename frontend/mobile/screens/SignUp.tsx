@@ -88,7 +88,10 @@ export default function SignUp() {
         <MainTitle title={`회원가입을${"\n"}환영합니다`} />
       </Container>
 
-      <Container margin={{ bottom: 40 }}>
+      <Container
+        margin={{ bottom: 40 }}
+        style={{ justifyContent: "space-between", height: 330 }}
+      >
         <TextInputIcon
           Icon={Person}
           size={20}
