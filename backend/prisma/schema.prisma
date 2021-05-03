@@ -59,18 +59,27 @@ model appointments {
 }
 
 model estimates {
-  id               Int      @id @default(autoincrement())
-  request_comment  String
-  response_comment String   @default("")
-  status           status   @default(request)
-  vets             vets?    @relation(fields: [vet_id], references: [id])
-  vet_id           Int?
-  users            users?   @relation(fields: [user_id], references: [id])
-  user_id          Int?
-  pets             pets?    @relation(fields: [pet_id], references: [id])
-  pet_id           Int?
-  created_at       DateTime @default(now())
-  updated_at       DateTime @updatedAt
+  id                Int                 @id @default(autoincrement())
+  request_comment   String
+  status            status              @default(request)
+  vets              vets?               @relation(fields: [vet_id], references: [id])
+  vet_id            Int?
+  users             users?              @relation(fields: [user_id], references: [id])
+  user_id           Int?
+  pets              pets?               @relation(fields: [pet_id], references: [id])
+  pet_id            Int?
+  created_at        DateTime            @default(now())
+  updated_at        DateTime            @updatedAt
+  response_estimate response_estimate[]
+}
+
+model response_estimate {
+  id               Int        @id @default(autoincrement())
+  response_comment String     @default("")
+  estimates        estimates? @relation(fields: [estimate_id], references: [id])
+  estimate_id      Int?
+  created_at       DateTime   @default(now())
+  updated_at       DateTime   @updatedAt
 }
 
 model vets {
