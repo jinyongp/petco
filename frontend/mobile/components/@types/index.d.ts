@@ -40,6 +40,12 @@ export interface TouchableButtonProps {
   readonly loading?: boolean;
 }
 
+export interface TouchableContainerProps
+  extends Omit<TouchableButtonProps, "title">,
+    CommonProps {
+  readonly row?: boolean;
+}
+
 export interface ContainerProps extends CommonProps {
   readonly padding?: string | number | FourWayType;
   readonly margin?: string | number | FourWayType;
@@ -59,8 +65,9 @@ export interface ConfirmModalProps {
   readonly buttonSize?: SizeType;
 }
 
-export interface TextInputIconProps extends TextInputProps, SvgProps {
+export interface TextInputIconProps extends TextInputProps {
   readonly Icon: React.FC<SvgProps>;
+  readonly color: SvgProps["color"];
   readonly inputRef?: any;
   readonly size?: number | SizeType;
 }
@@ -69,10 +76,6 @@ export interface TextInputLabelProps extends TextInputProps {
   readonly label: string;
   readonly error?: string;
   readonly inputRef?: any;
-}
-
-export interface AuthLayoutProps extends CommonProps {
-  readonly title: string;
 }
 
 export interface TextLinkProps {

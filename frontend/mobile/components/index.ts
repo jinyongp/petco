@@ -4,6 +4,7 @@ export { default as Container } from "./Container";
 
 /* button */
 export { default as TouchableButton } from "./button/TouchableButton";
+export { default as TouchableContainer } from "./button/TouchableContainer";
 export { default as TextLink } from "./button/TextLink";
 
 /* input */
