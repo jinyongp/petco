@@ -1,10 +1,10 @@
 import React from "react";
 import Modal from "react-native-modal";
 import { StyleSheet, Text } from "react-native";
-import Container from "./Container";
+import Container from "../Container";
 import PropTypes from "prop-types";
-import { ConfirmModalProps } from "./@types";
-import { TouchableButton } from "./button";
+import { ConfirmModalProps } from "../@types";
+import { TouchableButton } from "../button";
 
 export default function ConfirmModal({
   isVisible,
@@ -13,30 +13,36 @@ export default function ConfirmModal({
   onClose,
   header,
   content,
+  containerSize,
+  buttonSize,
+  buttonTitle,
 }: ConfirmModalProps): JSX.Element {
   return (
     <Modal
       animationIn="zoomIn"
       animationOut="fadeOut"
       backdropTransitionOutTiming={0} // It solves a modal flickering occurred from android
-      style={styles.modal}
+      style={[styles.modal, containerSize]}
       isVisible={isVisible}
     >
       <Container>
-        <Container row margin={{ bottom: 40 }}>
-          {LeftPetSvg && <LeftPetSvg width={100} height={100} />}
-          {RightPetSvg && <RightPetSvg width={100} height={100} />}
-        </Container>
-        <Container>
-          <Text style={styles.header}>{header}</Text>
-        </Container>
-        <Text style={styles.content}>{content}</Text>
+        {(LeftPetSvg || RightPetSvg) && (
+          <Container row margin={{ bottom: 40 }}>
+            {LeftPetSvg && <LeftPetSvg width={100} height={100} />}
+            {RightPetSvg && <RightPetSvg width={100} height={100} />}
+          </Container>
+        )}
+        {header && (
+          <Container>
+            <Text style={styles.header}>{header}</Text>
+          </Container>
+        )}
+        {content && <Text style={styles.content}>{content}</Text>}
         <TouchableButton
           onPress={onClose}
-          disabled={false}
-          width="100%"
-          height={50}
-          title="완료"
+          title={buttonTitle}
+          width={buttonSize?.width}
+          height={buttonSize?.height}
         />
       </Container>
     </Modal>
@@ -48,13 +54,11 @@ const styles = StyleSheet.create({
     flex: 0,
     backgroundColor: "white",
     borderRadius: 30,
-    width: 325,
-    height: 400,
     marginTop: "auto",
     marginBottom: "auto",
     marginRight: "auto",
     marginLeft: "auto",
-    padding: 40,
+    padding: 30,
   },
   header: {
     fontSize: 20,
@@ -68,14 +72,23 @@ const styles = StyleSheet.create({
   },
 });
 
-ConfirmModal.defaultProps = {};
+ConfirmModal.defaultProps = {
+  containerSize: {
+    width: 0,
+    height: 0,
+  },
+  buttonSize: {
+    width: "100%",
+    height: 50,
+  },
+};
 
 ConfirmModal.propTypes = {
   isVisible: PropTypes.bool.isRequired,
   LeftPetSvg: PropTypes.func,
   RightPetSvg: PropTypes.func,
   onClose: PropTypes.func.isRequired,
-  header: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
-  buttonText: PropTypes.string.isRequired,
+  header: PropTypes.string,
+  content: PropTypes.string,
+  buttonTitle: PropTypes.string.isRequired,
 };
