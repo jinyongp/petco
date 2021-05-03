@@ -3,8 +3,8 @@ import { Pressable, StyleSheet } from "react-native";
 import { colors } from "../../style/colors";
 import Container from "../Container";
 import { TouchableButtonProps } from "../@types";
-import { ButtonTitle } from "../text";
 import PropTypes from "prop-types";
+import ButtonTitle from "../text/ButtonTitle";
 
 export default function TouchableButton({
   width,
