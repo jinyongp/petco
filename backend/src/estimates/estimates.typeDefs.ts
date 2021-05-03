@@ -12,4 +12,11 @@ export default gql`
     created_at:String
     updated_at:String
   }
+  type ResponseEstimate{
+    id:Int
+    response_comment:String
+    estimate_id:Int
+    created_at:String
+    updated_at:String
+  }
 `;
