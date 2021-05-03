@@ -9,10 +9,26 @@ import {
 } from "@react-native-community/datetimepicker";
 import ModalSelector from "react-native-modal-selector";
 
-type onPressType = (event: GestureResponderEvent) => void;
+type onPressType = (event?: GestureResponderEvent) => void;
+
+type SizeType = {
+  readonly width?: number | string;
+  readonly height?: number | string;
+};
+
+type FourWayType = {
+  top?: string | number;
+  right?: string | number;
+  bottom?: string | number;
+  left?: string | number;
+};
 
 export interface CommonProps {
   readonly children?: React.ReactNode;
+}
+
+export interface ScreenLayoutProps extends CommonProps {
+  readonly align?: "flex-start" | "center" | "flex-end";
 }
 
 export interface TouchableButtonProps {
@@ -21,27 +37,12 @@ export interface TouchableButtonProps {
   readonly width?: ViewStyle["width"];
   readonly height?: ViewStyle["height"];
   readonly title: string;
+  readonly loading?: boolean;
 }
 
 export interface ContainerProps extends CommonProps {
-  readonly padding?:
-    | string
-    | number
-    | {
-        top?: string | number;
-        right?: string | number;
-        bottom?: string | number;
-        left?: string | number;
-      };
-  readonly margin?:
-    | string
-    | number
-    | {
-        top?: string | number;
-        right?: string | number;
-        bottom?: string | number;
-        left?: string | number;
-      };
+  readonly padding?: string | number | FourWayType;
+  readonly margin?: string | number | FourWayType;
   readonly row?: boolean;
   readonly style?: ViewStyle;
 }
@@ -49,21 +50,19 @@ export interface ContainerProps extends CommonProps {
 export interface ConfirmModalProps {
   readonly isVisible: boolean;
   readonly onClose: onPressType;
-  readonly header: string;
-  readonly content: string;
+  readonly header?: string;
+  readonly content?: string;
+  readonly buttonTitle?: string;
   readonly LeftPetSvg?: React.FC<SvgProps>;
   readonly RightPetSvg?: React.FC<SvgProps>;
+  readonly containerSize?: SizeType;
+  readonly buttonSize?: SizeType;
 }
 
-export interface ScreenLayoutProps extends CommonProps {
-  readonly loading?: boolean;
-}
-
-export interface TextInputIconProps
-  extends TextInputProps,
-    Omit<IconProps, "name"> {
-  readonly icon: React.ComponentProps<typeof Ionicons>["name"];
+export interface TextInputIconProps extends TextInputProps, SvgProps {
+  readonly Icon: React.FC<SvgProps>;
   readonly inputRef?: any;
+  readonly size?: number | SizeType;
 }
 
 export interface TextInputLabelProps extends TextInputProps {
@@ -76,7 +75,7 @@ export interface AuthLayoutProps extends CommonProps {
   readonly title: string;
 }
 
-export interface AuthLinkProps {
+export interface TextLinkProps {
   readonly onPress: onPressType;
   readonly desc: string;
   readonly link: string;
@@ -97,4 +96,8 @@ export interface DatePickerLabelProps
     Omit<AndroidNativeProps, "value"> {
   readonly label: string;
   readonly onChange: (date: string) => void;
+}
+
+export interface TitleProps {
+  readonly title: string;
 }
