@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import Font from "expo-font";
 import AppLoading from "expo-app-loading";
+import { Ionicons } from "@expo/vector-icons";
 import { AuthNavigator, TabNavigator } from "./navigators";
 import { ApolloProvider, useReactiveVar } from "@apollo/client";
 import client, { isLoggedIn } from "./apollo";
@@ -12,10 +14,16 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const onFinish = () => setLoading(false);
   const startAsync = async () => {
-    // TODO async 작업
-    const waitFiveSeconds = new Promise((res) => setTimeout(res, 500));
-    await Promise.all([waitFiveSeconds]);
+    await Font.loadAsync({
+      NanumLight: require("./assets/fonts/NanumGothic/NanumGothicLight.ttf"),
+      NanumRegular: require("./assets/fonts/NanumGothic/NanumGothic.ttf"),
+      NanumBold: require("./assets/fonts/NanumGothic/NanumGothicBold.ttf"),
+      NanumExtraBold: require("./assets/fonts/NanumGothic/NanumGothicExtraBold.ttf"),
+      ...Ionicons.font,
+    });
+    await new Promise((res) => setTimeout(res, 500));
   };
+
   if (loading) {
     return (
       <AppLoading
