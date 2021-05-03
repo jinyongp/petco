@@ -1,10 +1,10 @@
 import React from "react";
 import Modal from "react-native-modal";
 import { StyleSheet, Text } from "react-native";
-import Container from "../Container";
 import PropTypes from "prop-types";
 import { ConfirmModalProps } from "../@types";
-import { TouchableButton } from "../button";
+import Container from "../Container";
+import TouchableButton from "../button/TouchableButton";
 
 export default function ConfirmModal({
   isVisible,
@@ -27,7 +27,7 @@ export default function ConfirmModal({
     >
       <Container>
         {(LeftPetSvg || RightPetSvg) && (
-          <Container row margin={{ bottom: 40 }}>
+          <Container row margin={{ bottom: 30 }}>
             {LeftPetSvg && <LeftPetSvg width={100} height={100} />}
             {RightPetSvg && <RightPetSvg width={100} height={100} />}
           </Container>
@@ -52,6 +52,8 @@ export default function ConfirmModal({
 const styles = StyleSheet.create({
   modal: {
     flex: 0,
+    width: 316,
+    height: 400,
     backgroundColor: "white",
     borderRadius: 30,
     marginTop: "auto",
@@ -74,8 +76,8 @@ const styles = StyleSheet.create({
 
 ConfirmModal.defaultProps = {
   containerSize: {
-    width: 0,
-    height: 0,
+    width: 316,
+    height: 400,
   },
   buttonSize: {
     width: "100%",
