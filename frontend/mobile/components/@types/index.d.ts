@@ -15,10 +15,12 @@ export interface CommonProps {
   readonly children?: React.ReactNode;
 }
 
-export interface NextButtonProps {
+export interface TouchableButtonProps {
   readonly onPress?: onPressType;
-  readonly text: string;
   readonly disabled?: boolean;
+  readonly width?: ViewStyle["width"];
+  readonly height?: ViewStyle["height"];
+  readonly title: string;
 }
 
 export interface ContainerProps extends CommonProps {
