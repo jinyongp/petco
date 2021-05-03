@@ -1,20 +1,24 @@
 import React, { useRef, useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
 import { ApolloError, gql, useMutation } from "@apollo/client";
 import { isLoggedIn } from "../apollo";
-import { Container } from "../components";
-import { TextInputIcon } from "../components/input";
-import { ScreenLayout } from "../components/layout";
-import { MainTitle, PlainText } from "../components/text";
-import { TextLink, TouchableButton } from "../components/button";
 import { SignInInput, SignInPayload } from "./@types";
 import Lock from "../assets/icons/lock.svg";
 import Person from "../assets/icons/person.svg";
 import Dog from "../assets/animals/dog103.svg";
 import Cat from "../assets/animals/cat82.svg";
-import { ConfirmModal } from "../components/modal";
+import {
+  Container,
+  ErrorModal,
+  MainTitle,
+  PlainText,
+  ScreenLayout,
+  TextInputIcon,
+  TextLink,
+  TouchableButton,
+} from "../components";
 
 const SIGNIN_MUTATION = gql`
   mutation Login($userId: String!, $password: String!) {
@@ -27,10 +31,16 @@ const SIGNIN_MUTATION = gql`
 `;
 
 export default function SignIn(): JSX.Element {
+  const { params } = useRoute();
   const navigation = useNavigation();
   const [networkError, setNetworkError] = useState(false);
   const [accountError, setAccountError] = useState(false);
-  const { register, handleSubmit, setValue, watch } = useForm();
+  const { register, handleSubmit, setValue, watch } = useForm({
+    defaultValues: {
+      userId: params?.userId, // FIXME not working
+      password: "",
+    },
+  });
   useEffect(() => {
     register("userId", { required: true });
     register("password", { required: true });
@@ -131,24 +141,5 @@ export default function SignIn(): JSX.Element {
         />
       </Container>
     </ScreenLayout>
-  );
-}
-
-interface ErrorModalProps {
-  error: boolean;
-  content: string;
-  onClose: () => void;
-}
-
-function ErrorModal({ error, content, onClose }: ErrorModalProps): JSX.Element {
-  return (
-    <ConfirmModal
-      isVisible={error}
-      content={content}
-      onClose={onClose}
-      containerSize={{ width: 330 }}
-      buttonSize={{ width: 160 }}
-      buttonTitle="확인"
-    />
   );
 }
