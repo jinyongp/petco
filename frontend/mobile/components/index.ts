@@ -6,4 +6,3 @@ export { default as ConfirmModal } from "./ConfirmModal";
 export { default as DismissKeyboard } from "./DismissKeyboard";
 export { default as ScrollContainer } from "./ScrollContainer";
 export { default as ScreenLayout } from "./ScreenLayout";
-export { default as NextButton } from "./NextButton";

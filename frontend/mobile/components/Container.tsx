@@ -14,7 +14,6 @@ export default function Container({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    backgroundColor: "#fff",
     flexDirection: row ? "row" : "column",
     ...style,
   };
