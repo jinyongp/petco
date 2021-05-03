@@ -51,6 +51,7 @@ export interface ContainerProps extends CommonProps {
   readonly margin?: string | number | FourWayType;
   readonly row?: boolean;
   readonly style?: ViewStyle;
+  readonly space?: number;
 }
 
 export interface ConfirmModalProps {

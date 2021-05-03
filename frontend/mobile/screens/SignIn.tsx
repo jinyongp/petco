@@ -77,10 +77,7 @@ export default function SignIn(): JSX.Element {
         <MainTitle title={`펫코에${"\n"}로그인하기`} />
       </Container>
 
-      <Container
-        margin={{ bottom: 25 }}
-        style={{ justifyContent: "space-between", height: 130 }}
-      >
+      <Container margin={{ bottom: 25 }} space={120}>
         <TextInputIcon
           Icon={Person}
           size={20}
