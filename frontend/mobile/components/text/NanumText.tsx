@@ -44,11 +44,13 @@ export default function NanumText({
     textStyle.fontFamily = "nanum-bold";
   } else if (type === "header") {
     textStyle.fontSize = 26;
-    textStyle.fontFamily = "nanum-bold";
+    textStyle.fontFamily = "nanum-extra-bold";
     textStyle.lineHeight = 40;
   } else if (type === "placeholder") {
     textStyle.fontSize = 15;
     textStyle.color = colors.placeholder;
+  } else if (type === "error") {
+    (textStyle.fontSize = 13), (textStyle.color = colors.red);
   } else if (type === "tiny") {
     textStyle.fontSize = 12;
     textStyle.fontFamily = "nanum-light";

@@ -30,9 +30,4 @@ export { default as PickerLabel } from "./picker/PickerLabel";
 export { default as DatePickerLabel } from "./picker/DatePickerLabel";
 
 /* text */
-export { default as ButtonTitle } from "./text/ButtonTitle";
-export { default as MainTitle } from "./text/MainTitle";
-export { default as MainName } from "./text/MainName";
-export { default as PlainText } from "./text/PlainText";
-export { default as PlainSmall } from "./text/PlainSmall";
-export { default as ErrorText } from "./text/ErrorText";
+export { default as NanumText } from "./text/NanumText";
