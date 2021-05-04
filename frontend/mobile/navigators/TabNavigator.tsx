@@ -1,5 +1,5 @@
 import React from "react";
-import { TabIcon } from "../components/nav";
+import { TabIcon } from "../components";
 import { Tabs } from "./Factory";
 import {
   HomeStackNavigator,

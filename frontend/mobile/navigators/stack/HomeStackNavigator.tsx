@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import { TransitionPresets } from "@react-navigation/stack";
 import React from "react";
 import {
@@ -13,7 +14,11 @@ import { stackNavigationOptions } from "../global/options";
 export default function HomeStackNavigator() {
   return (
     <Stack.Navigator screenOptions={stackNavigationOptions}>
-      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen name="SelectPet" component={SelectPet} />
       <Stack.Screen name="RegisterPets" component={RegisterPets} />
       <Stack.Screen name="SearchLocation" component={SearchLocation} />
@@ -21,7 +26,8 @@ export default function HomeStackNavigator() {
         name="SelectLocation"
         component={SelectLocation}
         options={{
-          ...TransitionPresets.ModalSlideFromBottomIOS,
+          ...TransitionPresets.FadeFromBottomAndroid,
+          headerBackTitle: "검색",
         }}
       />
     </Stack.Navigator>

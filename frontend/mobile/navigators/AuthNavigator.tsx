@@ -1,6 +1,6 @@
 import React from "react";
 import { Stack } from "./Factory";
-import { RegisterPets, SignIn, SignUp } from "../screens";
+import { SignIn, SignUp } from "../screens";
 import { stackNavigationOptions } from "./global/options";
 
 export default function AuthNavigator() {
