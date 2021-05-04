@@ -35,24 +35,24 @@ export default function Home(): JSX.Element {
         <PlainText title="어떤 서비스를 원하시나요?" />
       </Container>
 
-      <Container row margin={{ bottom: 22 }}>
-        <Container style={{ width: "auto" }} margin={{ right: 30 }}>
-          <TouchableContainer
-            width={140}
-            height={140}
-            onPress={() => navigation.navigate("SelectPet")}
-          >
-            <Estimate width={44} height={57} style={{ marginBottom: 24 }} />
-            <ButtonTitle title="견적 신청하기" />
-          </TouchableContainer>
-        </Container>
+      <Container
+        row
+        margin={{ bottom: 22 }}
+        style={{ justifyContent: "space-between", width: 300 }}
+      >
+        <TouchableContainer
+          width={140}
+          height={140}
+          onPress={() => navigation.navigate("SelectPet")}
+        >
+          <Estimate width={44} height={57} style={{ marginBottom: 24 }} />
+          <ButtonTitle title="견적 신청하기" />
+        </TouchableContainer>
 
-        <Container style={{ width: "auto" }}>
-          <TouchableContainer width={140} height={140} onPress={() => {}}>
-            <Stethoscope width={44} height={57} style={{ marginBottom: 24 }} />
-            <ButtonTitle title="예약 신청하기" />
-          </TouchableContainer>
-        </Container>
+        <TouchableContainer width={140} height={140} onPress={() => {}}>
+          <Stethoscope width={44} height={57} style={{ marginBottom: 24 }} />
+          <ButtonTitle title="예약 신청하기" />
+        </TouchableContainer>
       </Container>
 
       <Container>
