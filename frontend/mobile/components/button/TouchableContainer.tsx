@@ -24,7 +24,8 @@ export default function TouchableContainer({
       disabled={disabled}
       style={({ pressed }) => {
         return {
-          ...styles.container,
+          ...styles.shadow,
+          ...styles.border,
           width,
           height,
           opacity: disabled ? 0.5 : 1,
@@ -40,15 +41,17 @@ export default function TouchableContainer({
 }
 
 const styles = StyleSheet.create({
-  container: {
-    borderRadius: 30,
-    borderColor: colors.yellow,
-    borderWidth: 1,
+  shadow: {
     shadowColor: "rgba(0, 0, 0, 0.25)",
     shadowOffset: { width: 0, height: 0 },
     shadowRadius: 3,
     shadowOpacity: 1,
     elevation: 5,
+  },
+  border: {
+    borderRadius: 30,
+    borderColor: colors.yellow,
+    borderWidth: 1,
   },
   inner: {
     width: "100%",
