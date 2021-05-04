@@ -9,6 +9,8 @@ export default function TextInputIcon({
   size,
   color,
   value,
+  onBlur,
+  onFocus,
   inputRef,
   placeholder,
   returnKeyType,
@@ -21,7 +23,7 @@ export default function TextInputIcon({
   return (
     <View style={styles.wrapper}>
       <Icon
-        style={{ position: "absolute", left: 38 }}
+        style={{ position: "absolute", left: 20 }}
         color={color}
         width={typeof size === "number" ? size : size?.width || 24}
         height={typeof size === "number" ? size : size?.height || 24}
@@ -41,6 +43,8 @@ export default function TextInputIcon({
         returnKeyType={returnKeyType}
         onChangeText={onChangeText}
         onSubmitEditing={onSubmitEditing}
+        onFocus={onFocus}
+        onBlur={onBlur}
       />
     </View>
   );
@@ -53,7 +57,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     height: 50,
-    paddingRight: 120,
+    paddingRight: 80,
     shadowColor: "rgba(0, 0, 0, 0.25)",
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 5,
@@ -64,7 +68,7 @@ const styles = StyleSheet.create({
     zIndex: 999,
   },
   input: {
-    left: 78,
+    left: 56,
     width: "100%",
     fontSize: 15,
     fontFamily: "nanum-regular",
@@ -89,6 +93,8 @@ TextInputIcon.propTypes = {
   ]),
   value: PropTypes.string,
   color: PropTypes.string,
+  onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
   inputRef: PropTypes.any,
   placeholder: PropTypes.string,
   returnKeyType: PropTypes.string,

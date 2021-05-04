@@ -4,6 +4,7 @@ import {
   StyleProp,
   ViewStyle,
   PressableProps,
+  TextInput,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { TextInputProps } from "@types/react-native";
@@ -80,14 +81,29 @@ export interface DatePickerModalProps {
   readonly buttonTitle: string;
 }
 
-export interface TextInputIconProps extends TextInputProps {
+type CommonTextInputProps = Pick<
+  TextInputProps,
+  | "value"
+  | "onBlur"
+  | "onFocus"
+  | "placeholder"
+  | "returnKeyType"
+  | "blurOnSubmit"
+  | "keyboardType"
+  | "onChangeText"
+  | "onSubmitEditing"
+  | "secureTextEntry"
+>;
+
+export interface TextInputIconProps
+  extends Pick<SvgProps, "color">,
+    CommonTextInputProps {
   readonly Icon: React.FC<SvgProps>;
-  readonly color: SvgProps["color"];
-  readonly inputRef?: any;
   readonly size?: number | SizeType;
+  readonly inputRef?: React.Ref<TextInput>;
 }
 
-export interface TextInputLabelProps extends TextInputProps {
+export interface TextInputLabelProps extends CommonTextInputProps {
   readonly label: string;
   readonly error?: string;
   readonly inputRef?: any;
@@ -99,9 +115,13 @@ export interface TextLinkProps {
   readonly link: string;
 }
 
-export interface TabIconProps extends IconProps {
-  readonly name: React.ComponentProps<typeof Ionicons>["name"];
-  readonly current: boolean;
+type CommonIconProps = Pick<
+  React.ComponentProps<typeof Ionicons>,
+  "name" | "size" | "color"
+>;
+
+export interface TabIconProps extends CommonIconProps {
+  readonly current?: boolean;
 }
 
 export interface PickerLabelProps
@@ -109,9 +129,7 @@ export interface PickerLabelProps
   readonly label: string;
 }
 
-export interface DatePickerLabelProps
-  extends Omit<IOSNativeProps, "value">,
-    Omit<AndroidNativeProps, "value"> {
+export interface DatePickerLabelProps {
   readonly label: string;
   readonly onChange: (date: string) => void;
 }

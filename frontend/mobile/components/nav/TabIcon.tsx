@@ -19,6 +19,10 @@ export default function TabIcon({
 }
 
 TabIcon.propTypes = {
+  current: false,
+};
+
+TabIcon.propTypes = {
   name: PropTypes.string.isRequired,
   size: PropTypes.number,
   color: PropTypes.string,
