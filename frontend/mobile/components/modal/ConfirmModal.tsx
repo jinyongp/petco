@@ -1,12 +1,11 @@
 import React from "react";
 import Modal from "react-native-modal";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet } from "react-native";
 import PropTypes from "prop-types";
 import { ConfirmModalProps } from "../@types";
 import Container from "../Container";
 import TouchableButton from "../button/TouchableButton";
-import ButtonTitle from "../text/ButtonTitle";
-import PlainText from "../text/PlainText";
+import NanumText from "../text/NanumText";
 
 export default function ConfirmModal({
   isVisible,
@@ -35,14 +34,19 @@ export default function ConfirmModal({
           </Container>
         )}
         {header && (
-          <Container margin={{ bottom: 30 }}>
-            <ButtonTitle title={header} />
-          </Container>
+          <NanumText
+            type="title"
+            position="center"
+            align="center"
+            margin={{ bottom: 30 }}
+          >
+            {header}
+          </NanumText>
         )}
         {content && (
-          <Container margin={{ bottom: 40 }}>
-            <PlainText title={content} align="center" />
-          </Container>
+          <NanumText position="center" align="center" margin={{ bottom: 40 }}>
+            {content}
+          </NanumText>
         )}
         <TouchableButton
           onPress={onClose}
