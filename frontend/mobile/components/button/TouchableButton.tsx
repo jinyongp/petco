@@ -10,20 +10,21 @@ export default function TouchableButton({
   width,
   height,
   title,
+  onPressIn,
+  onPressOut,
   onPress,
   disabled,
   loading,
 }: TouchableButtonProps): JSX.Element {
   return (
     <Pressable
+      onPressIn={onPressIn}
+      onPressOut={onPressOut}
       onPress={onPress}
       disabled={disabled}
       style={({ pressed }) => {
         return {
-          borderRadius: 999,
-          borderColor: colors.yellow,
-          borderWidth: 2,
-          overflow: "hidden",
+          ...styles.container,
           width,
           height,
           opacity: disabled ? 0.5 : 1,
@@ -39,9 +40,20 @@ export default function TouchableButton({
 }
 
 const styles = StyleSheet.create({
+  container: {
+    borderRadius: 999,
+    borderColor: colors.yellow,
+    borderWidth: 1,
+    shadowColor: "rgba(0, 0, 0, 0.25)",
+    shadowOffset: { width: 0, height: 0 },
+    shadowRadius: 3,
+    shadowOpacity: 1,
+    elevation: 5,
+  },
   inner: {
     width: "100%",
     height: "100%",
+    borderRadius: 999,
     backgroundColor: "transparent",
   },
 });
@@ -58,6 +70,8 @@ TouchableButton.propTypes = {
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   title: PropTypes.string,
   onPress: PropTypes.func,
+  onPressIn: PropTypes.func,
+  onPressOut: PropTypes.func,
   disabled: PropTypes.bool,
   loading: PropTypes.bool,
 };

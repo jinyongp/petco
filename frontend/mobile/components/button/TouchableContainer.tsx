@@ -9,6 +9,8 @@ export default function TouchableContainer({
   row,
   width,
   height,
+  onPressIn,
+  onPressOut,
   onPress,
   disabled,
   loading,
@@ -16,14 +18,13 @@ export default function TouchableContainer({
 }: TouchableContainerProps): JSX.Element {
   return (
     <Pressable
+      onPressIn={onPressIn}
+      onPressOut={onPressOut}
       onPress={onPress}
       disabled={disabled}
       style={({ pressed }) => {
         return {
-          borderRadius: 30,
-          borderColor: colors.yellow,
-          borderWidth: 2,
-          overflow: "hidden",
+          ...styles.container,
           width,
           height,
           opacity: disabled ? 0.5 : 1,
@@ -39,6 +40,16 @@ export default function TouchableContainer({
 }
 
 const styles = StyleSheet.create({
+  container: {
+    borderRadius: 30,
+    borderColor: colors.yellow,
+    borderWidth: 1,
+    shadowColor: "rgba(0, 0, 0, 0.25)",
+    shadowOffset: { width: 0, height: 0 },
+    shadowRadius: 3,
+    shadowOpacity: 1,
+    elevation: 5,
+  },
   inner: {
     width: "100%",
     height: "100%",
@@ -59,6 +70,8 @@ TouchableContainer.propTypes = {
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   onPress: PropTypes.func,
+  onPressIn: PropTypes.func,
+  onPressOut: PropTypes.func,
   disabled: PropTypes.bool,
   loading: PropTypes.bool,
 };
