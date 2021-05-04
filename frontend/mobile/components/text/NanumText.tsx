@@ -6,6 +6,7 @@ import { NanumTextProps } from "../@types";
 import { colors } from "../../style/colors";
 
 export default function NanumText({
+  type,
   size,
   align,
   color,
@@ -25,14 +26,32 @@ export default function NanumText({
     fontFamily: `nanum-${weight}`,
   };
 
-  if (typeof size === "string") {
-    if (size === "xs") textStyle.fontSize = 12;
-    else if (size === "s") textStyle.fontSize = 15;
-    else if (size === "m") textStyle.fontSize = 18;
-    else if (size === "l") textStyle.fontSize = 22;
-    else if (size === "xl") textStyle.fontSize = 26;
-  } else {
-    textStyle.fontSize = size;
+  if (type === "plain") {
+    if (typeof size === "string") {
+      if (size === "xs") textStyle.fontSize = 12;
+      else if (size === "s") textStyle.fontSize = 15;
+      else if (size === "m") textStyle.fontSize = 18;
+      else if (size === "l") textStyle.fontSize = 22;
+      else if (size === "xl") textStyle.fontSize = 26;
+    } else {
+      textStyle.fontSize = size;
+    }
+  } else if (type === "button") {
+    textStyle.fontSize = 15;
+    textStyle.fontFamily = "nanum-bold";
+  } else if (type === "title") {
+    textStyle.fontSize = 18;
+    textStyle.fontFamily = "nanum-bold";
+  } else if (type === "header") {
+    textStyle.fontSize = 26;
+    textStyle.fontFamily = "nanum-bold";
+    textStyle.lineHeight = 40;
+  } else if (type === "placeholder") {
+    textStyle.fontSize = 15;
+    textStyle.color = colors.placeholder;
+  } else if (type === "tiny") {
+    textStyle.fontSize = 12;
+    textStyle.fontFamily = "nanum-light";
   }
 
   return (
@@ -47,18 +66,14 @@ export default function NanumText({
 }
 
 NanumText.defaultProps = {
-  size: "m",
+  type: "plain",
+  size: "s",
   color: colors.dark,
   weight: "regular",
   position: "flex-start",
 };
 
 NanumText.propTypes = {
-  title: PropTypes.string.isRequired,
-  weight: PropTypes.oneOf(["light", "regular", "bold", "extra-bold"]),
-  size: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.oneOf(["xs", "s", "m", "l", "xl"]),
-  ]),
-  children: PropTypes.string,
+  type: PropTypes.string,
+  size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
