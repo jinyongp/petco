@@ -6,10 +6,8 @@ import Stethoscope from "../assets/icons/stethoscope.svg";
 import Ads from "../assets/images/ads.png";
 import Search from "../assets/icons/search.svg";
 import {
-  ButtonTitle,
   Container,
-  MainTitle,
-  PlainText,
+  NanumText,
   ScreenLayout,
   TextInputIcon,
   TouchableContainer,
@@ -20,20 +18,17 @@ export default function Home(): JSX.Element {
 
   return (
     <ScreenLayout>
-      <Container
-        style={{ alignItems: "flex-start" }}
-        margin={{ top: 30, bottom: 27 }}
-      >
-        <MainTitle title={`서강준님${"\n"}안녕하세요!`} />
-      </Container>
+      <NanumText type="header" margin={{ top: 30, bottom: 27 }}>
+        {`서강준님${"\n"}안녕하세요!`}
+      </NanumText>
 
       <Container margin={{ bottom: 27 }}>
         <TextInputIcon Icon={Search} returnKeyType="done" blurOnSubmit />
       </Container>
 
-      <Container style={{ alignItems: "flex-start" }} margin={{ bottom: 18 }}>
-        <PlainText title="어떤 서비스를 원하시나요?" />
-      </Container>
+      <NanumText type="plain" margin={{ bottom: 18 }}>
+        어떤 서비스를 원하시나요?
+      </NanumText>
 
       <Container
         row
@@ -46,12 +41,16 @@ export default function Home(): JSX.Element {
           onPress={() => navigation.navigate("SelectPet")}
         >
           <Estimate width={44} height={57} style={{ marginBottom: 24 }} />
-          <ButtonTitle title="견적 신청하기" />
+          <NanumText position="center" type="button">
+            견적 신청하기
+          </NanumText>
         </TouchableContainer>
 
         <TouchableContainer width={140} height={140} onPress={() => {}}>
           <Stethoscope width={44} height={57} style={{ marginBottom: 24 }} />
-          <ButtonTitle title="예약 신청하기" />
+          <NanumText position="center" type="button">
+            예약 신청하기
+          </NanumText>
         </TouchableContainer>
       </Container>
 
