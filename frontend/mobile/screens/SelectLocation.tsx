@@ -4,8 +4,7 @@ import MapView, { Marker } from "react-native-maps";
 import { useNavigation } from "@react-navigation/native";
 import {
   Container,
-  MainName,
-  PlainText,
+  NanumText,
   ScreenLayout,
   TouchableButton,
 } from "../components";
@@ -36,12 +35,12 @@ export default function SelectLocation() {
         </MapView>
       </Container>
       <Container>
-        <Container style={{ alignItems: "flex-start" }} margin={{ bottom: 10 }}>
-          <MainName title="역삼 럭키 아파트" />
-        </Container>
-        <Container style={{ alignItems: "flex-start" }} margin={{ bottom: 20 }}>
-          <PlainText title="서울특별시 강남구 논현로 290" />
-        </Container>
+        <NanumText type="title" margin={{ bottom: 10 }}>
+          역삼 럭키 아파트
+        </NanumText>
+        <NanumText margin={{ bottom: 20 }}>
+          서울특별시 강남구 논현로 290
+        </NanumText>
       </Container>
       <Container>
         <TouchableButton title="이 위치로 설정하기" />

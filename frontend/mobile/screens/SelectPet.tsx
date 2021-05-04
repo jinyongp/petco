@@ -5,7 +5,7 @@ import choco from "../assets/images/choco.png";
 import Pow from "../assets/icons/paw.svg";
 import {
   Container,
-  MainTitle,
+  NanumText,
   PetSummary,
   ScreenLayout,
   TouchableContainer,
@@ -38,9 +38,9 @@ export default function SelectPet(): JSX.Element {
 
   return (
     <ScreenLayout>
-      <Container style={{ alignItems: "flex-start" }} margin={{ bottom: 33 }}>
-        <MainTitle title={`진료받을 동물을${"\n"}선택해 주세요`} />
-      </Container>
+      <NanumText type="header" margin={{ bottom: 33 }}>
+        {`진료받을 동물을${"\n"}선택해 주세요`}
+      </NanumText>
       <Container>
         {userPets?.map(({ name, birth, profile }, index) => (
           <Container margin={{ bottom: 33 }} key={index}>

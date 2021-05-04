@@ -4,8 +4,7 @@ import Search from "../assets/icons/search.svg";
 import Location from "../assets/icons/location.svg";
 import {
   Container,
-  MainTitle,
-  PlainText,
+  NanumText,
   ScreenLayout,
   TextInputIcon,
   TouchableContainer,
@@ -15,9 +14,9 @@ export default function SearchLocation(): JSX.Element {
   const navigation = useNavigation();
   return (
     <ScreenLayout align="flex-start">
-      <Container style={{ alignItems: "flex-start" }} margin={{ bottom: 27 }}>
-        <MainTitle title={`견적을 받고 싶은${"\n"}주소를 검색해주세요!`} />
-      </Container>
+      <NanumText type="header" margin={{ bottom: 27 }}>
+        {`견적을 받고 싶은${"\n"}주소를 검색해주세요!`}
+      </NanumText>
       <Container margin={{ bottom: 15 }}>
         <TextInputIcon
           Icon={Search}
@@ -34,7 +33,9 @@ export default function SearchLocation(): JSX.Element {
             width={25}
             height={25}
           />
-          <PlainText title="현재 위치로 주소 찾기" />
+          <NanumText position="center" type="button">
+            현재 위치로 주소 찾기
+          </NanumText>
         </TouchableContainer>
       </Container>
     </ScreenLayout>
