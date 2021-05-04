@@ -1,10 +1,8 @@
 import React from "react";
+import { Image, ImageProps } from "react-native";
 import Container from "../Container";
-import MainName from "../text/MainName";
-import PlainText from "../text/PlainText";
-import { ImageProps } from "react-native";
-import { Image } from "react-native";
 import Dog from "../../assets/icons/dog.svg";
+import NanumText from "../text/NanumText";
 
 interface PetSummaryProps {
   readonly info: {
@@ -32,8 +30,8 @@ export default function PetSummary({
         )}
       </Container>
       <Container style={{ width: "auto", alignItems: "flex-start" }} space={50}>
-        <MainName title={name} />
-        <PlainText title={`생년월일: ${birth}`} />
+        <NanumText type="title">{name}</NanumText>
+        <NanumText>생년월일: {birth}</NanumText>
       </Container>
     </Container>
   );

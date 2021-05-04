@@ -9,11 +9,11 @@ import {
 import DatePicker from "@react-native-community/datetimepicker";
 import { AntDesign } from "@expo/vector-icons";
 import Container from "../Container";
-import PlainText from "../text/PlainText";
 import { colors } from "../../style/colors";
 import { DatePickerLabelProps } from "../@types";
 import PropTypes from "prop-types";
 import DatePickerModal from "../modal/DatePickerModal";
+import NanumText from "../text/NanumText";
 
 export default function DatePickerLabel({
   label,
@@ -31,12 +31,7 @@ export default function DatePickerLabel({
 
   return (
     <Container>
-      <Container
-        style={{ alignItems: "flex-start" }}
-        margin={{ left: 20, bottom: 15 }}
-      >
-        <PlainText title={label} />
-      </Container>
+      <NanumText margin={{ left: 15, bottom: 15 }}>{label}</NanumText>
       <View style={styles.wrapper}>
         <Container row style={{ justifyContent: "space-between" }}>
           <Text

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Picker, { IOption } from "react-native-modal-selector";
-import { PickerLabelProps } from "../@types";
-import PlainText from "../text/PlainText";
 import { colors } from "../../style/colors";
 import Container from "../Container";
+import { PickerLabelProps } from "../@types";
+import NanumText from "../text/NanumText";
 
 export default function PickerLabel({
   label,
@@ -14,12 +14,7 @@ export default function PickerLabel({
   const [selectedValue, setSelectedValue] = useState("");
   return (
     <Container>
-      <Container
-        style={{ alignItems: "flex-start" }}
-        margin={{ left: 20, bottom: 15 }}
-      >
-        <PlainText title={label} />
-      </Container>
+      <NanumText margin={{ left: 15, bottom: 15 }}>{label}</NanumText>
       <View style={styles.wrapper}>
         <Picker
           onChange={({ label: value }: IOption) => {

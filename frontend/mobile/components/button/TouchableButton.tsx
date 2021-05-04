@@ -4,7 +4,7 @@ import { colors } from "../../style/colors";
 import Container from "../Container";
 import { TouchableButtonProps } from "../@types";
 import PropTypes from "prop-types";
-import ButtonTitle from "../text/ButtonTitle";
+import NanumText from "../text/NanumText";
 
 export default function TouchableButton({
   width,
@@ -33,7 +33,9 @@ export default function TouchableButton({
       }}
     >
       <Container style={styles.inner}>
-        <ButtonTitle title={title} />
+        <NanumText position="center" type="button">
+          {title}
+        </NanumText>
       </Container>
     </Pressable>
   );

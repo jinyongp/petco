@@ -1,7 +1,7 @@
 import React from "react";
+import { StyleSheet, TextInput, View } from "react-native";
 import PropTypes from "prop-types";
 import { TextInputIconProps } from "../@types";
-import { StyleSheet, TextInput, View } from "react-native";
 import { colors } from "../../style/colors";
 
 export default function TextInputIcon({
