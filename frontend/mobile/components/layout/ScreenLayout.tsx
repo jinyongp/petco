@@ -15,8 +15,8 @@ export default function ScreenLayout({
       keyboardDismissMode="interactive"
       contentContainerStyle={{
         flexGrow: 1,
-        justifyContent: "center",
-        alignItems: align,
+        justifyContent: align,
+        alignItems: "center",
         paddingHorizontal: "7%",
         paddingVertical: "5%",
       }}
