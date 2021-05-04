@@ -9,15 +9,20 @@ export default function Container({
   row,
   children,
   style,
+  space,
 }: ContainerProps): JSX.Element {
   const containerStyle: StyleProp<ViewStyle> = {
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    backgroundColor: "#fff",
     flexDirection: row ? "row" : "column",
     ...style,
   };
+  if (space) {
+    containerStyle.justifyContent = "space-between";
+    if (row) containerStyle.width = space;
+    else containerStyle.height = space;
+  }
 
   if (typeof padding === "object") {
     containerStyle.paddingTop = padding.top;
@@ -44,6 +49,7 @@ Container.defaultProps = {
   padding: 0,
   margin: 0,
   row: false,
+  space: 0,
 };
 
 Container.propTypes = {
@@ -59,5 +65,6 @@ Container.propTypes = {
   ]),
   row: PropTypes.bool,
   style: PropTypes.object,
+  space: PropTypes.number,
   children: PropTypes.node,
 };

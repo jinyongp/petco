@@ -1,32 +1,16 @@
 import React from "react";
-import styled from "styled-components/native";
 import PropTypes from "prop-types";
-import { Ionicons } from "@expo/vector-icons";
 import { TextInputIconProps } from "../@types";
-
-const InputWrapper = styled.View`
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  width: 100%;
-  height: 50px;
-  padding: 0px 80px 0px 30px;
-  border: 1px solid #c4c4c4;
-  border-radius: 30px;
-  margin-bottom: 14px;
-`;
-
-const InnerTextInput = styled.TextInput`
-  flex: 1;
-  left: 40px;
-  font-size: 15px;
-`;
+import { StyleSheet, TextInput, View } from "react-native";
+import { colors } from "../../style/colors";
 
 export default function TextInputIcon({
-  icon,
+  Icon,
   size,
   color,
   value,
+  onBlur,
+  onFocus,
   inputRef,
   placeholder,
   returnKeyType,
@@ -37,31 +21,59 @@ export default function TextInputIcon({
   secureTextEntry,
 }: TextInputIconProps): JSX.Element {
   return (
-    <InputWrapper>
-      <Ionicons
-        style={{ position: "absolute", left: 30 }}
-        name={icon}
-        size={size}
+    <View style={styles.wrapper}>
+      <Icon
+        style={{ position: "absolute", left: 20 }}
         color={color}
+        width={typeof size === "number" ? size : size?.width || 24}
+        height={typeof size === "number" ? size : size?.height || 24}
       />
-      <InnerTextInput
+      <TextInput
         ref={inputRef}
         value={value}
+        style={styles.input}
         autoCorrect={false}
         autoCapitalize="none"
         autoCompleteType="off"
         keyboardType={keyboardType}
         blurOnSubmit={blurOnSubmit}
         placeholder={placeholder}
-        placeholderTextColor="#777"
+        placeholderTextColor={colors.placeholder}
         secureTextEntry={secureTextEntry}
         returnKeyType={returnKeyType}
         onChangeText={onChangeText}
         onSubmitEditing={onSubmitEditing}
+        onFocus={onFocus}
+        onBlur={onBlur}
       />
-    </InputWrapper>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  wrapper: {
+    justifyContent: "flex-start",
+    alignItems: "center",
+    flexDirection: "row",
+    width: "100%",
+    height: 50,
+    paddingRight: 80,
+    shadowColor: "rgba(0, 0, 0, 0.25)",
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 5,
+    elevation: 5,
+    shadowOpacity: 1,
+    backgroundColor: "white",
+    borderRadius: 999,
+    zIndex: 999,
+  },
+  input: {
+    left: 56,
+    width: "100%",
+    fontSize: 15,
+    fontFamily: "nanum-regular",
+  },
+});
 
 TextInputIcon.defaultProps = {
   size: 24,
@@ -71,10 +83,18 @@ TextInputIcon.defaultProps = {
 };
 
 TextInputIcon.propTypes = {
-  icon: PropTypes.string.isRequired,
-  size: PropTypes.number,
+  Icon: PropTypes.func.isRequired,
+  size: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.shape({
+      width: PropTypes.number,
+      height: PropTypes.number,
+    }),
+  ]),
   value: PropTypes.string,
   color: PropTypes.string,
+  onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
   inputRef: PropTypes.any,
   placeholder: PropTypes.string,
   returnKeyType: PropTypes.string,

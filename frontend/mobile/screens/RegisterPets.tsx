@@ -1,56 +1,33 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import styled from "styled-components/native";
 import { useForm } from "react-hook-form";
-import { AuthLayout } from "../components/auth";
-import { ConfirmModal, Container, NextButton } from "../components";
-import { TextInputLabel } from "../components/input";
-import { elevation } from "../style/css";
 import Dog from "../assets/icons/dog.svg";
+import WhiteDog from "../assets/icons/dog-white.svg";
 import Cat from "../assets/icons/cat.svg";
+import WhiteCat from "../assets/icons/cat-white.svg";
 import LeftDog from "../assets/animals/dog105.svg";
 import RightCat from "../assets/animals/cat85.svg";
-import { DatePickerLabel, PickerLabel } from "../components/picker";
+import {
+  ButtonTitle,
+  ConfirmModal,
+  Container,
+  DatePickerLabel,
+  MainTitle,
+  PickerLabel,
+  ScreenLayout,
+  TextInputLabel,
+  TouchableButton,
+  TouchableContainer,
+} from "../components";
 
-interface ButtonWrapperProps {
-  readonly last?: boolean;
-}
-
-const ButtonWrapper = styled.View<ButtonWrapperProps>`
-  align-items: center;
-  justify-content: center;
-  margin-right: ${({ last }) => (last ? 0 : 40)}px;
-`;
-
-const PetTypeButton = styled.TouchableOpacity`
-  ${elevation}
-  justify-content: center;
-  align-items: center;
-  border-radius: 30px;
-  width: 111px;
-  height: 111px;
-  border: 1px solid #ddd;
-  background-color: #fff;
-`;
-
-const WeightUnit = styled.Text`
-  position: absolute;
-  right: 50px;
-  top: 43px;
-  font-size: 15px;
-`;
-
-const PetTypeDesc = styled.Text`
-  padding: 14px;
-`;
-
-// TODO validation check
-const RegisterPets = () => {
+// // TODO validation check
+export default function RegisterPets(): JSX.Element {
   const navigation = useNavigation();
   const [weightOver, setWeightOver] = useState(false);
   const [weightError, setWeightError] = useState(false);
   const { register, handleSubmit, setValue, watch, getValues } = useForm();
   useEffect(() => {
+    register("type");
     register("name");
     register("gender");
     register("birth");
@@ -73,23 +50,51 @@ const RegisterPets = () => {
     navigation.goBack();
   };
 
+  const dog = watch("type") === "dog";
+  const cat = watch("type") === "cat";
+
   return (
-    <AuthLayout title={`등록할 동물을${"\n"}선택해 주세요.`}>
-      <Container margin={{ bottom: 60 }}>
-        <Container row margin={{ bottom: 50 }}>
-          <ButtonWrapper>
-            <PetTypeButton>
-              <Dog width={65} height={65} />
-            </PetTypeButton>
-            <PetTypeDesc>강아지</PetTypeDesc>
-          </ButtonWrapper>
-          <ButtonWrapper last={true}>
-            <PetTypeButton>
-              <Cat width={65} height={65} />
-            </PetTypeButton>
-            <PetTypeDesc>고양이</PetTypeDesc>
-          </ButtonWrapper>
+    <ScreenLayout>
+      <Container style={{ alignItems: "flex-start" }} margin={{ bottom: 30 }}>
+        <MainTitle title="반려동물 등록하기" />
+      </Container>
+      <Container row margin={{ bottom: 30 }}>
+        <Container style={{ width: "auto" }} margin={{ right: 35 }}>
+          <TouchableContainer
+            width={140}
+            height={140}
+            onPressIn={() => onSetValue("type")("dog")}
+            loading={dog}
+          >
+            {dog ? (
+              <WhiteDog width={80} height={58} />
+            ) : (
+              <Dog width={80} height={58} />
+            )}
+          </TouchableContainer>
+          <Container margin={{ top: 15 }}>
+            <ButtonTitle title="강아지" type={dog ? "bold" : "regular"} />
+          </Container>
         </Container>
+        <Container style={{ width: "auto" }}>
+          <TouchableContainer
+            width={140}
+            height={140}
+            onPressIn={() => onSetValue("type")("cat")}
+            loading={cat}
+          >
+            {cat ? (
+              <WhiteCat width={80} height={58} />
+            ) : (
+              <Cat width={80} height={58} />
+            )}
+          </TouchableContainer>
+          <Container margin={{ top: 15 }}>
+            <ButtonTitle title="고양이" type={cat ? "bold" : "regular"} />
+          </Container>
+        </Container>
+      </Container>
+      <Container>
         <Container margin={{ bottom: 30 }}>
           <TextInputLabel
             label="반려동물 이름"
@@ -137,7 +142,6 @@ const RegisterPets = () => {
               }
             }}
           />
-          <WeightUnit>kg</WeightUnit>
         </Container>
         <Container margin={{ bottom: 30 }}>
           <PickerLabel
@@ -153,11 +157,12 @@ const RegisterPets = () => {
             onChange={onSetValue("vaccination")}
           />
         </Container>
-        <Container margin={{ top: 30 }}>
-          <NextButton
+        <Container margin={{ top: 20, bottom: 30 }}>
+          <TouchableButton
+            title="등록 완료"
             onPress={handleSubmit(onValid)}
-            text="등록"
             disabled={
+              !watch("type") ||
               !watch("name") ||
               !watch("gender") ||
               !watch("birth") ||
@@ -174,15 +179,13 @@ const RegisterPets = () => {
             isVisible={isModalVisible}
             header="등록이 완료되었습니다!"
             content={`등록한 반려동물 내역은${"\n"}내 정보에서 확인할 수 있습니다.`}
-            buttonText="완료"
+            buttonTitle="완료"
             onClose={onCloseModal}
             LeftPetSvg={LeftDog}
             RightPetSvg={RightCat}
           />
         </Container>
       </Container>
-    </AuthLayout>
+    </ScreenLayout>
   );
-};
-
-export default RegisterPets;
+}

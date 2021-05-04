@@ -1,11 +1,23 @@
-import React, { useEffect, useRef } from "react";
-import { gql, useMutation } from "@apollo/client";
+import React, { useEffect, useRef, useState } from "react";
+import { ApolloError, gql, useMutation } from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
-import { Container, NextButton } from "../components";
-import { AuthLayout, AuthLink } from "../components/auth";
-import { TextInputIcon } from "../components/input";
 import { SignUpInput, SignUpPayload } from "./@types";
+import Person from "../assets/icons/person.svg";
+import Lock from "../assets/icons/lock.svg";
+import Phone from "../assets/icons/phone.svg";
+import Chat from "../assets/icons/chat.svg";
+import Dog from "../assets/animals/dog92.svg";
+import {
+  ConfirmModal,
+  Container,
+  ErrorModal,
+  MainTitle,
+  ScreenLayout,
+  TextInputIcon,
+  TextLink,
+  TouchableButton,
+} from "../components";
 
 const SIGNUP_MUTATION = gql`
   mutation CreateAccount($input: CreateAccountInput) {
@@ -20,14 +32,23 @@ const SIGNUP_MUTATION = gql`
 
 export default function SignUp() {
   const navigation = useNavigation();
+
+  const [networkError, setNetworkError] = useState(false);
+  const [alreadyExistError, setAlreadyExistError] = useState(false);
+
+  const [completed, setCompleted] = useState(false);
   const { register, handleSubmit, setValue, watch, getValues } = useForm();
   const onCompleted = ({ createAccount: { error, user } }: SignUpPayload) => {
-    // TODO error handling
-    const { userId, password } = getValues();
-    error || navigation.navigate("SignIn", { userId, password });
+    // TODO Additional Error Handling
+    if (error?.includes("exist")) setAlreadyExistError(true);
+    else setCompleted(true);
+  };
+  const onError = (error: ApolloError) => {
+    setNetworkError(!!error);
   };
   const [signUp, { loading }] = useMutation(SIGNUP_MUTATION, {
     onCompleted,
+    onError,
   });
   useEffect(() => {
     register("userId", { required: true });
@@ -52,18 +73,32 @@ export default function SignUp() {
     loading || signUp({ variables: { input } });
   };
 
+  const onCloseModal = () => {
+    const { userId } = getValues();
+    setCompleted(false);
+    navigation.navigate({
+      name: "SignIn",
+      params: { userId },
+    });
+  };
+
   return (
-    <AuthLayout title={`펫코${"\n"}회원가입`}>
-      <Container margin={{ bottom: 40 }}>
+    <ScreenLayout>
+      <Container style={{ alignItems: "flex-start" }} margin={{ bottom: 40 }}>
+        <MainTitle title={`회원가입을${"\n"}환영합니다`} />
+      </Container>
+
+      <Container margin={{ bottom: 40 }} space={330}>
         <TextInputIcon
-          icon="person-outline"
+          Icon={Person}
+          size={20}
           placeholder="아이디를 입력해 주세요."
           returnKeyType="next"
           onSubmitEditing={onNext(emailRef)}
           onChangeText={onSetValue("userId")}
         />
         <TextInputIcon
-          icon="mail-outline"
+          Icon={Chat}
           placeholder="이메일을 입력해 주세요."
           returnKeyType="next"
           keyboardType="email-address"
@@ -72,7 +107,7 @@ export default function SignUp() {
           onChangeText={onSetValue("email")}
         />
         <TextInputIcon
-          icon="phone-portrait-outline"
+          Icon={Phone}
           placeholder="핸드폰 번호를 입력해 주세요."
           keyboardType="number-pad"
           returnKeyType="done"
@@ -81,7 +116,7 @@ export default function SignUp() {
           onChangeText={onSetValue("phone")}
         />
         <TextInputIcon
-          icon="lock-closed-outline"
+          Icon={Lock}
           placeholder="비밀번호를 입력해 주세요."
           returnKeyType="next"
           inputRef={passwordRef}
@@ -90,7 +125,7 @@ export default function SignUp() {
           secureTextEntry
         />
         <TextInputIcon
-          icon="lock-closed-outline"
+          Icon={Lock}
           placeholder="비밀번호를 다시 입력해 주세요."
           returnKeyType="done"
           inputRef={passwordCheckRef}
@@ -100,9 +135,10 @@ export default function SignUp() {
         />
       </Container>
       <Container margin={{ bottom: 16 }}>
-        <NextButton
-          text={loading ? "회원가입 중..." : "회원가입 하기"}
+        <TouchableButton
+          title={loading ? "회원가입 중..." : "회원가입 하기"}
           onPress={handleSubmit(onValid)}
+          loading={loading}
           disabled={
             !watch("userId") ||
             !watch("email") ||
@@ -113,12 +149,30 @@ export default function SignUp() {
         />
       </Container>
       <Container margin={{ bottom: 56 }}>
-        <AuthLink
+        <TextLink
           onPress={goToSignIn}
           desc="이미 회원이신가요?"
           link="로그인 하기"
         />
       </Container>
-    </AuthLayout>
+      <ErrorModal
+        error={networkError}
+        content={`네트워크가 연결되지 않았습니다.`}
+        onClose={() => setNetworkError(false)}
+      />
+      <ErrorModal
+        error={alreadyExistError}
+        content={`이미 존재하는 계정입니다.`}
+        onClose={() => setAlreadyExistError(false)}
+      />
+      <ConfirmModal
+        isVisible={completed}
+        onClose={onCloseModal}
+        LeftPetSvg={Dog}
+        header="회원가입 완료"
+        content={`회원가입이 완료되었습니다!${"\n"}가입한 계정으로 로그인 해주세요.`}
+        buttonTitle="로그인 하기"
+      />
+    </ScreenLayout>
   );
 }

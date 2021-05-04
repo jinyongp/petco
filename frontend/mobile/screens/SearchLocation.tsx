@@ -1,59 +1,42 @@
 import React from "react";
-import styled from "styled-components/native";
-import { Ionicons } from "@expo/vector-icons";
-import { Container, ScreenLayout } from "../components";
-import { TextInputIcon } from "../components/input";
-import { elevation } from "../style/css";
+import { useNavigation } from "@react-navigation/native";
+import Search from "../assets/icons/search.svg";
+import Location from "../assets/icons/location.svg";
+import {
+  Container,
+  MainTitle,
+  PlainText,
+  ScreenLayout,
+  TextInputIcon,
+  TouchableContainer,
+} from "../components";
 
-const Header = styled.Text`
-  font-size: 26px;
-  font-weight: bold;
-  align-self: flex-start;
-`;
-
-const SelectLocationButton = styled.TouchableOpacity`
-  ${elevation}
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  width: 100%;
-  height: 56px;
-  padding: 0px 30px 0px 30px;
-  border: 1px solid #c4c4c4;
-  border-radius: 30px;
-  margin-bottom: 14px;
-`;
-
-const LocationIcon = styled(Ionicons)`
-  position: absolute;
-  left: 30px;
-`;
-
-const Label = styled.Text`
-  font-size: 15px;
-`;
-
-const SearchLocation = ({ navigation }) => {
-  const goToSelectLocation = () => navigation.navigate("SelectLocation");
+export default function SearchLocation(): JSX.Element {
+  const navigation = useNavigation();
   return (
-    <ScreenLayout>
-      <Container margin={{ bottom: 20 }}>
-        <Header>{`지번, 도로명, 건물명을${"\n"}입력해 주세요.`}</Header>
+    <ScreenLayout align="flex-start">
+      <Container style={{ alignItems: "flex-start" }} margin={{ bottom: 27 }}>
+        <MainTitle title={`견적을 받고 싶은${"\n"}주소를 검색해주세요!`} />
       </Container>
-      <Container>
+      <Container margin={{ bottom: 15 }}>
         <TextInputIcon
-          icon="search-outline"
+          Icon={Search}
           placeholder="예) 펫코동 14-5 또는 펫코아파트"
         />
       </Container>
       <Container>
-        <SelectLocationButton onPress={goToSelectLocation}>
-          <LocationIcon name="locate-outline" size={24} />
-          <Label>현재 위치로 주소찾기</Label>
-        </SelectLocationButton>
+        <TouchableContainer
+          row
+          onPress={() => navigation.navigate("SelectLocation")}
+        >
+          <Location
+            style={{ position: "absolute", left: 20 }}
+            width={25}
+            height={25}
+          />
+          <PlainText title="현재 위치로 주소 찾기" />
+        </TouchableContainer>
       </Container>
     </ScreenLayout>
   );
-};
-
-export default SearchLocation;
+}

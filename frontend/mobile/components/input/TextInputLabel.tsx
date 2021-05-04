@@ -1,39 +1,12 @@
-import React, { useState } from "react";
-import styled from "styled-components/native";
+import React from "react";
 import PropTypes from "prop-types";
 import Container from "../Container";
 import { TextInputLabelProps } from "../@types";
-import DefaultContainer from "../DefaultContainer";
-
-const LabelContainer = styled(DefaultContainer)`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  padding: 0 20px;
-`;
-
-const Label = styled.Text`
-  font-size: 14px;
-`;
-
-const InputWrapper = styled.View`
-  justify-content: center;
-  width: 100%;
-  height: 56px;
-  padding: 0px 30px 0px 30px;
-  border: 1px solid #c4c4c4;
-  border-radius: 30px;
-`;
-
-const InnerErrorMsg = styled.Text`
-  font-size: 13px;
-  color: #ff0000aa;
-`;
-
-const InnerTextInput = styled.TextInput`
-  font-size: 15px;
-`;
+import PlainText from "../text/PlainText";
+import ErrorText from "../text/ErrorText";
+import { TextInput, View } from "react-native";
+import { StyleSheet } from "react-native";
+import { colors } from "../../style/colors";
 
 export default function TextInputLabel({
   label,
@@ -51,14 +24,24 @@ export default function TextInputLabel({
 }: TextInputLabelProps): JSX.Element {
   return (
     <Container>
-      <LabelContainer>
-        <Label>{label}</Label>
-        <InnerErrorMsg>{error}</InnerErrorMsg>
-      </LabelContainer>
-      <InputWrapper style={{ borderColor: error ? "#ff000066" : "#c4c4c4" }}>
-        <InnerTextInput
+      <Container
+        row
+        style={{ justifyContent: "space-between" }}
+        margin={{ left: 20, bottom: 15 }}
+      >
+        <PlainText title={label} />
+        <ErrorText title={error} />
+      </Container>
+      <View
+        style={[
+          styles.wrapper,
+          { borderColor: error ? "#ff000066" : "#c4c4c4" },
+        ]}
+      >
+        <TextInput
           ref={inputRef}
           value={value}
+          style={styles.input}
           autoCorrect={false}
           autoCapitalize="none"
           autoCompleteType="off"
@@ -66,17 +49,33 @@ export default function TextInputLabel({
           keyboardType={keyboardType}
           blurOnSubmit={blurOnSubmit}
           placeholder={placeholder}
-          placeholderTextColor="#00000030"
+          placeholderTextColor={colors.placeholder}
           returnKeyType={returnKeyType}
           onChangeText={onChangeText}
           onSubmitEditing={onSubmitEditing}
           onFocus={onFocus}
           onBlur={onBlur}
         />
-      </InputWrapper>
+      </View>
     </Container>
   );
 }
+
+const styles = StyleSheet.create({
+  wrapper: {
+    justifyContent: "center",
+    width: "100%",
+    height: 56,
+    paddingHorizontal: 30,
+    borderWidth: 1,
+    borderColor: colors.light,
+    borderRadius: 30,
+  },
+  input: {
+    fontSize: 15,
+    fontFamily: "nanum-regular",
+  },
+});
 
 TextInputLabel.defaultProps = {
   error: "",

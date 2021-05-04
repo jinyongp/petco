@@ -1,32 +1,10 @@
 import React, { useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
 import Picker, { IOption } from "react-native-modal-selector";
-import styled from "styled-components/native";
-import { DefaultContainer, Container } from "..";
 import { PickerLabelProps } from "../@types";
-
-const LabelContainer = styled(DefaultContainer)`
-  margin-bottom: 10px;
-  padding: 0 20px;
-`;
-
-const Label = styled.Text`
-  align-self: flex-start;
-  font-size: 14px;
-`;
-
-const PickerWrapper = styled.View`
-  justify-content: center;
-  width: 100%;
-  height: 56px;
-  padding: 0px 30px 0px 30px;
-  border: 1px solid #c4c4c4;
-  border-radius: 30px;
-  overflow: hidden;
-`;
-
-const InnerText = styled.Text`
-  font-size: 15px;
-`;
+import PlainText from "../text/PlainText";
+import { colors } from "../../style/colors";
+import Container from "../Container";
 
 export default function PickerLabel({
   label,
@@ -36,10 +14,13 @@ export default function PickerLabel({
   const [selectedValue, setSelectedValue] = useState("");
   return (
     <Container>
-      <LabelContainer>
-        <Label>{label}</Label>
-      </LabelContainer>
-      <PickerWrapper>
+      <Container
+        style={{ alignItems: "flex-start" }}
+        margin={{ left: 20, bottom: 15 }}
+      >
+        <PlainText title={label} />
+      </Container>
+      <View style={styles.wrapper}>
         <Picker
           onChange={({ label: value }: IOption) => {
             setSelectedValue(value);
@@ -47,11 +28,21 @@ export default function PickerLabel({
           }}
           animationType="none"
           cancelText="뒤로"
-          initValueTextStyle={{ alignSelf: "flex-start" }}
+          initValueTextStyle={{
+            alignSelf: "flex-start",
+            fontFamily: "nanum-regular",
+          }}
           // overlayStyle={{ padding: "20%" }}
           selectStyle={{ borderColor: "transparent" }}
-          selectTextStyle={{ alignSelf: "flex-start" }}
-          optionTextStyle={{ color: "#333", fontSize: 20 }}
+          selectTextStyle={{
+            alignSelf: "flex-start",
+            fontFamily: "nanum-regular",
+          }}
+          optionTextStyle={{
+            color: "#333",
+            fontSize: 20,
+            fontFamily: "nanum-regular",
+          }}
           optionStyle={{ padding: 20 }}
           cancelStyle={{
             borderRadius: 30,
@@ -60,6 +51,10 @@ export default function PickerLabel({
             height: 40,
             alignSelf: "flex-end",
             justifyContent: "center",
+          }}
+          cancelTextStyle={{
+            fontSize: 15,
+            fontFamily: "nanum-bold",
           }}
           optionContainerStyle={{
             backgroundColor: "#fff",
@@ -73,7 +68,7 @@ export default function PickerLabel({
           sectionTextStyle={{
             color: "#333",
             fontSize: 20,
-            fontWeight: "bold",
+            fontFamily: "nanum-bold",
           }}
           data={[{ section: true, label }, ...data].map(
             (origin: object, key: number) => ({
@@ -82,11 +77,32 @@ export default function PickerLabel({
             })
           )}
         >
-          <InnerText style={{ color: selectedValue ? "#000" : "#00000030" }}>
+          <Text
+            style={[
+              styles.input,
+              { color: selectedValue ? colors.dark : colors.placeholder },
+            ]}
+          >
             {selectedValue || "입력칸을 눌러 선택해주세요."}
-          </InnerText>
+          </Text>
         </Picker>
-      </PickerWrapper>
+      </View>
     </Container>
   );
 }
+
+const styles = StyleSheet.create({
+  wrapper: {
+    justifyContent: "center",
+    width: "100%",
+    height: 56,
+    paddingHorizontal: 30,
+    borderWidth: 1,
+    borderColor: colors.light,
+    borderRadius: 30,
+  },
+  input: {
+    fontSize: 15,
+    fontFamily: "nanum-regular",
+  },
+});

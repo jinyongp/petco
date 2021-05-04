@@ -1,85 +1,26 @@
-import { useNavigation } from "@react-navigation/native";
 import React, { useRef, useState } from "react";
-import styled from "styled-components/native";
-import { Container, ScreenLayout } from "../components";
-import { ScrollView, TouchableOpacity } from "react-native";
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
+import { colors } from "../style/colors";
 import navi from "../assets/images/navi.png";
 import choco from "../assets/images/choco.png";
-import { elevation } from "../style/css";
-
-const HeaderText = styled.Text`
-  align-self: flex-start;
-  font-size: 26px;
-  font-weight: bold;
-`;
-
-const Button = styled.TouchableOpacity`
-  align-self: flex-start;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 20px;
-  width: 100%;
-`;
-
-const ImageWrapper = styled.View`
-  width: 50px;
-  height: 50px;
-  background-color: blue;
-  border-radius: 30px;
-  margin-right: 20px;
-`;
-
-const InnerText = styled.Text`
-  font-size: 18px;
-`;
-
-const PetSelectButton = styled.TouchableOpacity`
-  justify-content: flex-start;
-  align-items: center;
-  margin-right: 20px;
-  margin-top: 10px;
-`;
-
-const PetImage = styled.Image`
-  margin-bottom: 10px;
-  width: 80px;
-  height: 80px;
-`;
-
-const PetName = styled.Text`
-  margin-bottom: 10px;
-`;
-
-const SettingButton = styled.TouchableOpacity`
-  margin-right: 10px;
-  background-color: #fec544;
-  padding: 5px 20px;
-  border-radius: 20px;
-`;
-
-const PetDeleteButton = styled.TouchableOpacity`
-  z-index: 1;
-  position: absolute;
-  right: -5px;
-  top: -5px;
-  background-color: #fff;
-  border-radius: 30px;
-  border: 1px solid #fec544;
-  width: 30px;
-  height: 30px;
-  justify-content: center;
-  align-items: center;
-`;
-
-const PetRegisterIcon = styled.View`
-  ${elevation}
-  width: 80px;
-  height: 80px;
-  border-radius: 100px;
-  justify-content: center;
-  align-items: center;
-`;
+import Estimate from "../assets/icons/estimate.svg";
+import Stethoscope from "../assets/icons/stethoscope.svg";
+import {
+  ScreenLayout,
+  Container,
+  MainTitle,
+  PlainText,
+  ButtonTitle,
+} from "../components";
 
 const userPets = [
   {
@@ -99,85 +40,166 @@ const userPets = [
     profile: navi,
   },
 ];
-
 export default function MyPage() {
   const navigation = useNavigation();
   const scrollViewRef = useRef();
   const [option, setOption] = useState(true);
   return (
     <ScreenLayout>
-      <Container margin={{ top: 40, bottom: 20 }}>
-        <Container margin={{ bottom: 28 }} padding={{ left: 10 }}>
-          <HeaderText>{`${"서강준"}님,${"\n"}안녕하세요.`}</HeaderText>
-        </Container>
-        <Container margin={{ bottom: 10 }}>
-          <Button>
-            <ImageWrapper></ImageWrapper>
-            <InnerText>내 정보</InnerText>
-          </Button>
-          <Button>
-            <ImageWrapper></ImageWrapper>
-            <InnerText>내 견적</InnerText>
-          </Button>
-          <Button>
-            <ImageWrapper></ImageWrapper>
-            <InnerText>내 예약</InnerText>
-          </Button>
-        </Container>
+      <Container
+        style={{ alignItems: "flex-start" }}
+        margin={{ top: 30, bottom: 30 }}
+      >
+        <MainTitle title={`서강준님${"\n"}안녕하세요!`} />
       </Container>
       <Container>
-        <Container
-          row
-          margin={{ bottom: 20 }}
-          padding={{ left: 10, right: 10 }}
-          style={{ justifyContent: "space-between" }}
-        >
-          <HeaderText>{`${"서강준"}님의${"\n"}반려동물`}</HeaderText>
-          {option ? (
-            <TouchableOpacity onPress={() => setOption(false)}>
-              <Ionicons name="settings-outline" size={25} />
-            </TouchableOpacity>
-          ) : (
-            <SettingButton onPress={() => setOption(true)}>
-              <InnerText>완료</InnerText>
-            </SettingButton>
-          )}
-        </Container>
-        <Container row>
-          <ScrollView
-            horizontal
-            ref={scrollViewRef}
-            onContentSizeChange={(x) =>
-              scrollViewRef?.current?.scrollTo({ x, animated: false })
-            }
+        <TouchableOpacity style={styles.button}>
+          <View style={styles.imageWrapper}></View>
+          <Text style={styles.buttonText}>내 정보</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}>
+          <View style={styles.imageWrapper}>
+            <Estimate width={33} height={45} />
+          </View>
+          <Text style={styles.buttonText}>내 견적</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}>
+          <View style={styles.imageWrapper}>
+            <Stethoscope width={33} height={40} />
+          </View>
+          <Text style={styles.buttonText}>내 예약</Text>
+        </TouchableOpacity>
+      </Container>
+      <Container
+        row
+        style={{ alignItems: "center", justifyContent: "space-between" }}
+        margin={{ bottom: 20 }}
+      >
+        <MainTitle title={`서강준님의${"\n"}반려동물`} />
+        {option ? (
+          <TouchableOpacity onPress={() => setOption(false)}>
+            <Ionicons name="settings-outline" size={25} />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            style={styles.completeButton}
+            onPress={() => setOption(true)}
           >
-            {userPets?.map(({ name, profile }, index) => (
-              <PetSelectButton disabled key={index}>
-                {option || (
-                  <PetDeleteButton
-                    onPress={() => {
-                      /* TODO Delete a pet */
-                    }}
-                  >
-                    <Ionicons name="close" size={25} />
-                  </PetDeleteButton>
-                )}
-                <PetImage source={profile} width={80} height={80} />
-                <PetName>{name}</PetName>
-              </PetSelectButton>
-            ))}
-            {option || (
-              <PetSelectButton
-                onPress={() => navigation.navigate("RegisterPets")}
-              >
-                <PetRegisterIcon>
-                  <Ionicons name="add-outline" size={50} color="#555" />
-                </PetRegisterIcon>
-              </PetSelectButton>
-            )}
-          </ScrollView>
-        </Container>
+            <ButtonTitle title="완료" />
+          </TouchableOpacity>
+        )}
+      </Container>
+      <Container row>
+        <ScrollView
+          horizontal
+          ref={scrollViewRef}
+          onContentSizeChange={(x) =>
+            scrollViewRef?.current?.scrollTo({ x, animated: false })
+          }
+        >
+          {userPets?.map(({ name, profile }, index) => (
+            <TouchableOpacity
+              style={styles.petSelectButton}
+              disabled
+              key={index}
+            >
+              {option || (
+                <TouchableOpacity
+                  style={styles.petDeleteButton}
+                  onPress={() => {
+                    // TODO Delete selected pet
+                  }}
+                >
+                  <Ionicons name="close" size={25} />
+                </TouchableOpacity>
+              )}
+              <Image
+                style={styles.petImage}
+                source={profile}
+                width={80}
+                height={80}
+              />
+              <PlainText title={name} />
+            </TouchableOpacity>
+          ))}
+          {option || (
+            <TouchableOpacity
+              style={styles.petRegisterButton}
+              onPress={() => navigation.navigate("RegisterPets")}
+            >
+              <Ionicons name="add-outline" size={50} color="#555" />
+            </TouchableOpacity>
+          )}
+        </ScrollView>
       </Container>
     </ScreenLayout>
   );
 }
+
+const styles = StyleSheet.create({
+  button: {
+    alignSelf: "flex-start",
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 20,
+    width: "100%",
+  },
+  imageWrapper: {
+    width: 50,
+    height: 50,
+    borderRadius: 30,
+    marginRight: 20,
+  },
+  buttonText: {
+    fontSize: 18,
+    fontFamily: "nanum-regular",
+  },
+  petImage: {
+    width: 80,
+    height: 80,
+    marginBottom: 20,
+  },
+  petSelectButton: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 20,
+    marginVertical: 10,
+  },
+  petDeleteButton: {
+    zIndex: 999,
+    position: "absolute",
+    right: -5,
+    top: -5,
+    backgroundColor: "white",
+    borderRadius: 30,
+    borderWidth: 1,
+    borderColor: colors.yellow,
+    width: 30,
+    height: 30,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  petRegisterButton: {
+    elevation: 3,
+    shadowColor: "rgba(0, 0, 0, 0.4)",
+    shadowOffset: { width: 1, height: 2 },
+    shadowRadius: 3,
+    shadowOpacity: 1,
+    alignSelf: "center",
+    width: 80,
+    height: 80,
+    borderRadius: 100,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+    marginBottom: 38,
+    marginRight: 10,
+  },
+  completeButton: {
+    marginRight: 10,
+    backgroundColor: colors.yellow,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 20,
+  },
+});

@@ -1,128 +1,62 @@
 import React from "react";
 import { Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import styled from "styled-components/native";
-import { Container, DefaultContainer, ScreenLayout } from "../components";
-import { TextInputIcon } from "../components/input";
-import EstimateSvg from "../assets/icons/estimate.svg";
-import StethoscopeSvg from "../assets/icons/stethoscope.svg";
-import ads from "../assets/images/ads.png";
-import { elevation } from "../style/css";
+import Estimate from "../assets/icons/estimate.svg";
+import Stethoscope from "../assets/icons/stethoscope.svg";
+import Ads from "../assets/images/ads.png";
+import Search from "../assets/icons/search.svg";
+import {
+  ButtonTitle,
+  Container,
+  MainTitle,
+  PlainText,
+  ScreenLayout,
+  TextInputIcon,
+  TouchableContainer,
+} from "../components";
 
-interface ButtonProps {
-  readonly last?: boolean;
-}
-
-interface AdsProps {
-  readonly source: string;
-}
-
-const HeaderContainer = styled(DefaultContainer)`
-  align-items: flex-start;
-  margin: 30px 0px 34px 20px;
-`;
-
-const RowTextWrapper = styled.View`
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Username = styled.Text`
-  font-size: 26px;
-  font-weight: 700;
-`;
-
-const Welcome = styled.Text`
-  font-size: 26px;
-`;
-
-const Question = styled.Text`
-  padding-bottom: 23px;
-  transform: translateX(-75px);
-`;
-
-const ButtonWrapper = styled.View`
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-`;
-
-const Button = styled.TouchableOpacity<ButtonProps>`
-  ${elevation}
-  justify-content: center;
-  align-items: center;
-  border-radius: 30px;
-  width: 144px;
-  height: 144px;
-  border: 1px solid #ddd;
-  background-color: #fff;
-  margin-right: ${({ last }) => (last ? 0 : 20)}px;
-`;
-
-const ButtonContent = styled.View`
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-`;
-
-const ButtonDesc = styled.Text`
-  margin-top: 20px;
-`;
-
-const AdsWrapper = styled.TouchableHighlight`
-  border: #eee;
-  width: 326px;
-  height: 173px;
-  border-radius: 30px;
-`;
-
-const Ads = styled(Image)<AdsProps>`
-  width: 100%;
-  border-radius: 30px;
-`;
-
-export default function Home() {
+export default function Home(): JSX.Element {
   const navigation = useNavigation();
-  const goToSelectPet = () => navigation.navigate("SelectPet");
 
   return (
     <ScreenLayout>
-      <HeaderContainer>
-        <RowTextWrapper>
-          <Username>서강준</Username>
-          <Welcome>님,</Welcome>
-        </RowTextWrapper>
-        <Welcome>안녕하세요!</Welcome>
-      </HeaderContainer>
-      <Container margin={{ bottom: 36 }}>
-        <TextInputIcon
-          icon="search-outline"
-          returnKeyType="done"
-          blurOnSubmit
-        />
+      <Container
+        style={{ alignItems: "flex-start" }}
+        margin={{ top: 30, bottom: 27 }}
+      >
+        <MainTitle title={`서강준님${"\n"}안녕하세요!`} />
       </Container>
-      <Container margin={{ bottom: 22 }}>
-        <Question>어떤 서비스를 원하시나요?</Question>
-        <ButtonWrapper>
-          <Button onPress={goToSelectPet}>
-            <ButtonContent>
-              <EstimateSvg width={50} height={50} />
-              <ButtonDesc>견적 신청하기</ButtonDesc>
-            </ButtonContent>
-          </Button>
-          <Button last>
-            <ButtonContent>
-              <StethoscopeSvg width={50} height={50} />
-              <ButtonDesc>예정 신청하기</ButtonDesc>
-            </ButtonContent>
-          </Button>
-        </ButtonWrapper>
+
+      <Container margin={{ bottom: 27 }}>
+        <TextInputIcon Icon={Search} returnKeyType="done" blurOnSubmit />
       </Container>
-      <Container margin={{ bottom: 30 }}>
-        <AdsWrapper>
-          <Ads source={ads} />
-        </AdsWrapper>
+
+      <Container style={{ alignItems: "flex-start" }} margin={{ bottom: 18 }}>
+        <PlainText title="어떤 서비스를 원하시나요?" />
+      </Container>
+
+      <Container
+        row
+        margin={{ bottom: 22 }}
+        style={{ justifyContent: "space-between", width: 300 }}
+      >
+        <TouchableContainer
+          width={140}
+          height={140}
+          onPress={() => navigation.navigate("SelectPet")}
+        >
+          <Estimate width={44} height={57} style={{ marginBottom: 24 }} />
+          <ButtonTitle title="견적 신청하기" />
+        </TouchableContainer>
+
+        <TouchableContainer width={140} height={140} onPress={() => {}}>
+          <Stethoscope width={44} height={57} style={{ marginBottom: 24 }} />
+          <ButtonTitle title="예약 신청하기" />
+        </TouchableContainer>
+      </Container>
+
+      <Container>
+        <Image source={Ads} />
       </Container>
     </ScreenLayout>
   );

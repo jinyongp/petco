@@ -1,22 +1,24 @@
-import React, { useRef, useEffect } from "react";
-import styled from "styled-components/native";
-import { useNavigation } from "@react-navigation/native";
+import React, { useRef, useEffect, useState } from "react";
+import { TouchableOpacity } from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
-import { gql, useMutation } from "@apollo/client";
-import { Container, NextButton } from "../components";
-import { AuthLayout, AuthLink } from "../components/auth";
-import { TextInputIcon } from "../components/input";
+import { ApolloError, gql, useMutation } from "@apollo/client";
 import { isLoggedIn } from "../apollo";
-import { SignInPayload, SignInInput } from "./@types";
+import { SignInInput, SignInPayload } from "./@types";
+import Lock from "../assets/icons/lock.svg";
+import Person from "../assets/icons/person.svg";
 import Dog from "../assets/animals/dog103.svg";
 import Cat from "../assets/animals/cat82.svg";
-
-const Link = styled.TouchableOpacity``;
-
-const RowText = styled.Text`
-  font-size: 15px;
-  font-weight: 600;
-`;
+import {
+  Container,
+  ErrorModal,
+  MainTitle,
+  PlainText,
+  ScreenLayout,
+  TextInputIcon,
+  TextLink,
+  TouchableButton,
+} from "../components";
 
 const SIGNIN_MUTATION = gql`
   mutation Login($userId: String!, $password: String!) {
@@ -28,13 +30,15 @@ const SIGNIN_MUTATION = gql`
   }
 `;
 
-export default function SignIn({ route: { params } }) {
+export default function SignIn(): JSX.Element {
+  const { params } = useRoute();
   const navigation = useNavigation();
+  const [networkError, setNetworkError] = useState(false);
+  const [accountError, setAccountError] = useState(false);
   const { register, handleSubmit, setValue, watch } = useForm({
-    // FIXME 회원 가입 시 작성한 계정을 기본값으로 설정한다 - 동작 안함
     defaultValues: {
-      userId: params?.userId,
-      password: params?.password,
+      userId: params?.userId, // FIXME not working
+      password: "",
     },
   });
   useEffect(() => {
@@ -43,11 +47,17 @@ export default function SignIn({ route: { params } }) {
   }, [register]);
 
   const onCompleted = ({ login: { ok, token, error } }: SignInPayload) => {
-    // TODO token, error handling
+    // TODO - token
+    setAccountError(Boolean(error));
     isLoggedIn(ok);
   };
+  const onError = (error: ApolloError) => {
+    setNetworkError(!!error);
+  };
+
   const [signIn, { loading }] = useMutation(SIGNIN_MUTATION, {
     onCompleted,
+    onError,
   });
 
   const onSetValue = (name: any) => (text: string) => setValue(name, text);
@@ -62,10 +72,15 @@ export default function SignIn({ route: { params } }) {
   };
 
   return (
-    <AuthLayout title={`펫코에${"\n"}로그인하기`}>
-      <Container margin={{ bottom: 18 }}>
+    <ScreenLayout>
+      <Container style={{ alignItems: "flex-start" }} margin={{ bottom: 40 }}>
+        <MainTitle title={`펫코에${"\n"}로그인하기`} />
+      </Container>
+
+      <Container margin={{ bottom: 25 }} space={120}>
         <TextInputIcon
-          icon="person-outline"
+          Icon={Person}
+          size={20}
           value={watch("userId")}
           placeholder="아이디를 입력해주세요."
           returnKeyType="next"
@@ -73,7 +88,8 @@ export default function SignIn({ route: { params } }) {
           onChangeText={onSetValue("userId")}
         />
         <TextInputIcon
-          icon="lock-closed-outline"
+          Icon={Lock}
+          size={24}
           value={watch("password")}
           inputRef={passwordInputRef}
           placeholder="비밀번호를 입력해주세요."
@@ -83,32 +99,47 @@ export default function SignIn({ route: { params } }) {
           secureTextEntry
         />
       </Container>
+
       <Container row margin={{ bottom: 40 }}>
-        <Link style={{ paddingRight: 47 }}>
-          <RowText>아이디 찾기</RowText>
-        </Link>
-        <Link>
-          <RowText>비밀번호 찾기</RowText>
-        </Link>
+        <TouchableOpacity style={{ paddingRight: 47 }}>
+          <PlainText title="아이디 찾기" />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <PlainText title="비밀번호 찾기" />
+        </TouchableOpacity>
       </Container>
+
       <Container margin={{ bottom: 16 }}>
-        <NextButton
+        <TouchableButton
           onPress={handleSubmit(onValid)}
-          text={loading ? "로그인 중..." : "로그인 하기"}
+          title={loading ? "로그인 중..." : "로그인 하기"}
           disabled={!watch("userId") || !watch("password")}
+          loading={loading}
         />
       </Container>
       <Container row margin={{ bottom: 33 }}>
-        <AuthLink
+        <TextLink
           onPress={() => navigation.navigate("SignUp")}
           desc="펫코가 처음이신가요?"
-          link="회원가입하기"
+          link="회원 가입하기"
         />
       </Container>
       <Container row>
         <Dog width={100} height={100} />
         <Cat width={100} height={100} />
       </Container>
-    </AuthLayout>
+      <Container>
+        <ErrorModal
+          error={networkError}
+          content={`네트워크가 연결되지 않았습니다.`}
+          onClose={() => setNetworkError(false)}
+        />
+        <ErrorModal
+          error={accountError}
+          content={`로그인 정보가 일치하지 않습니다.${"\n"}아이디나 비밀번호를 확인해주세요.`}
+          onClose={() => setAccountError(false)}
+        />
+      </Container>
+    </ScreenLayout>
   );
 }
