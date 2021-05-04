@@ -170,7 +170,7 @@ export default function SignUp() {
         onClose={onCloseModal}
         LeftPetSvg={Dog}
         header="회원가입 완료"
-        content={`회원가입이 완료되었습니다!${"\n"}가입한 계정으로 다시 로그인을 해주세요.`}
+        content={`회원가입이 완료되었습니다!${"\n"}가입한 계정으로 로그인 해주세요.`}
         buttonTitle="로그인 하기"
       />
     </ScreenLayout>
