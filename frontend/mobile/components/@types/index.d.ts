@@ -1,5 +1,10 @@
 import { SvgProps } from "react-native-svg";
-import { GestureResponderEvent, StyleProp, ViewStyle } from "react-native";
+import {
+  GestureResponderEvent,
+  StyleProp,
+  ViewStyle,
+  PressableProps,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { TextInputProps } from "@types/react-native";
 import { IconProps } from "@types/react-native-vector-icons/Icon";
@@ -9,7 +14,7 @@ import {
 } from "@react-native-community/datetimepicker";
 import ModalSelector from "react-native-modal-selector";
 
-type onPressType = (event?: GestureResponderEvent) => void;
+type onPressType = PressableProps["onPress"];
 
 type SizeType = {
   readonly width?: number | string;
@@ -32,6 +37,8 @@ export interface ScreenLayoutProps extends CommonProps {
 }
 
 export interface TouchableButtonProps {
+  readonly onPressIn?: onPressType;
+  readonly onPressOut?: onPressType;
   readonly onPress?: onPressType;
   readonly disabled?: boolean;
   readonly width?: ViewStyle["width"];
@@ -64,6 +71,13 @@ export interface ConfirmModalProps {
   readonly RightPetSvg?: React.FC<SvgProps>;
   readonly containerSize?: SizeType;
   readonly buttonSize?: SizeType;
+}
+
+export interface DatePickerModalProps {
+  readonly isVisible: boolean;
+  readonly onChange: (date: Date) => void;
+  readonly onClose: onPressType;
+  readonly buttonTitle: string;
 }
 
 export interface TextInputIconProps extends TextInputProps {
