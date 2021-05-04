@@ -1,48 +1,51 @@
-import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Dimensions } from "react-native";
-import styled from "styled-components/native";
-import { Container, NextButton, ScreenLayout } from "../components";
+import MapView, { Marker } from "react-native-maps";
+import { useNavigation } from "@react-navigation/native";
+import {
+  Container,
+  MainName,
+  PlainText,
+  ScreenLayout,
+  TouchableButton,
+} from "../components";
 
-const MapContainer = styled.View`
-  width: ${Dimensions.get("screen").width}px;
-  height: 400px;
-  background-color: gray;
-`;
-
-const Building = styled.Text`
-  align-self: flex-start;
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 15px;
-`;
-
-const DetailAddress = styled.Text`
-  align-self: flex-start;
-  font-size: 18px;
-`;
-
-const SelectLocation = () => {
+export default function SelectLocation() {
   const navigation = useNavigation();
   return (
-    <ScreenLayout>
-      <Container margin={{ bottom: 20 }}>
-        {/* TODO MapView */}
-        <MapContainer />
+    <ScreenLayout align="flex-start">
+      <Container margin={{ bottom: 30 }}>
+        <MapView
+          style={{
+            width: Dimensions.get("screen").width,
+            height: Dimensions.get("screen").height / 2,
+          }}
+          initialRegion={{
+            latitude: 37.5177,
+            longitude: 127.0473,
+            latitudeDelta: 0,
+            longitudeDelta: 0,
+          }}
+        >
+          <Marker
+            coordinate={{
+              latitude: 37.5177,
+              longitude: 127.0473,
+            }}
+          />
+        </MapView>
       </Container>
-      <Container margin={{ bottom: 43 }}>
-        <Building>역삼 럭키 아파트</Building>
-        <DetailAddress>서울특별시 강남구 논현로 290</DetailAddress>
+      <Container>
+        <Container style={{ alignItems: "flex-start" }} margin={{ bottom: 10 }}>
+          <MainName title="역삼 럭키 아파트" />
+        </Container>
+        <Container style={{ alignItems: "flex-start" }} margin={{ bottom: 20 }}>
+          <PlainText title="서울특별시 강남구 논현로 290" />
+        </Container>
       </Container>
-      <Container margin={{ bottom: 20 }}>
-        <NextButton
-          onPress={() => {}}
-          text="이 위치로 설정하기"
-          disabled={false}
-        />
+      <Container>
+        <TouchableButton title="이 위치로 설정하기" />
       </Container>
     </ScreenLayout>
   );
-};
-
-export default SelectLocation;
+}
