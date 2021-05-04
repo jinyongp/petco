@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 import { ConfirmModalProps } from "../@types";
 import Container from "../Container";
 import TouchableButton from "../button/TouchableButton";
+import ButtonTitle from "../text/ButtonTitle";
+import PlainText from "../text/PlainText";
 
 export default function ConfirmModal({
   isVisible,
@@ -33,11 +35,15 @@ export default function ConfirmModal({
           </Container>
         )}
         {header && (
-          <Container>
-            <Text style={styles.header}>{header}</Text>
+          <Container margin={{ bottom: 30 }}>
+            <ButtonTitle title={header} />
           </Container>
         )}
-        {content && <Text style={styles.content}>{content}</Text>}
+        {content && (
+          <Container margin={{ bottom: 40 }}>
+            <PlainText title={content} align="center" />
+          </Container>
+        )}
         <TouchableButton
           onPress={onClose}
           title={buttonTitle}
@@ -61,11 +67,6 @@ const styles = StyleSheet.create({
     marginRight: "auto",
     marginLeft: "auto",
     padding: 30,
-  },
-  header: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 30,
   },
   content: {
     fontSize: 15,
