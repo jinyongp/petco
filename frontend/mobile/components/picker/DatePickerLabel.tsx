@@ -1,38 +1,19 @@
 import React, { useState } from "react";
-import styled from "styled-components/native";
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import DatePicker from "@react-native-community/datetimepicker";
-import { Container, DefaultContainer } from "..";
 import { AntDesign } from "@expo/vector-icons";
+import Container from "../Container";
+import PlainText from "../text/PlainText";
+import { colors } from "../../style/colors";
 import { DatePickerLabelProps } from "../@types";
 import PropTypes from "prop-types";
-
-const LabelContainer = styled(DefaultContainer)`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  padding: 0 20px;
-`;
-
-const Label = styled.Text`
-  font-size: 14px;
-`;
-
-const DateField = styled.Text`
-  font-size: 15px;
-`;
-
-const ShowButton = styled.TouchableOpacity``;
-
-const PickerWrapper = styled.View`
-  justify-content: center;
-  width: 100%;
-  height: 56px;
-  padding: 0px 30px 0px 30px;
-  border: 1px solid #c4c4c4;
-  border-radius: 30px;
-  overflow: hidden;
-`;
+import DatePickerModal from "../modal/DatePickerModal";
 
 export default function DatePickerLabel({
   label,
@@ -50,42 +31,74 @@ export default function DatePickerLabel({
 
   return (
     <Container>
-      <LabelContainer>
-        <Label>{label}</Label>
-      </LabelContainer>
-      <PickerWrapper>
-        {show || (
-          <Container row style={{ justifyContent: "space-between" }}>
-            <DateField style={{ color: date ? "#000" : "#00000030" }}>
-              {date
-                ? printFormattedDate(date)
-                : "오른쪽 달력에서 선택해주세요."}
-            </DateField>
-            <ShowButton onPress={() => setShow(true)}>
-              <AntDesign name="calendar" size={25} />
-            </ShowButton>
-          </Container>
-        )}
-        {show && (
+      <Container
+        style={{ alignItems: "flex-start" }}
+        margin={{ left: 20, bottom: 15 }}
+      >
+        <PlainText title={label} />
+      </Container>
+      <View style={styles.wrapper}>
+        <Container row style={{ justifyContent: "space-between" }}>
+          <Text
+            style={[
+              styles.input,
+              { color: date ? colors.dark : colors.placeholder },
+            ]}
+          >
+            {date ? printFormattedDate(date) : "오른쪽 달력에서 선택해주세요."}
+          </Text>
+          <TouchableOpacity onPress={() => setShow(true)}>
+            <AntDesign name="calendar" size={25} />
+          </TouchableOpacity>
+        </Container>
+        {Platform.OS === "android" && show && (
           <DatePicker
             value={date || new Date()}
             mode="date"
             locale="ko_KR"
             display="spinner"
-            style={{ backgroundColor: "#fff", height: 60 }}
-            onChange={(_, date) => {
-              date && onChange(String(date));
-              date && setDate(date);
+            style={{ height: 50, width: 230 }}
+            onChange={(_, _date) => {
+              _date && onChange(printFormattedDate(_date));
+              _date && setDate(_date);
               setShow(false);
             }}
             minimumDate={new Date(1990, 0, 1)}
             maximumDate={new Date()}
           />
         )}
-      </PickerWrapper>
+        {Platform.OS === "ios" && (
+          <DatePickerModal
+            isVisible={show}
+            buttonTitle="선택"
+            onChange={(_date) => {
+              _date && onChange(printFormattedDate(_date));
+              _date && setDate(_date);
+            }}
+            onClose={() => setShow(false)}
+          />
+        )}
+      </View>
     </Container>
   );
 }
+
+const styles = StyleSheet.create({
+  wrapper: {
+    justifyContent: "center",
+    width: "100%",
+    height: 56,
+    paddingHorizontal: 30,
+    borderWidth: 1,
+    borderColor: colors.light,
+    borderRadius: 30,
+    overflow: "hidden",
+  },
+  input: {
+    fontSize: 15,
+    fontFamily: "nanum-regular",
+  },
+});
 
 DatePickerLabel.propTypes = {
   label: PropTypes.string.isRequired,
