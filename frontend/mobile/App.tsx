@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import Font from "expo-font";
+import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import { Ionicons } from "@expo/vector-icons";
 import { AuthNavigator, TabNavigator } from "./navigators";
@@ -15,10 +15,10 @@ export default function App() {
   const onFinish = () => setLoading(false);
   const startAsync = async () => {
     await Font.loadAsync({
-      NanumLight: require("./assets/fonts/NanumGothic/NanumGothicLight.ttf"),
-      NanumRegular: require("./assets/fonts/NanumGothic/NanumGothic.ttf"),
-      NanumBold: require("./assets/fonts/NanumGothic/NanumGothicBold.ttf"),
-      NanumExtraBold: require("./assets/fonts/NanumGothic/NanumGothicExtraBold.ttf"),
+      "nanum-light": require("./assets/fonts/NanumGothic/NanumGothicLight.ttf"),
+      "nanum-regular": require("./assets/fonts/NanumGothic/NanumGothic.ttf"),
+      "nanum-bold": require("./assets/fonts/NanumGothic/NanumGothicBold.ttf"),
+      "nanum-extra-bold": require("./assets/fonts/NanumGothic/NanumGothicExtraBold.ttf"),
       ...Ionicons.font,
     });
     await new Promise((res) => setTimeout(res, 500));
