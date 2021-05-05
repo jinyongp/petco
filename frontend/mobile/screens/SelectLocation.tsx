@@ -43,7 +43,10 @@ export default function SelectLocation() {
         </NanumText>
       </Container>
       <Container>
-        <TouchableButton title="이 위치로 설정하기" />
+        <TouchableButton
+          title="이 위치로 설정하기"
+          onPress={() => navigation.navigate("MedicalSearch")}
+        />
       </Container>
     </ScreenLayout>
   );
