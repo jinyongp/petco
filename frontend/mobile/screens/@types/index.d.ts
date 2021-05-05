@@ -1,3 +1,15 @@
+import { ImageSourcePropType } from "react-native";
+
+export type ParamList = {
+  EstimateDetail: {
+    petInfo: {
+      name: string;
+      birth: string;
+      profile: ImageSourcePropType;
+    };
+  };
+};
+
 /* QUERY or MUTATION */
 
 export type SignInInput = {
