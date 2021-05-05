@@ -10,3 +10,4 @@ export { default as SelectPet } from "./SelectPet";
 export { default as MyPage } from "./MyPage";
 export { default as MyApplyList } from "./MyApplyList";
 export { default as MedicalSearch } from "./MedicalSearch";
+export { default as EstimateHistory } from "./EstimateHistory";
