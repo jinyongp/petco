@@ -3,6 +3,7 @@ import { Image, ImageSourcePropType } from "react-native";
 import { Container, NanumText, ScreenLayout, TouchableButton } from "../components";
 import navi from "../assets/images/navi.png";
 import choco from "../assets/images/choco.png";
+import { useNavigation } from "@react-navigation/core";
 
 type Status = "request" | "confirm" | "cancel";
 
@@ -56,6 +57,8 @@ const history: HistoryType[] = [
 ];
 
 export default function EstimateHistory(): JSX.Element {
+  const navigation = useNavigation();
+
   const getStatusText = (status: Status) => {
     if (status === "request") return "견적 요청 중...";
     if (status === "confirm") return "견적 요청 수락";
@@ -86,7 +89,11 @@ export default function EstimateHistory(): JSX.Element {
                 <Image source={petImage} width={62} height={62} style={{ width: 62, height: 62 }} />
               </Container>
             </Container>
-            <TouchableButton title="자세히 보기" />
+            <TouchableButton
+              title="자세히 보기"
+              height={35}
+              onPress={() => navigation.navigate("EstimateDetail")}
+            />
           </Container>
         ))}
       </Container>

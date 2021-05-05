@@ -11,3 +11,4 @@ export { default as MyPage } from "./MyPage";
 export { default as MyApplyList } from "./MyApplyList";
 export { default as MedicalSearch } from "./MedicalSearch";
 export { default as EstimateHistory } from "./EstimateHistory";
+export { default as EstimateDetail } from "./EstimateDetail";
