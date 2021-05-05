@@ -1,5 +1,5 @@
 import React from "react";
-import { MyApplyList } from "../../screens";
+import { EstimateHistory, MyApplyList } from "../../screens";
 import { Stack } from "../Factory";
 import { stackNavigationOptions } from "../global/options";
 
@@ -13,6 +13,7 @@ export default function MyApplyListStackNavigator() {
           headerShown: false,
         }}
       />
+      <Stack.Screen name="EstimateHistory" component={EstimateHistory} />
     </Stack.Navigator>
   );
 }
