@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, TextStyle } from "react-native";
+import { StyleSheet, Text, TextStyle } from "react-native";
 import PropTypes from "prop-types";
 import Container from "../Container";
 import { NanumTextProps } from "../@types";
@@ -26,7 +26,13 @@ export default function NanumText({
     fontFamily: `nanum-${weight}`,
   };
 
-  if (type === "plain") {
+  if (type === "button") Object.assign(textStyle, nanumStyles.button);
+  else if (type === "title") Object.assign(textStyle, nanumStyles.title);
+  else if (type === "header") Object.assign(textStyle, nanumStyles.header);
+  else if (type === "placeholder") Object.assign(textStyle, nanumStyles.placeholder);
+  else if (type === "error") Object.assign(textStyle, nanumStyles.error);
+  else if (type === "tiny") Object.assign(textStyle, nanumStyles.tiny);
+  else if (type === "plain") {
     if (typeof size === "string") {
       if (size === "xs") textStyle.fontSize = 12;
       else if (size === "s") textStyle.fontSize = 15;
@@ -36,24 +42,6 @@ export default function NanumText({
     } else {
       textStyle.fontSize = size;
     }
-  } else if (type === "button") {
-    textStyle.fontSize = 15;
-    textStyle.fontFamily = "nanum-bold";
-  } else if (type === "title") {
-    textStyle.fontSize = 18;
-    textStyle.fontFamily = "nanum-bold";
-  } else if (type === "header") {
-    textStyle.fontSize = 26;
-    textStyle.fontFamily = "nanum-extra-bold";
-    textStyle.lineHeight = 40;
-  } else if (type === "placeholder") {
-    textStyle.fontSize = 15;
-    textStyle.color = colors.placeholder;
-  } else if (type === "error") {
-    (textStyle.fontSize = 13), (textStyle.color = colors.red);
-  } else if (type === "tiny") {
-    textStyle.fontSize = 12;
-    textStyle.fontFamily = "nanum-light";
   }
 
   return (
@@ -66,6 +54,36 @@ export default function NanumText({
     </Container>
   );
 }
+
+export const nanumStyles = StyleSheet.create({
+  button: {
+    fontSize: 15,
+    fontFamily: "nanum-bold",
+  },
+  title: {
+    fontSize: 18,
+    fontFamily: "nanum-bold",
+  },
+  header: {
+    fontSize: 26,
+    fontFamily: "nanum-extra-bold",
+    lineHeight: 40,
+  },
+  placeholder: {
+    fontSize: 15,
+    fontFamily: "nanum-regular",
+    color: colors.placeholder,
+  },
+  error: {
+    fontSize: 13,
+    fontFamily: "nanum-light",
+    color: colors.red,
+  },
+  tiny: {
+    fontSize: 12,
+    fontFamily: "nanum-light",
+  },
+});
 
 NanumText.defaultProps = {
   type: "plain",

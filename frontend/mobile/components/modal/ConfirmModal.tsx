@@ -18,6 +18,7 @@ export default function ConfirmModal({
   buttonSize,
   buttonTitle,
 }: ConfirmModalProps): JSX.Element {
+  const iconSize = 90;
   return (
     <Modal
       animationIn="zoomIn"
@@ -29,17 +30,12 @@ export default function ConfirmModal({
       <Container>
         {(LeftPetSvg || RightPetSvg) && (
           <Container row margin={{ bottom: 30 }}>
-            {LeftPetSvg && <LeftPetSvg width={100} height={100} />}
-            {RightPetSvg && <RightPetSvg width={100} height={100} />}
+            {LeftPetSvg && <LeftPetSvg width={iconSize} height={iconSize} />}
+            {RightPetSvg && <RightPetSvg width={iconSize} height={iconSize} />}
           </Container>
         )}
         {header && (
-          <NanumText
-            type="title"
-            position="center"
-            align="center"
-            margin={{ bottom: 30 }}
-          >
+          <NanumText type="title" position="center" align="center" margin={{ bottom: 30 }}>
             {header}
           </NanumText>
         )}

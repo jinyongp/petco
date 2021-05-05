@@ -9,6 +9,7 @@ import NanumText from "../text/NanumText";
 export default function TouchableButton({
   width,
   height,
+  borderRadius,
   title,
   onPressIn,
   onPressOut,
@@ -27,12 +28,13 @@ export default function TouchableButton({
           ...styles.container,
           width,
           height,
+          borderRadius,
           opacity: disabled ? 0.5 : 1,
           backgroundColor: loading || pressed ? colors.yellow : "white",
         };
       }}
     >
-      <Container style={styles.inner}>
+      <Container style={{ ...styles.inner, borderRadius }}>
         <NanumText position="center" type="button">
           {title}
         </NanumText>
@@ -43,7 +45,6 @@ export default function TouchableButton({
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 999,
     borderColor: colors.yellow,
     borderWidth: 1,
     shadowColor: "rgba(0, 0, 0, 0.25)",
@@ -55,7 +56,6 @@ const styles = StyleSheet.create({
   inner: {
     width: "100%",
     height: "100%",
-    borderRadius: 999,
     backgroundColor: "transparent",
   },
 });
@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
 TouchableButton.defaultProps = {
   width: "100%",
   height: 50,
+  borderRadius: 999,
   disabled: false,
   loading: false,
 };
