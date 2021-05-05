@@ -20,19 +20,14 @@ export default function SearchLocation(): JSX.Element {
       <Container margin={{ bottom: 15 }}>
         <TextInputIcon
           Icon={Search}
+          returnKeyType="search"
           placeholder="예) 펫코동 14-5 또는 펫코아파트"
+          blurOnSubmit
         />
       </Container>
       <Container>
-        <TouchableContainer
-          row
-          onPress={() => navigation.navigate("SelectLocation")}
-        >
-          <Location
-            style={{ position: "absolute", left: 20 }}
-            width={25}
-            height={25}
-          />
+        <TouchableContainer row onPress={() => navigation.navigate("SelectLocation")}>
+          <Location style={{ position: "absolute", left: 20 }} width={25} height={25} />
           <NanumText position="center" type="button">
             현재 위치로 주소 찾기
           </NanumText>

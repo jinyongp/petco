@@ -1,9 +1,6 @@
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
-import {
-  StackNavigationOptions,
-  TransitionPresets,
-} from "@react-navigation/stack";
+import { StackNavigationOptions, TransitionPresets } from "@react-navigation/stack";
 
 export const stackNavigationOptions: StackNavigationOptions = {
   headerTitle: "",
@@ -11,7 +8,10 @@ export const stackNavigationOptions: StackNavigationOptions = {
   headerBackTitleStyle: {
     color: "#666",
     fontWeight: "400",
-    justifyContent: "center",
+    left: 5,
+  },
+  headerTitleContainerStyle: {
+    left: 0,
   },
   headerStyle: {
     backgroundColor: "#fff",
@@ -21,12 +21,7 @@ export const stackNavigationOptions: StackNavigationOptions = {
     elevation: 0,
   },
   headerBackImage: () => (
-    <Ionicons
-      name="chevron-back"
-      size={30}
-      color="#666"
-      style={{ marginLeft: 5 }}
-    />
+    <Ionicons name="chevron-back" size={30} color="#666" style={{ left: 5 }} />
   ),
   ...TransitionPresets.SlideFromRightIOS,
 };
