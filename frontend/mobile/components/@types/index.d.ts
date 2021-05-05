@@ -5,6 +5,7 @@ import {
   ViewStyle,
   PressableProps,
   TextInput,
+  TextStyle,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { TextInputProps } from "@types/react-native";
@@ -27,6 +28,11 @@ type FourWayType = {
   right?: string | number;
   bottom?: string | number;
   left?: string | number;
+};
+
+type BoxStyleProps = {
+  readonly padding?: string | number | FourWayType;
+  readonly margin?: string | number | FourWayType;
 };
 
 export interface CommonProps {
@@ -54,9 +60,7 @@ export interface TouchableContainerProps
   readonly row?: boolean;
 }
 
-export interface ContainerProps extends CommonProps {
-  readonly padding?: string | number | FourWayType;
-  readonly margin?: string | number | FourWayType;
+export interface ContainerProps extends CommonProps, BoxStyleProps {
   readonly row?: boolean;
   readonly style?: ViewStyle;
   readonly space?: number;
@@ -134,6 +138,20 @@ export interface DatePickerLabelProps {
   readonly onChange: (date: string) => void;
 }
 
-export interface TitleProps {
-  readonly title: string;
+export interface NanumTextProps extends BoxStyleProps, CommonProps {
+  readonly type?:
+    | "plain"
+    | "button"
+    | "title"
+    | "header"
+    | "placeholder"
+    | "error"
+    | "tiny";
+  readonly size?: number | "xs" | "s" | "m" | "l" | "xl";
+  readonly align?: TextStyle["textAlign"];
+  readonly color?: TextStyle["color"];
+  readonly weight?: "light" | "regular" | "bold" | "extra-bold";
+  readonly position?: ViewStyle["alignSelf"];
+  readonly lineHeight?: TextStyle["lineHeight"];
+  readonly letterSpacing?: TextStyle["letterSpacing"];
 }

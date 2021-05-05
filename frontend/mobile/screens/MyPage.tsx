@@ -14,13 +14,7 @@ import navi from "../assets/images/navi.png";
 import choco from "../assets/images/choco.png";
 import Estimate from "../assets/icons/estimate.svg";
 import Stethoscope from "../assets/icons/stethoscope.svg";
-import {
-  ScreenLayout,
-  Container,
-  MainTitle,
-  PlainText,
-  ButtonTitle,
-} from "../components";
+import { ScreenLayout, Container, NanumText } from "../components";
 
 const userPets = [
   {
@@ -46,12 +40,10 @@ export default function MyPage() {
   const [option, setOption] = useState(true);
   return (
     <ScreenLayout>
-      <Container
-        style={{ alignItems: "flex-start" }}
-        margin={{ top: 30, bottom: 30 }}
-      >
-        <MainTitle title={`서강준님${"\n"}안녕하세요!`} />
-      </Container>
+      <NanumText type="header" margin={{ top: 30, bottom: 30 }}>
+        {`서강준님${"\n"}안녕하세요!`}
+      </NanumText>
+
       <Container>
         <TouchableOpacity style={styles.button}>
           <View style={styles.imageWrapper}></View>
@@ -75,7 +67,7 @@ export default function MyPage() {
         style={{ alignItems: "center", justifyContent: "space-between" }}
         margin={{ bottom: 20 }}
       >
-        <MainTitle title={`서강준님의${"\n"}반려동물`} />
+        <NanumText type="header">{`서강준님의${"\n"}반려동물`}</NanumText>
         {option ? (
           <TouchableOpacity onPress={() => setOption(false)}>
             <Ionicons name="settings-outline" size={25} />
@@ -85,7 +77,7 @@ export default function MyPage() {
             style={styles.completeButton}
             onPress={() => setOption(true)}
           >
-            <ButtonTitle title="완료" />
+            <NanumText type="button">완료</NanumText>
           </TouchableOpacity>
         )}
       </Container>
@@ -119,7 +111,7 @@ export default function MyPage() {
                 width={80}
                 height={80}
               />
-              <PlainText title={name} />
+              <NanumText position="center">{name}</NanumText>
             </TouchableOpacity>
           ))}
           {option || (

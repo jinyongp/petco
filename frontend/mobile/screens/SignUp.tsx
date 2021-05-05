@@ -12,7 +12,7 @@ import {
   ConfirmModal,
   Container,
   ErrorModal,
-  MainTitle,
+  NanumText,
   ScreenLayout,
   TextInputIcon,
   TextLink,
@@ -84,9 +84,9 @@ export default function SignUp() {
 
   return (
     <ScreenLayout>
-      <Container style={{ alignItems: "flex-start" }} margin={{ bottom: 40 }}>
-        <MainTitle title={`회원가입을${"\n"}환영합니다`} />
-      </Container>
+      <NanumText type="header" margin={{ bottom: 40 }}>
+        {`회원가입을${"\n"}환영합니다`}
+      </NanumText>
 
       <Container margin={{ bottom: 40 }} space={330}>
         <TextInputIcon

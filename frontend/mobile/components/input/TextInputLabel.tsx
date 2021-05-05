@@ -1,12 +1,10 @@
 import React from "react";
+import { StyleSheet, TextInput, View } from "react-native";
 import PropTypes from "prop-types";
 import Container from "../Container";
-import { TextInputLabelProps } from "../@types";
-import PlainText from "../text/PlainText";
-import ErrorText from "../text/ErrorText";
-import { TextInput, View } from "react-native";
-import { StyleSheet } from "react-native";
+import NanumText from "../text/NanumText";
 import { colors } from "../../style/colors";
+import { TextInputLabelProps } from "../@types";
 
 export default function TextInputLabel({
   label,
@@ -29,13 +27,15 @@ export default function TextInputLabel({
         style={{ justifyContent: "space-between" }}
         margin={{ left: 20, bottom: 15 }}
       >
-        <PlainText title={label} />
-        <ErrorText title={error} />
+        <NanumText>{label}</NanumText>
+        <NanumText type="error" margin={{ right: 20 }}>
+          {error}
+        </NanumText>
       </Container>
       <View
         style={[
           styles.wrapper,
-          { borderColor: error ? "#ff000066" : "#c4c4c4" },
+          { borderColor: error ? colors.red : "#c4c4c4" },
         ]}
       >
         <TextInput

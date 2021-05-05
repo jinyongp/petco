@@ -12,7 +12,7 @@ import Cat from "../assets/animals/cat82.svg";
 import {
   Container,
   ErrorModal,
-  MainTitle,
+  NanumText,
   PlainText,
   ScreenLayout,
   TextInputIcon,
@@ -73,9 +73,9 @@ export default function SignIn(): JSX.Element {
 
   return (
     <ScreenLayout>
-      <Container style={{ alignItems: "flex-start" }} margin={{ bottom: 40 }}>
-        <MainTitle title={`펫코에${"\n"}로그인하기`} />
-      </Container>
+      <NanumText type="header" margin={{ bottom: 40 }}>
+        {`펫코에${"\n"}로그인하기`}
+      </NanumText>
 
       <Container margin={{ bottom: 25 }} space={120}>
         <TextInputIcon
@@ -102,10 +102,10 @@ export default function SignIn(): JSX.Element {
 
       <Container row margin={{ bottom: 40 }}>
         <TouchableOpacity style={{ paddingRight: 47 }}>
-          <PlainText title="아이디 찾기" />
+          <NanumText>아이디 찾기</NanumText>
         </TouchableOpacity>
         <TouchableOpacity>
-          <PlainText title="비밀번호 찾기" />
+          <NanumText>비밀번호 찾기</NanumText>
         </TouchableOpacity>
       </Container>
 

@@ -8,11 +8,10 @@ import WhiteCat from "../assets/icons/cat-white.svg";
 import LeftDog from "../assets/animals/dog105.svg";
 import RightCat from "../assets/animals/cat85.svg";
 import {
-  ButtonTitle,
   ConfirmModal,
   Container,
   DatePickerLabel,
-  MainTitle,
+  NanumText,
   PickerLabel,
   ScreenLayout,
   TextInputLabel,
@@ -55,9 +54,9 @@ export default function RegisterPets(): JSX.Element {
 
   return (
     <ScreenLayout>
-      <Container style={{ alignItems: "flex-start" }} margin={{ bottom: 30 }}>
-        <MainTitle title="반려동물 등록하기" />
-      </Container>
+      <NanumText type="header" margin={{ bottom: 30 }}>
+        반려동물 등록하기
+      </NanumText>
       <Container row margin={{ bottom: 30 }}>
         <Container style={{ width: "auto" }} margin={{ right: 35 }}>
           <TouchableContainer
@@ -73,7 +72,9 @@ export default function RegisterPets(): JSX.Element {
             )}
           </TouchableContainer>
           <Container margin={{ top: 15 }}>
-            <ButtonTitle title="강아지" type={dog ? "bold" : "regular"} />
+            <NanumText position="center" weight={dog ? "bold" : "regular"}>
+              강아지
+            </NanumText>
           </Container>
         </Container>
         <Container style={{ width: "auto" }}>
@@ -90,7 +91,9 @@ export default function RegisterPets(): JSX.Element {
             )}
           </TouchableContainer>
           <Container margin={{ top: 15 }}>
-            <ButtonTitle title="고양이" type={cat ? "bold" : "regular"} />
+            <NanumText position="center" weight={cat ? "bold" : "regular"}>
+              고양이
+            </NanumText>
           </Container>
         </Container>
       </Container>

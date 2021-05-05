@@ -6,7 +6,13 @@ import { stackNavigationOptions } from "../global/options";
 export default function MyApplyListStackNavigator() {
   return (
     <Stack.Navigator screenOptions={stackNavigationOptions}>
-      <Stack.Screen name="MyApplyList" component={MyApplyList} />
+      <Stack.Screen
+        name="MyApplyList"
+        component={MyApplyList}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 }
