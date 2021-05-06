@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AppState, AppStateStatus, Linking, Platform } from "react-native";
+import { ActivityIndicator, AppState, AppStateStatus, Linking, Platform } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import SearchSVG from "../assets/icons/search.svg";
 import LocationSVG from "../assets/icons/location.svg";
@@ -18,6 +18,7 @@ export default function SearchLocation(): JSX.Element {
   const navigation = useNavigation();
   const [locationService, setLocationService] = useState(false);
   const [askAgain, setAskAgain] = useState(true);
+  const [loading, setLoading] = useState(false);
   const checkLocationServicesEnabled = (state: AppStateStatus) => {
     (async () => {
       if (state === "active") {
@@ -52,7 +53,14 @@ export default function SearchLocation(): JSX.Element {
     setAskAgain(canAskAgain);
 
     if (granted) {
-      navigation.navigate("SelectLocation");
+      try {
+        setLoading(true);
+        const { coords } = await Location.getCurrentPositionAsync();
+        setLoading(false);
+        return coords;
+      } catch (error) {
+        console.warn(error);
+      }
     }
   };
 
@@ -73,15 +81,21 @@ export default function SearchLocation(): JSX.Element {
         <TouchableContainer
           row
           disabled={!locationService || !askAgain}
+          loading={loading}
           onPress={async () => {
-            await handleLocationPermission();
-            // navigation.navigate("SelectLocation");
+            if (!loading) {
+              const { latitude, longitude } = await handleLocationPermission();
+              navigation.navigate("SelectLocation", { latitude, longitude });
+            }
           }}
         >
           <LocationSVG style={{ position: "absolute", left: 20 }} width={25} height={25} />
           <NanumText position="center" type="button">
             현재 위치로 주소 찾기
           </NanumText>
+          {loading && (
+            <ActivityIndicator color={colors.blue} style={{ position: "absolute", right: 20 }} />
+          )}
         </TouchableContainer>
         {locationService || (
           <Container margin={{ top: 10 }}>
