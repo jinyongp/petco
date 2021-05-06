@@ -1,8 +1,8 @@
 <template>
-  <div id="app" class="filters">
+  <div id="app">
     <div class="logo">PETCO</div>
-    <div v-if="loginDone">
-      <button class="to-log">Log out</button>
+    <div v-if="loginDone" class="filters">
+      <button class="to-log" @click.prevent="logout">Log out</button>
       <router-link to="/home" class="to-home" tag="button">
         <div>홈</div>
       </router-link>
@@ -11,6 +11,10 @@
       </router-link>
       <router-link to="/support" class="to-support" tag="button">
         <div>견적관리</div>
+        <div>
+          <a href="#">견적서 응답</a>
+          <a href="#">견적서 관리</a>
+        </div>
       </router-link>
       <router-link to="/mypage" class="to-mypage" tag="button">
         <div>마이페이지</div>
@@ -20,18 +24,29 @@
       <router-link to="/" class="to-log">
         <div>Log in</div>
       </router-link>
-      <router-link to="/home" class="to-home" tag="button">
-        <div>홈</div>
+      <router-link to="/" class="to-home" tag="button">
+        <div @click="alertLogin">홈</div>
       </router-link>
-      <router-link to="/support" class="to-support" tag="button">
-        <div>견적관리</div>
+      <router-link to="/" class="to-support" tag="button">
+        <div>
+          견적관리
+          <div class="submenu">
+            <router-link to="/" tag="div">견적서 응답</router-link>
+            <router-link to="/" tag="div">견적서 관리</router-link>
+          </div>
+        </div>
       </router-link>
-      <router-link to="/appointment" class="to-appointment" tag="button">
-        <div>예약 현황</div>
+      <router-link
+        to="/"
+        class="to-appointment"
+        tag="button"
+        @click="alertLogin"
+      >
+        <div @click="alertLogin">예약 현황</div>
       </router-link>
 
-      <router-link to="/mypage" class="to-mypage" tag="button">
-        <div>마이페이지</div>
+      <router-link to="/" class="to-mypage" tag="button" @click="alertLogin">
+        <div @click="alertLogin">마이페이지</div>
       </router-link>
     </div>
 
@@ -40,14 +55,26 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Vue } from "vue-property-decorator";
+// import { onLogout } from "./vue-apollo";
 
-@Component
 export default class App extends Vue {
-  loginDone: boolean = false;
+  loginDone: any = this.$apollo;
+
+  // isLoggedIn() {
+  //   if (this.$apollo.provider.defaultClient) return (this.loginDone = true);
+  // }
   created() {
     console.log("router", this.$router);
     console.log("route", this.$route);
+  }
+  alertLogin() {
+    alert("로그인이 필요한 서비스입니다");
+  }
+  logout() {
+    const onLogout = require("./vue-apollo");
+    onLogout(this.$apollo.provider.defaultClient);
+    this.$router.push("/");
   }
 }
 </script>
@@ -60,6 +87,29 @@ export default class App extends Vue {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.submenu {
+  position: relative;
+  display: none;
+  width: 78px;
+  height: 16px;
+
+  font-family: NanumGothic;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 15px;
+  letter-spacing: 0.007em;
+
+  background: white;
+  border: white;
+
+  cursor: pointer;
+
+  color: #fec544;
+}
+.to-support:hover .submenu {
+  display: block;
 }
 .logo {
   position: absolute;
@@ -93,10 +143,13 @@ export default class App extends Vue {
   background: white;
   border: white;
 
+  cursor: pointer;
+
   color: #000000;
 }
 .to-appointment {
   position: absolute;
+  display: inline-block;
   width: 120px;
   height: 28px;
   left: 708px;
@@ -112,10 +165,13 @@ export default class App extends Vue {
   background: white;
   border: white;
 
+  cursor: pointer;
+
   color: #000000;
 }
 .to-support {
   position: absolute;
+  display: inline-block;
   width: 120px;
   height: 28px;
   left: 544px;
@@ -131,6 +187,8 @@ export default class App extends Vue {
   background: white;
   border: white;
 
+  cursor: pointer;
+
   color: #000000;
 }
 .to-log {
@@ -141,11 +199,11 @@ export default class App extends Vue {
   top: 52px;
 
   background: #fec544;
-  border-radius: 30px;
+  border-radius: 20px;
 
   position: absolute;
-  width: 74px;
-  height: 29px;
+  width: 88px;
+  height: 34px;
   left: 1068px;
   top: 68px;
 
@@ -174,6 +232,8 @@ export default class App extends Vue {
 
   background: white;
   border: white;
+
+  cursor: pointer;
 
   color: #000000;
 }
