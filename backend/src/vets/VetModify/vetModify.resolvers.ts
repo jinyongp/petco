@@ -1,12 +1,12 @@
 require("dotenv").config();
 import {Resolvers} from "../../types"
-import client from "../../client"
+
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 
 const resolvers:Resolvers = {
   Mutation:{
-    vetModify: async (_,data):Promise<any>=>{
+    vetModify: async (_,data,client):Promise<any>=>{
       const {id,password} = data
       data.password = await bcrypt.hash(password,10);
       delete data.id

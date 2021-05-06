@@ -1,9 +1,9 @@
 import {Resolvers} from "../../types"
-import client from "../../client"
+
 import bcrypt from "bcrypt"
 const resolvers:Resolvers  = {
   Mutation:{
-    userModify: async (_,data)=>{
+    userModify: async (_,data,client)=>{
       const {id,password} = data
       const passwordHash = await bcrypt.hash(password, 10)
       data.password = passwordHash

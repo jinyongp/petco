@@ -1,9 +1,9 @@
 import {Resolvers} from "../../types"
-import client from "../../client"
+
 
 const resolvers:Resolvers = {
   Mutation:{
-    addPet: async(_,data):Promise<any> => {
+    addPet: async(_,data,client):Promise<any> => {
       const {name,birth,gender,weight,type,in_neutered,vaccinated,user_id} = data
       if(!name) return {result:false,message:"이름을 입력해주세요"}
       if(!birth) return {result:false,message:"생일은 입력해주세요"}

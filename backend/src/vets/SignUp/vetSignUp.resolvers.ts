@@ -1,9 +1,9 @@
 import {Resolvers} from "../../types"
-import client from "../../client"
+
 import bcrypt from "bcrypt"
 const resolvers:Resolvers = {
   Mutation:{
-    vetSignUp: async (_,data):Promise<any>=>{
+    vetSignUp: async (_,data,client):Promise<any>=>{
       const {hospital_id,password,name,location,number} = data
       if(!hospital_id) return {result:false,message:"병원등록에 실패하였습니다."}
       if(!password) return {result:false,message:"병원등록에 실패하였습니다."}

@@ -1,9 +1,9 @@
 import {Resolvers} from "../../types"
-import client from "../../client"
+
 
 const resolvers:Resolvers = {
   Mutation : {
-    vetSignOut: async (_,where):Promise<any>=>{
+    vetSignOut: async (_,where,client):Promise<any>=>{
       const vet = await client.vets.delete({ where })
       .catch(()=> {return null})
       if(!vet) return {result:false,message:"병원 삭제에 실패하였습니다."}

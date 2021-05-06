@@ -1,9 +1,9 @@
 import {Resolvers} from "../../types"
-import client from "../../client"
+
 
 const resolvers:Resolvers={
   Mutation:{
-    modifyPet: async (_,data):Promise<any>=>{
+    modifyPet: async (_,data,client):Promise<any>=>{
       const {id} = data
       delete data.id
       const pet = await client.pets.update({data,where:{id}}).catch(()=> {return null})

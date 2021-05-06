@@ -1,9 +1,8 @@
 import {Resolvers} from "../../types"
-import client from "../../client"
 
 const resolvers:Resolvers={
   Mutation:{
-    requestAppointment: async (_,data):Promise<any> =>{      
+    requestAppointment: async (_,data,client):Promise<any> =>{      
       const appointment = await client.appointments.create({data})
       .catch(err=> {return null})
       if(!appointment) return {result:false, message:"예약신청을 실패하였습니다."}

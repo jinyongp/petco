@@ -1,12 +1,12 @@
 require("dotenv").config();
 import {Resolvers} from "../../types"
-import client from "../../client"
+
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
 
 const resolvers:Resolvers={
   Query:{
-    vetSignIn: async (_,where):Promise<any>=>{
+    vetSignIn: async (_,where,client):Promise<any>=>{
       const {hospital_id,password} = where
       
       if(!hospital_id) return {result:false,message:"아이디를 입력해 주세요"}

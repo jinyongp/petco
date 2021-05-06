@@ -1,9 +1,9 @@
 import {Resolvers} from "../../types"
-import client from "../../client"
+
 
 const resolvers:Resolvers = {
   Query:{
-    vetProfile: async (_,where):Promise<any>=>{
+    vetProfile: async (_,where,client):Promise<any>=>{
       const vet = await client.vets.findFirst({ where })
       .catch(()=>{ return null });
       if(!vet) return { result:false, message:"병원정보를 불러올 수 없습니다."}      

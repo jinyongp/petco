@@ -1,10 +1,10 @@
 require("dotenv").config();
 import { Resolvers } from "../../types";
 import bcrypt from "bcrypt"
-import client from "../../client"
+
 const resolvers: Resolvers = {
   Mutation:{
-    signUp: async (_,data):Promise<any>=>{
+    signUp: async (_,data,client):Promise<any>=>{
       const {userId,password,email,username,phone_number} = data
       //모든값 입력되었는지 검사
       if(!userId) return { result:false ,message: "아이디를 입력하여 주십시오"}

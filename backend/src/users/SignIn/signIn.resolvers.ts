@@ -2,10 +2,10 @@ require("dotenv").config();
 import { Resolvers } from "../../types";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
-import client from "../../client"
+
 const resolvers: Resolvers = {
   Query:{
-    signIn: async(_,data):Promise<any>=>{
+    signIn: async(_,data,client):Promise<any>=>{
       const {userId,password} = data;
       if(!userId) return {result:0 ,message: "아이디를 입력해 주세요"}
       if(!password) return {result:0, message: "비밀번호를 입력해 주세요"}
