@@ -17,18 +17,43 @@ import { colors } from "../style/colors";
 export default function SearchLocation(): JSX.Element {
   const navigation = useNavigation();
   const [locationService, setLocationService] = useState(false);
+  const [askAgain, setAskAgain] = useState(true);
   const checkLocationServicesEnabled = (state: AppStateStatus) => {
     (async () => {
-      if (state === "active") setLocationService(await Location.hasServicesEnabledAsync());
+      if (state === "active") {
+        setLocationService(await Location.hasServicesEnabledAsync());
+      }
     })();
   };
+  const checkLocationPermissionGranted = (state: AppStateStatus) => {
+    (async () => {
+      if (state === "active") {
+        const { canAskAgain } = await Location.getForegroundPermissionsAsync();
+        setAskAgain(canAskAgain);
+      }
+    })();
+  };
+
   useEffect(() => {
+    checkLocationServicesEnabled("active");
     AppState.addEventListener("change", checkLocationServicesEnabled);
     return () => AppState.removeEventListener("change", checkLocationServicesEnabled);
   }, []);
 
+  useEffect(() => {
+    if (locationService) {
+      AppState.addEventListener("change", checkLocationPermissionGranted);
+      return () => AppState.removeEventListener("change", checkLocationPermissionGranted);
+    }
+  }, [locationService]);
+
   const handleLocationPermission = async () => {
-    console.log(await Location.hasServicesEnabledAsync());
+    const { canAskAgain, granted } = await Location.requestForegroundPermissionsAsync();
+    setAskAgain(canAskAgain);
+
+    if (granted) {
+      navigation.navigate("SelectLocation");
+    }
   };
 
   return (
@@ -47,7 +72,7 @@ export default function SearchLocation(): JSX.Element {
       <Container>
         <TouchableContainer
           row
-          disabled={!locationService}
+          disabled={!locationService || !askAgain}
           onPress={async () => {
             await handleLocationPermission();
             // navigation.navigate("SelectLocation");
@@ -81,7 +106,41 @@ export default function SearchLocation(): JSX.Element {
             </NanumText>
           </Container>
         )}
+        <RequestPermission
+          visible={locationService && !askAgain}
+          desc="위치 서비스 권한이 필요합니다."
+          link="권한 얻기"
+          opPress={() => {
+            if (Platform.OS === "ios") {
+              Linking.openURL("app-settings:");
+            } else {
+              IntentLauncher.startActivityAsync(IntentLauncher.ACTION_APPLICATION_DETAILS_SETTINGS);
+            }
+          }}
+        />
       </Container>
     </ScreenLayout>
+  );
+}
+
+function RequestPermission({ visible, desc, link, opPress }): JSX.Element {
+  if (!visible) return null;
+
+  return (
+    <Container margin={{ top: 10 }}>
+      <NanumText size={10} color={colors.dark} position="center">
+        {desc}
+      </NanumText>
+      <NanumText
+        position="center"
+        size={11}
+        weight="bold"
+        margin={{ top: 5 }}
+        color={colors.yellow}
+        onPress={opPress}
+      >
+        {link}
+      </NanumText>
+    </Container>
   );
 }
