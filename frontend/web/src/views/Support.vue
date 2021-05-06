@@ -1,10 +1,6 @@
 <template>
   <div>
-    <div v-if="loginDone">
-      <div class="text">{{ msg }}</div>
-      <div class="textField"></div>
-    </div>
-    <div v-else>
+    <div>
       <div class="text">{{ msg }}</div>
       <div class="textField"></div>
     </div>
@@ -19,7 +15,6 @@ export default Vue.extend({
   data() {
     return {
       msg: "무엇을 도와드릴까요?",
-      loginDone: false,
     };
   },
   apollo: {},
