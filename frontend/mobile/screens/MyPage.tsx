@@ -1,12 +1,5 @@
 import React, { useRef, useState } from "react";
-import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../style/colors";
@@ -15,6 +8,7 @@ import choco from "../assets/images/choco.png";
 import Estimate from "../assets/icons/estimate.svg";
 import Stethoscope from "../assets/icons/stethoscope.svg";
 import { ScreenLayout, Container, NanumText } from "../components";
+import { terminateTokenAsync } from "../apollo";
 
 const userPets = [
   {
@@ -47,13 +41,26 @@ export default function MyPage() {
       <Container>
         <TouchableOpacity style={styles.button}>
           <View style={styles.imageWrapper}></View>
-          <Text style={styles.buttonText}>내 정보</Text>
+          <NanumText position="center" size={18}>
+            내 정보
+          </NanumText>
+          <TouchableOpacity
+            onPress={async () => {
+              await terminateTokenAsync();
+            }}
+          >
+            <NanumText position="center" size={10} color={colors.red} margin={{ left: 10 }}>
+              로그아웃
+            </NanumText>
+          </TouchableOpacity>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button}>
           <View style={styles.imageWrapper}>
             <Estimate width={33} height={45} />
           </View>
-          <Text style={styles.buttonText}>내 견적</Text>
+          <NanumText position="center" size={18}>
+            내 견적
+          </NanumText>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button}>
           <View style={styles.imageWrapper}>
@@ -73,10 +80,7 @@ export default function MyPage() {
             <Ionicons name="settings-outline" size={25} />
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity
-            style={styles.completeButton}
-            onPress={() => setOption(true)}
-          >
+          <TouchableOpacity style={styles.completeButton} onPress={() => setOption(true)}>
             <NanumText type="button">완료</NanumText>
           </TouchableOpacity>
         )}
@@ -85,16 +89,10 @@ export default function MyPage() {
         <ScrollView
           horizontal
           ref={scrollViewRef}
-          onContentSizeChange={(x) =>
-            scrollViewRef?.current?.scrollTo({ x, animated: false })
-          }
+          onContentSizeChange={(x) => scrollViewRef?.current?.scrollTo({ x, animated: false })}
         >
           {userPets?.map(({ name, profile }, index) => (
-            <TouchableOpacity
-              style={styles.petSelectButton}
-              disabled
-              key={index}
-            >
+            <TouchableOpacity style={styles.petSelectButton} disabled key={index}>
               {option || (
                 <TouchableOpacity
                   style={styles.petDeleteButton}
@@ -105,12 +103,7 @@ export default function MyPage() {
                   <Ionicons name="close" size={25} />
                 </TouchableOpacity>
               )}
-              <Image
-                style={styles.petImage}
-                source={profile}
-                width={80}
-                height={80}
-              />
+              <Image style={styles.petImage} source={profile} width={80} height={80} />
               <NanumText position="center">{name}</NanumText>
             </TouchableOpacity>
           ))}
@@ -130,7 +123,7 @@ export default function MyPage() {
 
 const styles = StyleSheet.create({
   button: {
-    alignSelf: "flex-start",
+    alignSelf: "center",
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 20,

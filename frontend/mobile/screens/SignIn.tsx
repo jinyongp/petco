@@ -3,7 +3,7 @@ import { TouchableOpacity } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
 import { ApolloError, gql, useLazyQuery } from "@apollo/client";
-import { isLoggedIn } from "../apollo";
+import { saveTokenAsync } from "../apollo";
 import { SignInInput, SignInPayload } from "./@types";
 import Lock from "../assets/icons/lock.svg";
 import Person from "../assets/icons/person.svg";
@@ -49,7 +49,7 @@ export default function SignIn(): JSX.Element {
   const onCompleted = ({ signIn: { result, token, message } }: SignInPayload) => {
     // TODO - token
     setAccountError(!result);
-    isLoggedIn(result);
+    result && saveTokenAsync(token, 0 /* FIXME userId */);
   };
   const onError = (error: ApolloError) => {
     console.warn(error);
