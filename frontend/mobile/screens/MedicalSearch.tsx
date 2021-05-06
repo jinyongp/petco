@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import {
+  ConfirmModal,
   Container,
   ModalContainer,
   NanumText,
@@ -20,6 +21,7 @@ import { colors } from "../style/colors";
 import Search from "../assets/icons/search.svg";
 import { useNavigation } from "@react-navigation/core";
 import EstimateCaution from "./EstimateCaution";
+import Dog from "../assets/animals/dog90.svg";
 
 const subjects = [
   {
@@ -119,6 +121,7 @@ const subjects = [
 
 export default function MedicalSearch(): JSX.Element {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [confirmed, setConfirmed] = useState(false);
   const navigation = useNavigation();
   useEffect(() => {
     UIManager?.setLayoutAnimationEnabledExperimental?.(true);
@@ -180,8 +183,25 @@ export default function MedicalSearch(): JSX.Element {
         animationOut="fadeOutDown"
         containerStyle={{ padding: 0 }}
       >
-        <EstimateCaution onConfirm={() => {}} onBack={() => setIsModalVisible(false)} />
+        <EstimateCaution
+          onConfirm={() => {
+            setIsModalVisible(false);
+            setTimeout(setConfirmed, 600, true);
+          }}
+          onBack={() => setIsModalVisible(false)}
+        />
       </ModalContainer>
+      <ConfirmModal
+        isVisible={confirmed}
+        header="견적 신청을 완료했습니다."
+        content={`견적 신청 내역을 확인하시고${"\n"}병원 예약을 진행해주세요`}
+        onClose={() => {
+          setConfirmed(false);
+          navigation.navigate("Home");
+        }}
+        LeftPetSvg={Dog}
+        buttonTitle="완료"
+      />
     </ScreenLayout>
   );
 }
