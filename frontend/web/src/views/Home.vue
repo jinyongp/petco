@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <img class="img" src="../assets/Flying_iPhone_X_Mockups.png" />
-    <div v-if="loginDone">{{ name }} 환영합니다 :)</div>
+    <div v-if="loginDone">{{ vet.name }} 환영합니다 :)</div>
     <div if-else>
       <SignIn />
     </div>
@@ -9,29 +9,34 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Vue } from "vue-property-decorator";
 import SignIn from "../components/SignIn.vue";
-// import gql from "graphql-tag";
+import gql from "graphql-tag";
 
-@Component({
+export default Vue.extend({
   components: {
     SignIn,
   },
-})
-export default class Home extends Vue {
-  @Prop() private msg!: string;
-  loginDone: boolean = false;
-  name: string = "";
-  // apollo: {
-  //   vets: gql` query{
-  //     vets{
-  //
-  //       name
-  //
-  //     }
-  //   }`,
-  // },
-}
+  data() {
+    return {
+      msg: "my page" as string,
+      vet: {} as object,
+    };
+  },
+  apollo: {
+    vets: gql`
+      query {
+        vetProfile {
+          vet {
+            name
+          }
+          result
+          message
+        }
+      }
+    `,
+  },
+});
 </script>
 
 <style scoped>
