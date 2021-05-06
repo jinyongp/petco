@@ -18,6 +18,7 @@ export { default as ScreenLayout } from "./layout/ScreenLayout";
 export { default as ConfirmModal } from "./modal/ConfirmModal";
 export { default as ErrorModal } from "./modal/ErrorModal";
 export { default as DatePickerModal } from "./modal/DatePickerModal";
+export { default as ModalContainer } from "./modal/ModalContainer";
 
 /* nav */
 export { default as TabIcon } from "./nav/TabIcon";

@@ -11,6 +11,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { TextInputProps } from "@types/react-native";
 import { IconProps } from "@types/react-native-vector-icons/Icon";
 import { IOSNativeProps, AndroidNativeProps } from "@react-native-community/datetimepicker";
+import Modal from "react-native-modal";
 import ModalSelector from "react-native-modal-selector";
 
 type onPressType = PressableProps["onPress"];
@@ -79,6 +80,13 @@ export interface DatePickerModalProps {
   readonly onChange: (date: Date) => void;
   readonly onClose: onPressType;
   readonly buttonTitle: string;
+}
+
+export interface ModalContainerProps extends CommonProps {
+  readonly isVisible: boolean;
+  readonly animationIn?: React.ComponentProps<typeof Modal>["animationIn"];
+  readonly animationOut?: React.ComponentProps<typeof Modal>["animationOut"];
+  readonly containerStyle?: ViewStyle;
 }
 
 type CommonTextInputProps = Pick<
