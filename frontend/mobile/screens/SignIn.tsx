@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
-import { ApolloError, gql, useMutation } from "@apollo/client";
+import { ApolloError, gql, useLazyQuery } from "@apollo/client";
 import { isLoggedIn } from "../apollo";
 import { SignInInput, SignInPayload } from "./@types";
 import Lock from "../assets/icons/lock.svg";
@@ -13,19 +13,18 @@ import {
   Container,
   ErrorModal,
   NanumText,
-  PlainText,
   ScreenLayout,
   TextInputIcon,
   TextLink,
   TouchableButton,
 } from "../components";
 
-const SIGNIN_MUTATION = gql`
-  mutation Login($userId: String!, $password: String!) {
-    login(userId: $userId, password: $password) {
-      ok
+const SIGNIN_QUERY = gql`
+  query SigIn($userId: String, $password: String) {
+    signIn(userId: $userId, password: $password) {
+      result
       token
-      error
+      message
     }
   }
 `;
@@ -35,6 +34,7 @@ export default function SignIn(): JSX.Element {
   const navigation = useNavigation();
   const [networkError, setNetworkError] = useState(false);
   const [accountError, setAccountError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
   const { register, handleSubmit, setValue, watch } = useForm({
     defaultValues: {
       userId: params?.userId, // FIXME not working
@@ -46,16 +46,17 @@ export default function SignIn(): JSX.Element {
     register("password", { required: true });
   }, [register]);
 
-  const onCompleted = ({ login: { ok, token, error } }: SignInPayload) => {
+  const onCompleted = ({ signIn: { result, token, message } }: SignInPayload) => {
     // TODO - token
-    setAccountError(Boolean(error));
-    isLoggedIn(ok);
+    setAccountError(!result);
+    isLoggedIn(result);
   };
   const onError = (error: ApolloError) => {
+    console.warn(error);
     setNetworkError(!!error);
   };
 
-  const [signIn, { loading }] = useMutation(SIGNIN_MUTATION, {
+  const [signIn, { loading }] = useLazyQuery(SIGNIN_QUERY, {
     onCompleted,
     onError,
   });

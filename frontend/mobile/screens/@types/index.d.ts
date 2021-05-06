@@ -22,10 +22,10 @@ export type SignInInput = {
 };
 
 export type SignInPayload = {
-  login: {
-    ok: boolean;
+  signIn: {
+    result: boolean;
     token: string;
-    error: string;
+    message: string;
   };
 };
 
