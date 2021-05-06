@@ -8,6 +8,10 @@ export type ParamList = {
       profile: ImageSourcePropType;
     };
   };
+  SelectLocation: {
+    latitude: number;
+    longitude: number;
+  };
 };
 
 /* QUERY or MUTATION */

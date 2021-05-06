@@ -13,27 +13,30 @@ export default function NanumText({
   weight,
   margin,
   padding,
+  onPress,
   children,
   position,
   lineHeight,
   letterSpacing,
+  textDecorationLine,
 }: NanumTextProps): JSX.Element {
   const textStyle: TextStyle = {
     color,
     lineHeight,
     letterSpacing,
+    textDecorationLine,
     textAlign: align,
     fontFamily: `nanum-${weight}`,
   };
 
-  if (type === "button") Object.assign(textStyle, nanumStyles.button);
+  if (type === "plain") Object.assign(textStyle, nanumStyles.plain);
+  else if (type === "button") Object.assign(textStyle, nanumStyles.button);
   else if (type === "title") Object.assign(textStyle, nanumStyles.title);
   else if (type === "header") Object.assign(textStyle, nanumStyles.header);
   else if (type === "placeholder") Object.assign(textStyle, nanumStyles.placeholder);
   else if (type === "error") Object.assign(textStyle, nanumStyles.error);
   else if (type === "tiny") Object.assign(textStyle, nanumStyles.tiny);
-  else if (type === "plain") {
-    Object.assign(textStyle, nanumStyles.plain);
+  else {
     if (typeof size === "string") {
       if (size === "xs") textStyle.fontSize = 12;
       else if (size === "s") textStyle.fontSize = 15;
@@ -47,11 +50,17 @@ export default function NanumText({
 
   return (
     <Container
-      style={{ width: "auto", height: "auto", alignSelf: position }}
+      style={{
+        width: "auto",
+        height: "auto",
+        alignSelf: position,
+      }}
       margin={margin}
       padding={padding}
     >
-      <Text style={textStyle}>{children}</Text>
+      <Text style={textStyle} onPress={onPress}>
+        {children}
+      </Text>
     </Container>
   );
 }
@@ -93,7 +102,7 @@ export const nanumStyles = StyleSheet.create({
 });
 
 NanumText.defaultProps = {
-  type: "plain",
+  type: "",
   size: "s",
   color: colors.dark,
   weight: "regular",
@@ -103,4 +112,5 @@ NanumText.defaultProps = {
 NanumText.propTypes = {
   type: PropTypes.string,
   size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  onPress: PropTypes.func,
 };
