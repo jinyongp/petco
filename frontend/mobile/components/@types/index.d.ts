@@ -68,7 +68,7 @@ export interface ConfirmModalProps {
   readonly onClose: onPressType;
   readonly header?: string;
   readonly content?: string;
-  readonly buttonTitle?: string;
+  readonly buttonTitle: string;
   readonly LeftPetSvg?: React.FC<SvgProps>;
   readonly RightPetSvg?: React.FC<SvgProps>;
   readonly containerSize?: SizeType;
