@@ -33,6 +33,7 @@ export default function NanumText({
   else if (type === "error") Object.assign(textStyle, nanumStyles.error);
   else if (type === "tiny") Object.assign(textStyle, nanumStyles.tiny);
   else if (type === "plain") {
+    Object.assign(textStyle, nanumStyles.plain);
     if (typeof size === "string") {
       if (size === "xs") textStyle.fontSize = 12;
       else if (size === "s") textStyle.fontSize = 15;
@@ -56,6 +57,11 @@ export default function NanumText({
 }
 
 export const nanumStyles = StyleSheet.create({
+  plain: {
+    fontSize: 15,
+    fontFamily: "nanum-regular",
+    lineHeight: 20,
+  },
   button: {
     fontSize: 15,
     fontFamily: "nanum-bold",
@@ -82,6 +88,7 @@ export const nanumStyles = StyleSheet.create({
   tiny: {
     fontSize: 12,
     fontFamily: "nanum-light",
+    lineHeight: 15,
   },
 });
 
