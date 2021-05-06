@@ -8,10 +8,18 @@ import {
   UIManager,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { Container, NanumText, ScreenLayout, TextInputIcon, TouchableButton } from "../components";
+import {
+  Container,
+  ModalContainer,
+  NanumText,
+  ScreenLayout,
+  TextInputIcon,
+  TouchableButton,
+} from "../components";
 import { colors } from "../style/colors";
 import Search from "../assets/icons/search.svg";
-import { makeVar, useReactiveVar } from "@apollo/client";
+import { useNavigation } from "@react-navigation/core";
+import EstimateCaution from "./EstimateCaution";
 
 const subjects = [
   {
@@ -110,6 +118,8 @@ const subjects = [
 ];
 
 export default function MedicalSearch(): JSX.Element {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const navigation = useNavigation();
   useEffect(() => {
     UIManager?.setLayoutAnimationEnabledExperimental?.(true);
     return () => UIManager?.setLayoutAnimationEnabledExperimental?.(false);
@@ -145,7 +155,11 @@ export default function MedicalSearch(): JSX.Element {
           <TextInputIcon Icon={Search} returnKeyType="search" blurOnSubmit />
         </Container>
         <Container style={{ width: "20%" }} margin={{ left: 20 }}>
-          <TouchableButton title="선택" disabled={!selected} />
+          <TouchableButton
+            title="선택"
+            disabled={!selected}
+            onPress={() => setIsModalVisible(true)}
+          />
         </Container>
       </Container>
       <Container style={styles.sectionList}>
@@ -160,6 +174,14 @@ export default function MedicalSearch(): JSX.Element {
           />
         ))}
       </Container>
+      <ModalContainer
+        isVisible={isModalVisible}
+        animationIn="fadeInUp"
+        animationOut="fadeOutDown"
+        containerStyle={{ padding: 0 }}
+      >
+        <EstimateCaution onConfirm={() => {}} onBack={() => setIsModalVisible(false)} />
+      </ModalContainer>
     </ScreenLayout>
   );
 }
