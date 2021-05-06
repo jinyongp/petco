@@ -20,9 +20,21 @@ import {
 } from "../components";
 
 const SIGNUP_MUTATION = gql`
-  mutation CreateAccount($input: CreateAccountInput) {
-    createAccount(input: $input) {
-      error
+  mutation SignUp(
+    $userId: String
+    $email: String
+    $password: String
+    $phone_number: String
+    $username: String
+  ) {
+    signUp(
+      userId: $userId
+      email: $email
+      password: $password
+      phone_number: $phone_number
+      username: $username
+    ) {
+      result
       user {
         id
       }
@@ -35,15 +47,17 @@ export default function SignUp() {
 
   const [networkError, setNetworkError] = useState(false);
   const [alreadyExistError, setAlreadyExistError] = useState(false);
+  const [isPasswordCorrect, setIsPasswordCorrect] = useState(true);
 
   const [completed, setCompleted] = useState(false);
   const { register, handleSubmit, setValue, watch, getValues } = useForm();
-  const onCompleted = ({ createAccount: { error, user } }: SignUpPayload) => {
+  const onCompleted = ({ signUp: { error, user } }: SignUpPayload) => {
     // TODO Additional Error Handling
     if (error?.includes("exist")) setAlreadyExistError(true);
     else setCompleted(true);
   };
   const onError = (error: ApolloError) => {
+    console.warn(error);
     setNetworkError(!!error);
   };
   const [signUp, { loading }] = useMutation(SIGNUP_MUTATION, {
@@ -52,12 +66,14 @@ export default function SignUp() {
   });
   useEffect(() => {
     register("userId", { required: true });
+    register("username", { required: true });
     register("email", { required: true });
-    register("phone", { required: true });
+    register("phone_number", { required: true });
     register("password", { required: true });
     register("passwordCheck", { required: true });
   }, [register]);
 
+  const usernameRef = useRef();
   const emailRef = useRef();
   const phoneRef = useRef();
   const passwordRef = useRef();
@@ -68,9 +84,9 @@ export default function SignUp() {
   };
   const goToSignIn = () => navigation.navigate("SignIn");
   const onSetValue = (name: string) => (text: string) => setValue(name, text);
-  const onValid = (input: SignUpInput) => {
-    delete input["passwordCheck"];
-    loading || signUp({ variables: { input } });
+  const onValid = (variables: SignUpInput) => {
+    delete variables.passwordCheck;
+    loading || signUp({ variables });
   };
 
   const onCloseModal = () => {
@@ -88,14 +104,23 @@ export default function SignUp() {
         {`회원가입을${"\n"}환영합니다`}
       </NanumText>
 
-      <Container margin={{ bottom: 40 }} space={330}>
+      <Container margin={{ bottom: 40 }} space={400}>
         <TextInputIcon
           Icon={Person}
           size={20}
           placeholder="아이디를 입력해 주세요."
           returnKeyType="next"
-          onSubmitEditing={onNext(emailRef)}
+          onSubmitEditing={onNext(usernameRef)}
           onChangeText={onSetValue("userId")}
+        />
+        <TextInputIcon
+          Icon={Person}
+          size={20}
+          placeholder="이름을 입력해 주세요."
+          returnKeyType="next"
+          inputRef={usernameRef}
+          onSubmitEditing={onNext(emailRef)}
+          onChangeText={onSetValue("username")}
         />
         <TextInputIcon
           Icon={Chat}
@@ -113,7 +138,7 @@ export default function SignUp() {
           returnKeyType="done"
           inputRef={phoneRef}
           onSubmitEditing={onNext(passwordRef)}
-          onChangeText={onSetValue("phone")}
+          onChangeText={onSetValue("phone_number")}
         />
         <TextInputIcon
           Icon={Lock}
@@ -129,7 +154,11 @@ export default function SignUp() {
           placeholder="비밀번호를 다시 입력해 주세요."
           returnKeyType="done"
           inputRef={passwordCheckRef}
-          onChangeText={onSetValue("passwordCheck")}
+          onChangeText={(text) => {
+            setValue("passwordCheck", text);
+            setIsPasswordCorrect(text !== watch("password"));
+          }}
+          error={!!watch("passwordCheck") && isPasswordCorrect}
           blurOnSubmit
           secureTextEntry
         />
@@ -142,18 +171,14 @@ export default function SignUp() {
           disabled={
             !watch("userId") ||
             !watch("email") ||
-            !watch("phone") ||
+            !watch("phone_number") ||
             !watch("password") ||
-            !watch("passwordCheck")
+            isPasswordCorrect
           }
         />
       </Container>
       <Container margin={{ bottom: 56 }}>
-        <TextLink
-          onPress={goToSignIn}
-          desc="이미 회원이신가요?"
-          link="로그인 하기"
-        />
+        <TextLink onPress={goToSignIn} desc="이미 회원이신가요?" link="로그인 하기" />
       </Container>
       <ErrorModal
         error={networkError}

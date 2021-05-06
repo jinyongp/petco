@@ -38,7 +38,7 @@ export type SignUpInput = {
 };
 
 export type SignUpPayload = {
-  createAccount: {
+  signUp: {
     error: string;
     user: {
       id: number;

@@ -9,6 +9,7 @@ export default function TextInputIcon({
   size,
   color,
   value,
+  error,
   onBlur,
   onFocus,
   inputRef,
@@ -21,7 +22,7 @@ export default function TextInputIcon({
   secureTextEntry,
 }: TextInputIconProps): JSX.Element {
   return (
-    <View style={styles.wrapper}>
+    <View style={{ ...styles.wrapper, ...(error && { borderColor: colors.red, borderWidth: 1 }) }}>
       <Icon
         style={{ position: "absolute", left: 20 }}
         color={color}
@@ -65,6 +66,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     backgroundColor: "white",
     borderRadius: 999,
+    borderColor: "white",
+    borderWidth: 1,
     zIndex: 999,
   },
   input: {
@@ -91,6 +94,7 @@ TextInputIcon.propTypes = {
       height: PropTypes.number,
     }),
   ]),
+  error: PropTypes.bool,
   value: PropTypes.string,
   color: PropTypes.string,
   onBlur: PropTypes.func,

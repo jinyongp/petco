@@ -106,6 +106,7 @@ type CommonTextInputProps = Pick<
 export interface TextInputIconProps extends Pick<SvgProps, "color">, CommonTextInputProps {
   readonly Icon: React.FC<SvgProps>;
   readonly size?: number | SizeType;
+  readonly error?: boolean;
   readonly inputRef?: React.Ref<TextInput>;
 }
 
