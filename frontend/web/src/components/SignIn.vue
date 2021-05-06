@@ -1,55 +1,73 @@
 <template>
   <div>
-    <div class="textLogIn">LOGIN</div>
-    <br />
-    <div class="text username">username</div>
-    <input type="text" class="inputUser" v-model="hospital_id" />
-    <p v-if="error1.length">
-      <b v-for="error in error1" :key="error" class="errorText usernameError">{{
-        error
-      }}</b>
-    </p>
-    <br />
-    <div class="text password">password</div>
-    <input type="password" class="inputPassword" v-model="password" />
-    <p v-if="error2.length">
-      <b v-for="error in error2" :key="error" class="errorText passwordError">{{
-        error
-      }}</b>
-    </p>
-    <br />
-    <button class="logInButton" @click="checkForm">로그인 하기</button>
+    <form action="" method="POST" @submit="checkForm">
+      <div class="textLogIn">LOGIN</div>
+      <br />
+      <div class="text username">username</div>
+      <input type="text" class="inputUser" v-model="hospital_id" />
+      <p v-if="error1.length">
+        <b
+          v-for="error in error1"
+          :key="error"
+          class="errorText usernameError"
+          >{{ error }}</b
+        >
+      </p>
+      <br />
+      <div class="text password">password</div>
+      <input type="password" class="inputPassword" v-model="password" />
+      <p v-if="error2.length">
+        <b
+          v-for="error in error2"
+          :key="error"
+          class="errorText passwordError"
+          >{{ error }}</b
+        >
+      </p>
+      <br />
+      <button class="logInButton" type="submit">
+        로그인 하기
+      </button>
+    </form>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-// import gql from "graphql-tag";
+import gql from "graphql-tag";
+
 // import { SignInInput } from "./type/index";
+import apolloClient from "../apollo";
 
 export default Vue.extend({
   data() {
     return {
-      loginDone: false as boolean,
+      loginDone: apolloClient,
       error1: [] as any,
       error2: [] as any,
       hospital_id: "" as string,
       password: "" as string,
+      token: "" as string,
     };
   },
-  // apollo: {
-  //   vets: gql` query{
-  //     vets{
-  //       hospital_id
-  //       password
-  //     }
-  //   }`,
-  // },
+  apollo: {
+    vets: gql`
+      query {
+        vetSignIn {
+          token
+          result
+        }
+      }
+    `,
+  },
   methods: {
+    onDone(val: any) {
+      alert("worked");
+      this.token = val;
+    },
     loginAlert() {
-      this.loginDone = true;
       alert("펫코에 오신 것을 환영합니다");
-      this.$router.push("/appointment");
+      this.$router.push("/mypage");
     },
     checkForm(e: any) {
       e.preventDefault();
@@ -61,25 +79,42 @@ export default Vue.extend({
       if (!this.password) {
         this.error2.push("비밀번호를 입력해주세요");
       }
-      if (!this.error1.length && !this.error2.length) return this.loginAlert();
+      if (!this.error1.length && !this.error2.length) return this.login();
     },
-    // async logIn() {
-    //   const result = await this.$apollo.mutate({
-    //     mutation: gql`
-    //       mutation Login($hospital_id: String!, $password: String!) {
-    //         login(hospital_id: $hospital_id, password: $password) {
-    //           ok
-    //           token
-    //           error
-    //         }
-    //       }
-    //     `,
-    //     variables: {
-    //       hospital_id: this.id,
-    //       password: this.password,
-    //     },
-    //   });
-    // },
+    async login() {
+      await this.$apollo
+        .mutate({
+          mutation: gql`
+            mutation vetSignIn($hospital_id: String!, $password: String!) {
+              vetSignIn(hospital_id: $hospital_id, password: $password) {
+                result
+                token
+                message
+              }
+            }
+          `,
+          variables: {
+            data: {
+              hospital_id: this.hospital_id,
+              password: this.password,
+            },
+          },
+        })
+        .then((data) => {
+          // Result
+          console.log(data);
+          const onLogin = require("../vue-apollo");
+          onLogin(
+            this.$apollo.provider.defaultClient,
+            data.data.vetSignIn.token
+          );
+          this.$router.push("/mypage");
+        })
+        .catch((error) => {
+          // Error
+          console.error(error);
+        });
+    },
   },
 });
 </script>
@@ -195,5 +230,8 @@ export default Vue.extend({
   letter-spacing: -0.3px;
 
   color: #000000;
+}
+.example {
+  top: 1000px;
 }
 </style>

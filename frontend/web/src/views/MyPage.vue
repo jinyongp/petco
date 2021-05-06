@@ -1,29 +1,30 @@
 <template>
   <div>
-    {{ msg }}
+    {{ vets }}
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-// import gql from "graphql-tag"
+import gql from "graphql-tag";
 
 export default Vue.extend({
   data() {
     return {
-      msg: "my page",
-      vets: {},
+      msg: "my page" as string,
+      vets: {} as object,
     };
   },
-  // apollo: {
-  //   vets: gql` query{
-  //     vets{
-  //       hospital_id
-  //       name
-  //       location
-  //       number
-  //     }
-  //   }`,
-  // },
+  apollo: {
+    vets: gql`
+      query {
+        vetProfile {
+          vet
+          result
+          message
+        }
+      }
+    `,
+  },
 });
 </script>

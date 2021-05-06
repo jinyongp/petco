@@ -1,13 +1,6 @@
 <template>
-  <div>
-    <div
-      v-for="appoint in appoints"
-      :key="appoint.id"
-      class="col"
-      cols="12"
-      lg="3"
-      md="3"
-    >
+  <span>
+    <div v-for="appoint in appoints" :key="appoint.id" class="col">
       <div class="card">
         <div class="name">{{ appoint.name }}</div>
         <div class="birth">생년월일 : {{ appoint.date }}</div>
@@ -20,12 +13,12 @@
         </div>
       </div>
     </div>
-  </div>
+  </span>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-// import gql from "graphql-tag";
+import gql from "graphql-tag";
 
 export default Vue.extend({
   data() {
@@ -34,7 +27,7 @@ export default Vue.extend({
         {
           id: 1,
           name: "초코",
-          date: "2013.03.17",
+          date: "2013.03.18",
           weight: 3.8,
           neutralization: true,
           vaccination: true,
@@ -48,39 +41,43 @@ export default Vue.extend({
           vaccination: true,
         },
       ],
+      appointments: null,
     };
   },
-  // apollo: {
-  //   appoints: gql` query{
-  //     appoints{
-  //       id
-  //       name
-  //       date
-  //       weight
-  //       neutralization
-  //       vaccination
-  //     }
-  //   }`,
-  // },
+  apollo: {
+    appointments: gql`
+      query {
+        appointments {
+          id
+          status
+          date
+          users
+          pets
+          created_at
+        }
+      }
+    `,
+  },
   methods: {
     isTrue(prop: any) {
       return prop === true ? "O" : "X";
     },
-    // async cancelAppoint() {
-    //   const result = await this.$apollo.mutate({
-    //     mutation: gql`
-    //       mutation cancelAppoint($appointment: String!) {
-    //         cancelAppoint(appointment: $appointment) {
-    //           ok
-    //           error
-    //         }
-    //       }
-    //     `,
-    //     variables: {
-    //       appointment: this.appointment,
-    //     },
-    //   });
-    // },
+    async cancelAppoint() {
+      await this.$apollo.mutate({
+        mutation: gql`
+          mutation cancelAppoint($id: Int!) {
+            cancelAppoint(id: $id) {
+              result
+              message
+              appointment
+            }
+          }
+        `,
+        variables: {
+          appointments: this.appointments,
+        },
+      });
+    },
   },
 });
 </script>
@@ -88,6 +85,7 @@ export default Vue.extend({
 <style scoped>
 .col {
   position: relative;
+  float: left;
   display: flex;
   top: 100px;
   left: 160px;
@@ -97,8 +95,8 @@ export default Vue.extend({
   /* Rectangle 237 */
 
   position: relative;
-  width: 220px;
-  height: 284px;
+  width: 300px;
+  height: 350px;
   top: 20;
 
   background: #ffffff;
