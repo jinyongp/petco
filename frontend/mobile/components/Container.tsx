@@ -53,18 +53,9 @@ Container.defaultProps = {
 };
 
 Container.propTypes = {
-  padding: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-    PropTypes.object,
-  ]),
-  margin: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-    PropTypes.object,
-  ]),
+  padding: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
+  margin: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
   row: PropTypes.bool,
   style: PropTypes.object,
   space: PropTypes.number,
-  children: PropTypes.node,
 };

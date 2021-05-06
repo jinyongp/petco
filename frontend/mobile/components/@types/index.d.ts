@@ -141,8 +141,10 @@ export interface NanumTextProps extends BoxStyleProps, CommonProps {
   readonly size?: number | "xs" | "s" | "m" | "l" | "xl";
   readonly align?: TextStyle["textAlign"];
   readonly color?: TextStyle["color"];
-  readonly weight?: "light" | "regular" | "bold" | "extra-bold";
+  readonly weight?: "light" | "regular" | "bold" | "extra-bold" | TextStyle["fontWeight"];
+  readonly onPress?: onPressType;
   readonly position?: ViewStyle["alignSelf"];
   readonly lineHeight?: TextStyle["lineHeight"];
   readonly letterSpacing?: TextStyle["letterSpacing"];
+  readonly textDecorationLine?: TextStyle["textDecorationLine"];
 }
