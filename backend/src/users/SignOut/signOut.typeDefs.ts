@@ -5,6 +5,6 @@ export default gql`
     message: String
   }
   type Mutation{
-    signOut(id:Int): SignOutPayLoad
+    signOut(token:String): SignOutPayLoad
   }
 `;
