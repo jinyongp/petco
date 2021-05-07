@@ -7,7 +7,6 @@ export default gql`
   }
   type Mutation{
     userModify(
-      password:String
       avatar:String
       phone_number:String
       ):UserModifyPayLoad

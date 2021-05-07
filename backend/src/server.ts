@@ -8,7 +8,9 @@ import client from "./client";
 const context = async ( {req} ) =>{
   const token = req.headers.authorization;
   if(!token) return { client };
-  return {client,token}
+  const {id} = jwt.verify(token,process.env.SECRET_KEY)
+  const user = await client.users.findFirst({where:id})
+  return {client,user}
 }
 
 const server = new ApolloServer({ schema, context });

@@ -14,7 +14,7 @@ const resolvers: Resolvers = {
       if(!user) return {status:403, message:"Not found ( Invalid email )"};
       const status = await bcrypt.compare(password,user.password);
       if(!status) return {status:404, message:"Not found ( Invalid password )"}
-      const token = jwt.sign(user,process.env.SECRET_KEY)
+      const token = jwt.sign({id:user.id},process.env.SECRET_KEY)
       return {status:200, message:"로그인에 성공하였습니다.",token}
     }
   }
