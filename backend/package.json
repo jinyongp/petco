@@ -1,4 +1,5 @@
 {
+  "name": "petco-server",
   "dependencies": {
     "@prisma/client": "2.21.2",
     "apollo-server": "^2.23.0",
@@ -22,8 +23,9 @@
     "typescript": "^4.2.4"
   },
   "scripts": {
-    "start": "nodemon -x ts-node src/server --ext ts,js",
-    "db": "yarn prisma migrate dev"
+    "start": "nodemon --delay 50 -x ts-node src/server --ext ts,js",
+    "migrate": "prisma migrate dev",
+    "studio": "prisma studio"
   },
   "private": true
 }

@@ -36,9 +36,16 @@
 
 ## References
 
-## response status
+## Response Status
 
-- 200: OK
+### General
+
+성공할 시 코드 없음
+
+### Authentication
+
+
+
 - 401: Email is null (SignIn)
 - 402: Password is null (SignIn)
 - 403: Not found ( Invalid email )
