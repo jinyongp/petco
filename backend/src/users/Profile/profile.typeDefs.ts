@@ -7,6 +7,6 @@ export default gql`
     message:String
   }
   type Query {
-    profile(token:String): ProfilePayload
+    profile: ProfilePayload
   }
 `;

@@ -3,8 +3,13 @@ import morgan from "morgan";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import schema from "./schema";
-import { PrismaClient } from "@prisma/client"
-const context = new PrismaClient();
+import jwt from "jsonwebtoken"
+import client from "./client";
+const context = async ( {req} ) =>{
+  const token = req.headers.authorization;
+  if(!token) return { client };
+  return {client,token}
+}
 
 const server = new ApolloServer({ schema, context });
 const { PORT } = process.env;

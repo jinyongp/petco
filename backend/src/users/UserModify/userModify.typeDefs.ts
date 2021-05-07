@@ -6,7 +6,11 @@ export default gql`
     user:User
   }
   type Mutation{
-    userModify(token:String):UserModifyPayLoad
+    userModify(
+      password:String
+      avatar:String
+      phone_number:String
+      ):UserModifyPayLoad
   }
 
 `;

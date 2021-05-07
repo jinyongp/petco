@@ -5,8 +5,9 @@ require('dotenv').config();
 import bcrypt from "bcrypt"
 const resolvers:Resolvers  = {
   Mutation:{
-    userModify: async (_,data,client)=>{
-      const {id,password} = jwt.verify(data.token,process.env.SECRET_KEY)
+    userModify: async (_,data,context)=>{
+      const {client,token} = context
+      const {id,password} = jwt.verify(token,process.env.SECRET_KEY)
       const passwordHash = await bcrypt.hash(password, 10)
       data.password = passwordHash
       const user = await client.users.update({
