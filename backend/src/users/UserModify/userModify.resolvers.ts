@@ -1,6 +1,4 @@
 import {Resolvers} from "../../types"
-import jwt from "jsonwebtoken";
-require('dotenv').config();
 
 import bcrypt from "bcrypt"
 const resolvers:Resolvers  = {

@@ -1,6 +1,4 @@
 import { Resolvers } from "../../types";
-import jwt from "jsonwebtoken";
-require('dotenv').config();
 
 const resolvers: Resolvers = {
   Query: {

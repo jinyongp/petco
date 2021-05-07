@@ -1,10 +1,10 @@
 import { gql } from "apollo-server";
 export default gql`
-  type SignOutPayLoad{
+  type DeleteUserPayLoad{
     status:Int
     message: String
   }
   type Mutation{
-    signOut: SignOutPayLoad
+    deleteUser: DeleteUserPayLoad
   }
 `;
