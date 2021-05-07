@@ -2,7 +2,7 @@ import {gql} from "apollo-server"
 
 export default gql`
   type ConfirmAppointmentPayLoad{
-    result:Boolean
+    status:Int
     appointment:Appointment
     message:String
   }

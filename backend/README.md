@@ -35,3 +35,13 @@
 - [dotenv](https://github.com/motdotla/dotenv#readme)
 
 ## References
+
+## response status
+
+- 200: OK
+- 401: Email is null (SignIn)
+- 402: Password is null (SignIn)
+- 403: Not found ( Invalid email )
+- 404: Not found ( Invalid password )
+- 411:
+- 500: Internal Server Error

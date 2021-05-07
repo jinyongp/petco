@@ -1,13 +1,13 @@
 import {Resolvers} from "../../types"
-import client from "../../client"
+
 
 const resolvers:Resolvers = {
   Mutation:{
-    confirmAppointment: async(_,where):Promise<any> =>{
+    confirmAppointment: async(_,where,client):Promise<any> =>{
       const appointment = await client.appointments.update({data:{status:"confirm"},where})
       .catch(()=>{return null})
-      if(!appointment) return { result:false, message:"예약확정에 실패하였습니다."}
-      return { result:true, appointment:appointment,message:"예약이 확정되었습니다."}
+      if(!appointment) return { status:404, message:"예약확정에 실패하였습니다."}
+      return { status:200, appointment:appointment,message:"예약이 확정되었습니다."}
     }
   }
 }

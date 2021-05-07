@@ -2,7 +2,7 @@ import { gql } from "apollo-server";
 export default gql`
   type AddPetPayLoad{
     pet:Pet
-    result:Boolean
+    status:Int
     message:String
   }
   type Mutation{

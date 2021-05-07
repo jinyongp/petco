@@ -2,7 +2,7 @@ import {gql} from "apollo-server"
 
 export default gql`
   type VetModifyPayLoad{
-    result:Boolean
+    status:Int
     vet:Vet
     token:String
     message:String
