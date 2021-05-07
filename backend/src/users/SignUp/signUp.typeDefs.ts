@@ -5,13 +5,8 @@ export default gql`
     message: String
     user:User
   }
-  type Query{
-    userIdDuplicateTest(userId:String): SignUpPayLoad
-    emailDuplicateTest(email:String): SignUpPayLoad
-  }
   type Mutation{
     signUp(
-      userId:String
       email:String
       avatar:String
       password:String

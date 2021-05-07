@@ -6,6 +6,6 @@ export default gql`
     token: String
   }
   type Query{
-    signIn(userId:String,password:String):SignInPayLoad
+    signIn(email:String,password:String):SignInPayLoad
   }
 `;
