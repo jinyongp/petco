@@ -1,7 +1,7 @@
 import { gql } from "apollo-server";
 export default gql`
   type SignInPayLoad{
-    result: Boolean
+    status:Int
     message:String
     token: String
   }

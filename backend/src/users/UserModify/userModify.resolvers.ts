@@ -12,8 +12,8 @@ const resolvers:Resolvers  = {
         where:{ id }
       })
       .catch(()=>{ return null })
-      if(!user) return {result:false,message:"회원정보 수정에 실패하였습니다."}
-      return {result:true, user, message:"회원정보 수정이 완료되었습니다."}
+      if(!user) return {status:false,message:"회원정보 수정에 실패하였습니다."}
+      return {status:200, user, message:"회원정보 수정이 완료되었습니다."}
     }
   }
 }

@@ -1,7 +1,7 @@
 import { gql } from "apollo-server";
 export default gql`
   type UserModifyPayLoad{
-    result:Boolean
+    status:Int
     message:String
     user:User
   }

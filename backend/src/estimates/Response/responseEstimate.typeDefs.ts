@@ -2,7 +2,7 @@ import {gql} from "apollo-server"
 
 export default gql`
   type responseEstimatePayLoad{
-    result:Boolean
+    status:Int
     response:ResponseEstimate
     message:String
   }

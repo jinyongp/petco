@@ -2,7 +2,7 @@ import {gql} from "apollo-server"
 
 export default gql`
   type PetProfilePayLoad{
-    result: Boolean
+    status:Int
     pets: [Pet]
     message:String
   }
