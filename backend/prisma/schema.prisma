@@ -14,7 +14,7 @@ model users {
   id           Int            @id @default(autoincrement())
   username     String
   email        String         @unique
-  avatar       String         @default("no photo")
+  avatar       String?
   password     String
   phone_number String         @unique
   is_valid     Boolean        @default(false)

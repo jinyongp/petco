@@ -3,15 +3,16 @@ import { UserPayloadTypes } from "../users.types";
 
 const resolvers: Resolvers = {
   Mutation: {
-    async deleteUser(
+    async updateUser(
       _,
-      __,
+      data,
       { client, currentUser }
     ): Promise<UserPayloadTypes> {
+      if (!currentUser) return { ok: false, status: 404 };
+      const { id } = currentUser;
       try {
-        const { id } = currentUser;
-        const deletedUser = await client.users.delete({ where: { id } });
-        return deletedUser ? { ok: true } : { ok: false, status: 404 };
+        const user = await client.users.update({ data, where: { id } });
+        return user ? { ok: true, user } : { ok: false, status: 404 };
       } catch (error) {
         console.error(error);
         return { ok: false, status: 500 };
