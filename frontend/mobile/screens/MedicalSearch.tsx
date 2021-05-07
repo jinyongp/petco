@@ -216,63 +216,69 @@ function ListItem({ sid, section, list, selectedItems, toggleSelectedItems }) {
   return (
     <Container style={styles.sectionContainer}>
       <Container row>
-        <Pressable style={styles.section} onPress={onPress}>
+        <Pressable style={[styles.section, openedStyle(open).opened]} onPress={onPress}>
           <NanumText type="button">{section}</NanumText>
-        </Pressable>
-        <Container
-          style={{
-            position: "absolute",
-            width: 20,
-            height: 20,
-            right: 60,
-          }}
-        >
-          <NanumText position="center">
-            {selectedItems.length !== 0 && selectedItems.length}
-          </NanumText>
-        </Container>
-        <Ionicons
-          name={open ? "caret-down" : "caret-forward"}
-          size={20}
-          style={{ position: "absolute", zIndex: -1, right: 30 }}
-        />
-      </Container>
-      {open &&
-        list?.map(({ id, item }, index: number) => (
-          <Container
-            key={index}
-            style={{ alignItems: "flex-start", width: "80%" }}
-            padding={{ bottom: 10 }}
-          >
-            <TouchableOpacity style={styles.listItem} onPress={() => toggleSelectedItems(sid, id)}>
-              <NanumText>{item}</NanumText>
-              {selectedItems.includes(id) ? (
-                <Ionicons
-                  style={styles.icon}
-                  name="checkmark-circle"
-                  size={20}
-                  color={colors.yellow}
-                />
-              ) : (
-                <Ionicons
-                  style={styles.icon}
-                  name="checkmark-circle-outline"
-                  size={20}
-                  color={colors.placeholder}
-                />
-              )}
-            </TouchableOpacity>
+          <Container row style={{ width: "auto" }}>
+            <NanumText position="center" margin={{ right: 5 }}>
+              {selectedItems.length !== 0 && selectedItems.length}
+            </NanumText>
+            <Ionicons name={open ? "caret-down" : "caret-forward"} size={20} />
           </Container>
-        ))}
+        </Pressable>
+      </Container>
+      {open && (
+        <Container margin={{ top: 10 }}>
+          {list?.map(({ id, item }, index: number) => (
+            <Container
+              key={index}
+              style={{ alignItems: "flex-start", width: "80%" }}
+              padding={{ bottom: 10 }}
+            >
+              <TouchableOpacity
+                style={styles.listItem}
+                onPress={() => toggleSelectedItems(sid, id)}
+              >
+                <NanumText>{item}</NanumText>
+                {selectedItems.includes(id) ? (
+                  <Ionicons
+                    style={styles.icon}
+                    name="checkmark-circle"
+                    size={20}
+                    color={colors.yellow}
+                  />
+                ) : (
+                  <Ionicons
+                    style={styles.icon}
+                    name="checkmark-circle-outline"
+                    size={20}
+                    color={colors.placeholder}
+                  />
+                )}
+              </TouchableOpacity>
+            </Container>
+          ))}
+        </Container>
+      )}
     </Container>
   );
 }
+
+const openedStyle = (open: boolean) =>
+  StyleSheet.create({
+    opened: {
+      backgroundColor: open ? colors.yellow : "white",
+      borderBottomWidth: Number(open),
+      borderBottomColor: colors.light,
+    },
+  });
 
 const styles = StyleSheet.create({
   sectionList: {
     width: Dimensions.get("screen").width,
     borderTopWidth: 1,
+    borderBottomWidth: 1,
     borderTopColor: colors.light,
+    borderBottomColor: "white",
     alignItems: "flex-start",
   },
   sectionContainer: {
@@ -285,6 +291,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 30,
     alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   listItem: {
     flexDirection: "row",
