@@ -7,7 +7,7 @@ export default gql`
     email: String!
     avatar: String
     phone_number: String!
-    is_valid: Boolean!
+    is_valid: Boolean
     created_at: String
     updated_at: String
   }

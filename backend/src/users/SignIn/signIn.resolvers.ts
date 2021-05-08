@@ -22,7 +22,7 @@ const resolvers: Resolvers = {
         if (!status) return { ok: false, status: 404 };
 
         const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY);
-        return { ok: true, token };
+        return { ok: true, token, user };
       } catch (error) {
         console.error(error);
         return { ok: false, status: 500 };
