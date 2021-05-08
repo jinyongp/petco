@@ -35,3 +35,20 @@
 - [dotenv](https://github.com/motdotla/dotenv#readme)
 
 ## References
+
+## Response Status
+
+### General
+
+성공할 시 코드 없음
+
+### Authentication
+
+
+
+- 401: Email is null (SignIn)
+- 402: Password is null (SignIn)
+- 403: Not found ( Invalid email )
+- 404: Not found ( Invalid password )
+- 411:
+- 500: Internal Server Error

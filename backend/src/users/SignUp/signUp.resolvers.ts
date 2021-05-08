@@ -1,25 +1,42 @@
 require("dotenv").config();
 import { Resolvers } from "../../types";
-import bcrypt from "bcrypt"
-import client from "../../client"
-const resolvers: Resolvers = {
-  Mutation:{
-    signUp: async (_,data):Promise<any>=>{
-      const {userId,password,email,username,phone_number} = data
-      //모든값 입력되었는지 검사
-      if(!userId) return { result:false ,message: "아이디를 입력하여 주십시오"}
-      if(!password) return { result:false ,message: "비밀번호를 입력하여 주십시오"}
-      if(!email) return { result:false ,message: "이메일을 입력하여 주십시오"}
-      if(!username) return { result:false ,message: "이름은 입력하여 주십시오"}
-      if(!phone_number) return { result:false ,message: "핸드폰번호를 입력하여 주십시오"}
+import bcrypt from "bcrypt";
+import { UserPayloadTypes } from "../users.types";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 
-      const passwordHash = await bcrypt.hash(password, 10)
-      data.password = passwordHash
-      const user = await client.users.create({ data });
-      if(!user) return { result:false, message:"회원가입에 실패하였습니다."}
-      return {user:{...user,password:null},result:true, message:"회원가입에 성공하였습니다."}
-    }
-  }
+const resolvers: Resolvers = {
+  Mutation: {
+    async signUp(_, data, { client }): Promise<UserPayloadTypes> {
+      const { password, email, username, phone_number } = data;
+
+      //모든값 입력되었는지 검사
+      if (!email) return { ok: false, status: 404 };
+      if (!password) return { ok: false, status: 404 };
+      if (!username) return { ok: false, status: 404 };
+      if (!phone_number) return { ok: false, status: 404 };
+
+      try {
+        data.password = await bcrypt.hash(password, 10);
+        const user = await client.users.create({ data });
+        return user ? { ok: true, user } : { ok: false, status: 404 };
+      } catch (error) {
+        /**
+         * TODO 나머지 Unique 판별 테스트 수행
+         * @see https://www.prisma.io/docs/reference/api-reference/error-reference
+         */
+        if (error instanceof PrismaClientKnownRequestError) {
+          const { target } = error.meta as { target: string };
+          if (target === "phone_number_unique") {
+            return { ok: false, status: 407 }; // Already phone_number exist
+          } else {
+            return { ok: false, status: 403 };
+          }
+        } else {
+          return { ok: false, status: 500 };
+        }
+      }
+    },
+  },
 };
 
 export default resolvers;

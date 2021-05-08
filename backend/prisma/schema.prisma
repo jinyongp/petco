@@ -13,9 +13,8 @@ generator client {
 model users {
   id           Int            @id @default(autoincrement())
   username     String
-  userId       String         @unique
   email        String         @unique
-  avatar       String         @default("no photo")
+  avatar       String?
   password     String
   phone_number String         @unique
   is_valid     Boolean        @default(false)
@@ -48,6 +47,7 @@ model appointments {
   id         Int      @id @default(autoincrement())
   status     status   @default(request)
   date       String
+  details    String
   vets       vets?    @relation(fields: [vet_id], references: [id])
   vet_id     Int?
   users      users?   @relation(fields: [user_id], references: [id])
@@ -75,6 +75,8 @@ model estimates {
 
 model response_estimate {
   id               Int        @id @default(autoincrement())
+  vets             vets?      @relation(fields: [vet_id], references: [id])
+  vet_id           Int?
   response_comment String     @default("")
   estimates        estimates? @relation(fields: [estimate_id], references: [id])
   estimate_id      Int?
@@ -83,16 +85,17 @@ model response_estimate {
 }
 
 model vets {
-  id           Int            @id @default(autoincrement())
-  hospital_id  String         @unique
-  password     String
-  name         String
-  location     String
-  number       String
-  created_at   DateTime       @default(now())
-  updated_at   DateTime       @updatedAt
-  appointments appointments[]
-  estimates    estimates[]
+  id                Int                 @id @default(autoincrement())
+  hospital_id       String              @unique
+  password          String
+  name              String
+  location          String
+  number            String
+  created_at        DateTime            @default(now())
+  updated_at        DateTime            @updatedAt
+  appointments      appointments[]
+  estimates         estimates[]
+  response_estimate response_estimate[]
 }
 
 model major_medical_subjects {

@@ -2,7 +2,7 @@ import {gql} from "apollo-server"
 
 export default gql`
   type CancelEstimatePayLoad{
-    result:Boolean
+    status:Int
     estimate:Estimate
     message:String
   }
