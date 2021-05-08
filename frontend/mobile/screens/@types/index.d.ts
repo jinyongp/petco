@@ -12,36 +12,34 @@ export type ParamList = {
     latitude: number;
     longitude: number;
   };
+  SignIn: {
+    email: string;
+  };
 };
 
 /* QUERY or MUTATION */
 
-export type SignInInput = {
-  userId: string;
-  password: string;
-};
-
-export type SignInPayload = {
-  signIn: {
-    result: boolean;
-    token: string;
-    message: string;
-  };
-};
-
-export type SignUpInput = {
-  userId: string;
+type User = {
+  id: number;
+  username: string;
   email: string;
-  phone: string;
-  password: string;
-  passwordCheck: string;
+  avatar: string;
+  phone_number: string;
+  is_valid: string;
+  created_at: string;
+  updated_at: string;
 };
 
-export type SignUpPayload = {
-  signUp: {
-    error: string;
-    user: {
-      id: number;
-    };
+type Response = {
+  ok: boolean;
+  status?: number;
+};
+
+export type UserPayload = {
+  signIn: Response & {
+    token?: string;
+  };
+  signUp: Response & {
+    user?: User;
   };
 };
