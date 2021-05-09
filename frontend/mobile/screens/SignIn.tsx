@@ -52,9 +52,11 @@ export default function SignIn(): JSX.Element {
     register("password", { required: true });
   }, [register]);
 
-  const onCompleted = ({ signIn: { ok, token, status } }: UserPayload) => {
+  const onCompleted = ({
+    signIn: { ok, token, status, user },
+  }: UserPayload) => {
     setAccountError(!ok);
-    ok && saveTokenAsync(token);
+    ok && saveTokenAsync(token, user);
   };
   const onError = (error: ApolloError) => {
     console.warn(error);
