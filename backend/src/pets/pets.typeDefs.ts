@@ -5,6 +5,15 @@ export default gql`
     cat
     dog
   }
+  enum PetGenderType{
+    male
+    female
+  }
+  type PetPayload{
+    ok: Boolean
+    pets: Pet
+    status: Int
+  }
   type Pet {
     id: Int
     name: String

@@ -9,7 +9,7 @@ import client from "./client";
 const context = async ({ req }: ExpressContext) => {
   const token = req.headers.authorization;
   if (!token) return { client };
-
+  // console.log(client)
   try {
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
     if (typeof decodedToken === "string") return { client };
