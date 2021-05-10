@@ -1,9 +1,9 @@
 <template>
   <div class="hello">
     <img class="img" src="../assets/Flying_iPhone_X_Mockups.png" />
-    <div v-if="loginDone">{{ vet.name }} 환영합니다 :)</div>
+    <div v-if="login">{{ vet.name }} 환영합니다 :)</div>
     <div if-else>
-      <SignIn />
+      <SignIn v-on:show-log="loginDone" />
     </div>
   </div>
 </template>
@@ -14,6 +14,9 @@ import SignIn from "../components/SignIn.vue";
 import gql from "graphql-tag";
 
 export default Vue.extend({
+  props: {
+    login: Boolean,
+  },
   components: {
     SignIn,
   },
@@ -35,6 +38,11 @@ export default Vue.extend({
         }
       }
     `,
+  },
+  methods: {
+    loginDone(p) {
+      this.$emit("login", p);
+    },
   },
 });
 </script>
