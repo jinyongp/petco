@@ -4,6 +4,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Appointment from "../views/Appointment.vue";
 import Support from "../views/Support.vue";
+import SupportReq from "../views/SupportReq.vue";
 import MyPage from "../views/MyPage.vue";
 
 Vue.use(VueRouter);
@@ -29,6 +30,11 @@ const routes = [
     name: "support",
     path: "/support",
     component: Support,
+  },
+  {
+    name: "supportreq",
+    path: "/supportreq",
+    component: SupportReq,
   },
   {
     name: "mypage",
