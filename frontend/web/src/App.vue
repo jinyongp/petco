@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="logo">PETCO</div>
-    <div v-if="loginDone" class="filters">
+    <div id="example" v-if="login" class="filters">
       <button class="to-log" @click.prevent="logout">Log out</button>
       <router-link to="/home" class="to-home" tag="button">
         <div>홈</div>
@@ -10,10 +10,12 @@
         <div>예약 현황</div>
       </router-link>
       <router-link to="/support" class="to-support" tag="button">
-        <div>견적관리</div>
         <div>
-          <a href="#">견적서 응답</a>
-          <a href="#">견적서 관리</a>
+          견적관리
+          <div class="submenu">
+            <router-link to="/supportreq" tag="div">견적서 응답</router-link>
+            <router-link to="/support" tag="div">견적서 관리</router-link>
+          </div>
         </div>
       </router-link>
       <router-link to="/mypage" class="to-mypage" tag="button">
@@ -56,11 +58,17 @@
 
 <script lang="ts">
 import { Vue } from "vue-property-decorator";
-// import { onLogout } from "./vue-apollo";
+import { onLogout } from "./vue-apollo.js";
+// import client from "./apollo";
+
+// const postedById = localStorage.getItem(AUTH_TOKEN);
 
 export default class App extends Vue {
-  loginDone: any = this.$apollo;
+  login: boolean = false;
 
+  // loginDone(prop) {
+  //   this.login = prop;
+  // }
   // isLoggedIn() {
   //   if (this.$apollo.provider.defaultClient) return (this.loginDone = true);
   // }
@@ -68,11 +76,15 @@ export default class App extends Vue {
     console.log("router", this.$router);
     console.log("route", this.$route);
   }
+  // parents(log: any) {
+  //   this.loginDone = log.loginDone;
+  // }
   alertLogin() {
     alert("로그인이 필요한 서비스입니다");
   }
   logout() {
-    const onLogout = require("./vue-apollo");
+    // const onLogout = require("./vue-apollo");
+    this.login = false;
     onLogout(this.$apollo.provider.defaultClient);
     this.$router.push("/");
   }
