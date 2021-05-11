@@ -9,14 +9,23 @@ import client from "./client";
 const context = async ({ req }: ExpressContext) => {
   const token = req.headers.authorization;
   if (!token) return { client };
-  // console.log(client)
+  
   try {
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
     if (typeof decodedToken === "string") return { client };
+
+    //회원인지 병원인지 확인
+    const flagUser = decodedToken["email"];
+
     const currentUser = await client.users.findFirst({
       where: { id: decodedToken["id"] },
     });
-    return { client, currentUser };
+    
+    const currentVets = await client.vets.findFirst({
+      where: { id: decodedToken["id"] }
+    });
+
+    flagUser ? { client, currentUser } : { client, currentVets };
   } catch (error) {
     console.error(error);
     return { client };
