@@ -2,7 +2,9 @@
   <div>
     <div>
       <div class="text">{{ msg }}</div>
-      <div class="textField"></div>
+      <div class="textField">
+        <ul></ul>
+      </div>
     </div>
   </div>
 </template>
