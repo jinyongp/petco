@@ -77,8 +77,8 @@ export default Vue.extend({
     loginAlert() {
       this.$emit("show-log");
       alert("펫코에 오신 것을 환영합니다");
-      this.$router.push("/mypage");
-      // this.$router.push("/");
+      // this.$router.push("/mypage");
+      this.$router.push("/").catch(() => {});
     },
     checkForm(e: any) {
       e.preventDefault();

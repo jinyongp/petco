@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="logo">PETCO</div>
-    <div id="example" v-if="login" class="filters">
+    <div id="example" v-if="isLogin" class="filters">
       <button class="to-log" @click.prevent="logout">Log out</button>
       <router-link to="/home" class="to-home" tag="button">
         <div>홈</div>
@@ -23,7 +23,7 @@
       </router-link>
     </div>
     <div v-else>
-      <router-link to="/" class="to-log">
+      <router-link to="/" class="to-log" v-on:loginDo="parents">
         <div>Log in</div>
       </router-link>
       <router-link to="/" class="to-home" tag="button">
@@ -63,32 +63,51 @@ import { onLogout } from "./vue-apollo.js";
 
 // const postedById = localStorage.getItem(AUTH_TOKEN);
 
-export default class App extends Vue {
-  login: boolean = false;
+export default Vue.extend({
+  data() {
+    return {
+      isLogin: false as boolean,
+    };
+  },
+  methods: {
+    parents() {
+      this.isLogin = true;
+    },
+    alertLogin() {
+      alert("로그인이 필요한 서비스입니다");
+    },
+    logout() {
+      // const onLogout = require("./vue-apollo");
+      this.isLogin = false;
+      onLogout(this.$apollo.provider.defaultClient);
+      this.$router.push("/");
+    },
+  },
+});
 
-  // loginDone(prop) {
-  //   this.login = prop;
-  // }
-  // isLoggedIn() {
-  //   if (this.$apollo.provider.defaultClient) return (this.loginDone = true);
-  // }
-  created() {
-    console.log("router", this.$router);
-    console.log("route", this.$route);
-  }
-  // parents(log: any) {
-  //   this.loginDone = log.loginDone;
-  // }
-  alertLogin() {
-    alert("로그인이 필요한 서비스입니다");
-  }
-  logout() {
-    // const onLogout = require("./vue-apollo");
-    this.login = false;
-    onLogout(this.$apollo.provider.defaultClient);
-    this.$router.push("/");
-  }
-}
+// export default class App extends Vue {
+//   isLogin: boolean = false;
+
+//   // isLoggedIn() {
+//   //   if (this.$apollo.provider.defaultClient) return (this.loginDone = true);
+//   // }
+//   created() {
+//     console.log("router", this.$router);
+//     console.log("route", this.$route);
+//   }
+//   parents(log: any) {
+//     this.isLogin = log;
+//   }
+//   alertLogin() {
+//     alert("로그인이 필요한 서비스입니다");
+//   }
+//   logout() {
+//     // const onLogout = require("./vue-apollo");
+//     this.isLogin = false;
+//     onLogout(this.$apollo.provider.defaultClient);
+//     this.$router.push("/");
+//   }
+// }
 </script>
 
 <style>
