@@ -5,3 +5,9 @@ export type PetPayloadTypes = {
   pets?: pets;
   status?: number;
 }
+
+export type PetProfilePayloadTypes = {
+  ok: boolean;
+  pets?: pets[];
+  status?: number;
+}
