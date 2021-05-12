@@ -8,6 +8,12 @@ export default gql`
     status: Int
   }
 
+  type ResponseListPayLoad{
+    ok:Boolean!
+    responseList:[Response]
+    status: Int
+  }
+
   type Response{
     id: Int!
     vet_id: Int!
