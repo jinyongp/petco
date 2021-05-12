@@ -10,9 +10,10 @@ const resolvers:Resolvers = {
       else if(!currentUser || !currentVets) { return { ok:false, status:404 } };
       
       try{
+        
         const appointmentsList = await client.appointments.findMany({where});
-        if(!appointmentsList) return { ok:false, status:404 };
-        return { ok:true, appointmentsList};
+        return appointmentsList ? { ok:true, appointmentsList} : { ok:false, status:404 };
+
       }catch(e){
         console.log(e);
         return { ok:false, status:500 };

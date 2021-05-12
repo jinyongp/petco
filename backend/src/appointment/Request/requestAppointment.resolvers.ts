@@ -12,9 +12,10 @@ const resolvers:Resolvers={
       if(!details) return { ok:false, status:404 };
 
       try{
+        
         const appointments = await client.appointments.create({data});
-        if(!appointments) return { ok:false, status:404 };
-        return { ok:true, appointments };
+        return appointments ? { ok:true, appointments } : { ok:false, status:404 };
+
       }catch(e){
         console.log(e);
         return { ok:false, status:500 };
