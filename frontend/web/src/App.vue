@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <div class="logo">PETCO</div>
-    <div id="example" v-if="isLogin" class="filters">
+    <!-- <div id="example" v-if="isLogin" class="filters"> -->
+    <div id="example" class="filters">
       <button class="to-log" @click.prevent="logout">Log out</button>
       <router-link to="/home" class="to-home" tag="button">
         <div>홈</div>
@@ -9,12 +10,12 @@
       <router-link to="/appointment" class="to-appointment" tag="button">
         <div>예약 현황</div>
       </router-link>
-      <router-link to="/support" class="to-support" tag="button">
+      <router-link to="/estimate" class="to-support" tag="button">
         <div>
           견적관리
           <div class="submenu">
-            <router-link to="/supportreq" tag="div">견적서 응답</router-link>
-            <router-link to="/support" tag="div">견적서 관리</router-link>
+            <router-link to="/estimateres" tag="div">견적서 응답</router-link>
+            <router-link to="/estimate" tag="div">견적서 관리</router-link>
           </div>
         </div>
       </router-link>
@@ -22,7 +23,7 @@
         <div>마이페이지</div>
       </router-link>
     </div>
-    <div v-else>
+    <!-- <div v-else>
       <router-link to="/" class="to-log" v-on:loginDo="parents">
         <div>Log in</div>
       </router-link>
@@ -50,7 +51,7 @@
       <router-link to="/" class="to-mypage" tag="button" @click="alertLogin">
         <div @click="alertLogin">마이페이지</div>
       </router-link>
-    </div>
+    </div> -->
 
     <router-view />
   </div>
@@ -224,7 +225,7 @@ export default Vue.extend({
 }
 .to-log {
   position: absolute;
-  width: 158px;
+  width: 180px;
   height: 61px;
   left: 1021px;
   top: 52px;
@@ -233,7 +234,7 @@ export default Vue.extend({
   border-radius: 20px;
 
   position: absolute;
-  width: 88px;
+  width: 150px;
   height: 34px;
   left: 1068px;
   top: 68px;
