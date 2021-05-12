@@ -1,14 +1,19 @@
-import {Resolvers} from "../../types"
-
+import {Resolvers} from "../../types";
+import { EstimatesPayLoadTypes } from "../estimates.types";
 
 const resolvers:Resolvers={
   Mutation:{
-    requestEstimate: async(_,data,client):Promise<any>=>{
-      // const estimate = await client.estimates.create({data}).catch(()=>{return null})
-      // if(!estimate) return {status:404,message:"견적요청에 실패하였습니다."}
-      // return {status:200,estimate,message:"견적요청을 완료 하였습니다."}
+    requestEstimate: async(_,data,{ client, currentUser }):Promise<EstimatesPayLoadTypes>=>{
+      data.user_id = currentUser.id
+      try{
+        const estimates = await client.estimates.create({data});
+        return estimates ? { ok:true, estimates } : { ok:false, status:404 };
+      }catch(e){
+        console.log(e);
+        return { ok:false,status:500 };
+      }
     }
   }
-}
+};
 
-export default resolvers
+export default resolvers;
