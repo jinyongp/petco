@@ -1,14 +1,26 @@
-import {Resolvers} from "../../types"
-
+import {Resolvers} from "../../types";
+import {AppointmentsPayLoadTypes} from "../appointments.types";
 const resolvers:Resolvers={
   Mutation:{
-    requestAppointment: async (_,data,client):Promise<any> =>{      
-      // const appointment = await client.appointments.create({data})
-      // .catch(err=> {return null})
-      // if(!appointment) return {status:404, message:"예약신청을 실패하였습니다."}
-      // return {status:200,appointment, message:"예약신청이 완료되었습니다."}
+    requestAppointment: async (_,data,{client,currentUser}):Promise<AppointmentsPayLoadTypes> =>{
+      const {date,details,vet_id,pet_id} = data;
+      data.user_id = currentUser.id;
+
+      if(!date) return { ok:false, status:404 };
+      if(!vet_id) return { ok:false, status:404 };
+      if(!pet_id) return { ok:false, status:404 };
+      if(!details) return { ok:false, status:404 };
+
+      try{
+        const appointments = await client.appointments.create({data});
+        if(!appointments) return { ok:false, status:404 };
+        return { ok:true, appointments };
+      }catch(e){
+        console.log(e);
+        return { ok:false, status:500 };
+      };
     }
   }
-}
+};
 
-export default resolvers
+export default resolvers;
