@@ -15,7 +15,7 @@
         <br />
         <div class="text">진료과목: {{ appoint.diagnosis }}</div>
         <div class="text">보호자 번호: {{ appoint.userId }}</div>
-        <button @click="cancelApoint">예약 취소</button>
+        <button @click="cancelAppoint">예약 취소</button>
         <button @click="confirmAppointment">예약 확정</button>
       </div>
     </div>
@@ -66,36 +66,54 @@ export default Vue.extend({
       return prop === true ? "O" : "X";
     },
     async cancelAppoint() {
-      await this.$apollo.mutate({
-        mutation: gql`
-          mutation cancelAppoint($id: Int!) {
-            cancelAppoint(id: $id) {
-              result
-              message
-              appointment
+      await this.$apollo
+        .mutate({
+          mutation: gql`
+            mutation cancelAppoint($id: Int!) {
+              cancelAppoint(id: $id) {
+                result
+                message
+                appointment
+              }
             }
-          }
-        `,
-        variables: {
-          appointments: this.appointments,
-        },
-      });
+          `,
+          variables: {
+            appointments: this.appointments,
+          },
+        })
+        .then((data) => {
+          // Result
+          console.log(data);
+        })
+        .catch((error) => {
+          // Error
+          console.error(error);
+        });
     },
     async confirmAppointment() {
-      await this.$apollo.mutate({
-        mutation: gql`
-          mutation confirmAppointment($id: Int) {
-            confirmAppointment(id: $id) {
-              result
-              appointment
-              message
+      await this.$apollo
+        .mutate({
+          mutation: gql`
+            mutation confirmAppointment($id: Int) {
+              confirmAppointment(id: $id) {
+                result
+                appointment
+                message
+              }
             }
-          }
-        `,
-        ariables: {
-          appointments: this.appointments,
-        },
-      });
+          `,
+          variables: {
+            appointments: this.appointments,
+          },
+        })
+        .then((data) => {
+          // Result
+          console.log(data);
+        })
+        .catch((error) => {
+          // Error
+          console.error(error);
+        });
     },
   },
 });
