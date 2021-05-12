@@ -13,10 +13,10 @@ const resolvers:Resolvers = {
 
       const passwordHash = await bcrypt.hash(password,10);
       data.password = passwordHash
-      const vet = await client.vets.create({ data })
-      .catch(()=>{ return null })
-      if(!vet) return {status:404,message:"병원등록에 실패하였습니다."}
-      return {status:200,vet,message:"병원등록에 성공하였습니다."}
+      // const vet = await client.vets.create({ data })
+      // .catch(()=>{ return null })
+      // if(!vet) return {status:404,message:"병원등록에 실패하였습니다."}
+      // return {status:200,vet,message:"병원등록에 성공하였습니다."}
     }
   }
 }

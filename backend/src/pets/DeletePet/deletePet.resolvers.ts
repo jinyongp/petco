@@ -1,11 +1,21 @@
 import { Resolvers } from "../../types"
+import { PetPayloadTypes } from "../pets.types"
 
 const resolvers:Resolvers = {
   Mutation:{
-    deletePet: async (_,where,client):Promise<any> =>{      
-      const pet = await client.pets.delete({where}).catch(()=>{return null})
-      if(!pet) return {status:200,message:"반려동물 삭제에 실패했습니다."}
-      return {status:200,pet,message:"반려동물 삭제가 완료되었습니다."}
+    deletePet: async (
+      _,
+      where,
+      {client}
+      ):Promise<PetPayloadTypes> =>{
+        try{
+          const pets = await client.pets.delete({where})
+          if(!pets) return {ok:false,status:404}
+          return {ok:true,pets}
+        }catch(e){
+          console.log(e)
+          return {ok:false,status:500}
+        }
     }
   }
 }

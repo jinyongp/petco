@@ -7,6 +7,6 @@ export default gql`
     message:String
   }
   type Query{
-    petProfile(token:String):PetProfilePayLoad
+    petProfile(token:String):PetPayload
   }
 `;
