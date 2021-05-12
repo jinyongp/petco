@@ -6,6 +6,12 @@ export type VetsPayLoadTypes = {
   status?: number
 }
 
+export type VetsSignInPayLoadTypes = {
+  ok : boolean
+  token?: string
+  status?: number
+}
+
 export type TokenPayloadTypes = VetsPayLoadTypes & {
   token?: string;
 };

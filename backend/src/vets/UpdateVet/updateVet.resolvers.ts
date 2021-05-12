@@ -4,7 +4,7 @@ import { VetsPayLoadTypes } from "../vets.types";
 
 const resolvers:Resolvers = {
   Mutation:{
-    vetModify: async (_,data,{client,currentVets}):Promise<VetsPayLoadTypes>=>{
+    updateVet: async (_,data,{client,currentVets}):Promise<VetsPayLoadTypes>=>{
       const {id} = currentVets;
       try{
         const vets = await client.vets.update({ data, where: { id }});
