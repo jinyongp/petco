@@ -8,7 +8,7 @@ export default gql`
   }
   type AppointmentPayLoad{
     ok:Boolean!
-    appointments:Appointment!
+    appointments:Appointment
     status:Int
 
   }

@@ -5,3 +5,9 @@ export type AppointmentsPayLoadTypes = {
   appointments? : appointments
   status?: number
 };
+
+export type AppointmentsListPayLoadTypes ={
+  ok: boolean
+  appointmentsList?: appointments[]
+  status?: number
+}
