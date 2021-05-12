@@ -1,4 +1,5 @@
 import { ImageSourcePropType } from "react-native";
+import { User } from "../../@types/models";
 
 export type ParamList = {
   EstimateDetail: {
@@ -12,36 +13,22 @@ export type ParamList = {
     latitude: number;
     longitude: number;
   };
+  SignIn: {
+    email: string;
+  };
 };
 
 /* QUERY or MUTATION */
 
-export type SignInInput = {
-  userId: string;
-  password: string;
+type Response = {
+  ok: boolean;
+  status?: number;
+  user?: User;
 };
 
-export type SignInPayload = {
-  login: {
-    ok: boolean;
-    token: string;
-    error: string;
+export type UserPayload = {
+  signIn: Response & {
+    token?: string;
   };
-};
-
-export type SignUpInput = {
-  userId: string;
-  email: string;
-  phone: string;
-  password: string;
-  passwordCheck: string;
-};
-
-export type SignUpPayload = {
-  createAccount: {
-    error: string;
-    user: {
-      id: number;
-    };
-  };
+  signUp: Response;
 };

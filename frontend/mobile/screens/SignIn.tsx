@@ -1,74 +1,80 @@
 import React, { useRef, useEffect, useState } from "react";
-import { TouchableOpacity } from "react-native";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { TextInput, TouchableOpacity } from "react-native";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
-import { ApolloError, gql, useMutation } from "@apollo/client";
-import { isLoggedIn } from "../apollo";
-import { SignInInput, SignInPayload } from "./@types";
+import { ApolloError, gql, useLazyQuery } from "@apollo/client";
+import { saveTokenAsync } from "../apollo";
+import { ParamList, UserPayload } from "./@types";
 import Lock from "../assets/icons/lock.svg";
-import Person from "../assets/icons/person.svg";
+import Email from "../assets/icons/email.svg";
 import Dog from "../assets/animals/dog103.svg";
 import Cat from "../assets/animals/cat82.svg";
 import {
   Container,
   ErrorModal,
   NanumText,
-  PlainText,
   ScreenLayout,
   TextInputIcon,
   TextLink,
   TouchableButton,
 } from "../components";
 
-const SIGNIN_MUTATION = gql`
-  mutation Login($userId: String!, $password: String!) {
-    login(userId: $userId, password: $password) {
+const SIGNIN_QUERY = gql`
+  query SigIn($email: String!, $password: String!) {
+    signIn(email: $email, password: $password) {
       ok
       token
-      error
+      status
     }
   }
 `;
 
+type InputFormType = "email" | "password";
+type VariableType = {
+  email: string;
+  password: string;
+};
+
 export default function SignIn(): JSX.Element {
-  const { params } = useRoute();
+  const { params } = useRoute<RouteProp<ParamList, "SignIn">>();
   const navigation = useNavigation();
   const [networkError, setNetworkError] = useState(false);
   const [accountError, setAccountError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
   const { register, handleSubmit, setValue, watch } = useForm({
     defaultValues: {
-      userId: params?.userId, // FIXME not working
+      email: params?.email,
       password: "",
     },
   });
   useEffect(() => {
-    register("userId", { required: true });
+    register("email", { required: true });
     register("password", { required: true });
   }, [register]);
 
-  const onCompleted = ({ login: { ok, token, error } }: SignInPayload) => {
-    // TODO - token
-    setAccountError(Boolean(error));
-    isLoggedIn(ok);
+  const onCompleted = ({
+    signIn: { ok, token, status, user },
+  }: UserPayload) => {
+    setAccountError(!ok);
+    ok && saveTokenAsync(token, user);
   };
   const onError = (error: ApolloError) => {
+    console.warn(error);
     setNetworkError(!!error);
   };
 
-  const [signIn, { loading }] = useMutation(SIGNIN_MUTATION, {
+  const [signIn, { loading }] = useLazyQuery(SIGNIN_QUERY, {
     onCompleted,
     onError,
   });
 
-  const onSetValue = (name: any) => (text: string) => setValue(name, text);
-  const onValid = (variables: SignInInput) => {
-    loading || signIn({ variables });
-  };
+  const onSetValue = (name: InputFormType) => (text: string) =>
+    setValue(name, text);
+  const onValid = (variables: VariableType) => loading || signIn({ variables });
 
-  const passwordInputRef = useRef();
-  const onNext = (nextRef: React.MutableRefObject<undefined>) => () => {
-    const { current }: any = nextRef;
-    current?.focus();
+  const passwordInputRef = useRef<TextInput>();
+  const onNext = (nextRef: React.MutableRefObject<TextInput>) => () => {
+    nextRef?.current?.focus();
   };
 
   return (
@@ -79,13 +85,13 @@ export default function SignIn(): JSX.Element {
 
       <Container margin={{ bottom: 25 }} space={120}>
         <TextInputIcon
-          Icon={Person}
+          Icon={Email}
           size={20}
-          value={watch("userId")}
-          placeholder="아이디를 입력해주세요."
+          value={watch("email")}
+          placeholder="이메일을 입력해주세요."
           returnKeyType="next"
           onSubmitEditing={onNext(passwordInputRef)}
-          onChangeText={onSetValue("userId")}
+          onChangeText={onSetValue("email")}
         />
         <TextInputIcon
           Icon={Lock}
@@ -113,7 +119,7 @@ export default function SignIn(): JSX.Element {
         <TouchableButton
           onPress={handleSubmit(onValid)}
           title={loading ? "로그인 중..." : "로그인 하기"}
-          disabled={!watch("userId") || !watch("password")}
+          disabled={!watch("email") || !watch("password")}
           loading={loading}
         />
       </Container>

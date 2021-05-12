@@ -2,11 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import { ApolloError, gql, useMutation } from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
-import { SignUpInput, SignUpPayload } from "./@types";
+import { UserPayload } from "./@types";
 import Person from "../assets/icons/person.svg";
 import Lock from "../assets/icons/lock.svg";
 import Phone from "../assets/icons/phone.svg";
-import Chat from "../assets/icons/chat.svg";
+import Email from "../assets/icons/email.svg";
 import Dog from "../assets/animals/dog92.svg";
 import {
   ConfirmModal,
@@ -18,11 +18,25 @@ import {
   TextLink,
   TouchableButton,
 } from "../components";
+import { TextInput } from "react-native";
 
 const SIGNUP_MUTATION = gql`
-  mutation CreateAccount($input: CreateAccountInput) {
-    createAccount(input: $input) {
-      error
+  mutation SignUp(
+    $username: String!
+    $email: String!
+    $password: String!
+    $phone_number: String!
+    $is_valid: Boolean!
+  ) {
+    signUp(
+      username: $username
+      email: $email
+      password: $password
+      phone_number: $phone_number
+      is_valid: $is_valid
+    ) {
+      ok
+      status
       user {
         id
       }
@@ -30,20 +44,44 @@ const SIGNUP_MUTATION = gql`
   }
 `;
 
+type InputFormType =
+  | "email"
+  | "password"
+  | "username"
+  | "phone_number"
+  | "passwordCheck";
+
+type VariableType = {
+  email: string;
+  password: string;
+  username: string;
+  phone_number: string;
+  passwordCheck: string;
+};
+
 export default function SignUp() {
   const navigation = useNavigation();
 
   const [networkError, setNetworkError] = useState(false);
   const [alreadyExistError, setAlreadyExistError] = useState(false);
+  const [isPasswordCorrect, setIsPasswordCorrect] = useState(true);
 
   const [completed, setCompleted] = useState(false);
-  const { register, handleSubmit, setValue, watch, getValues } = useForm();
-  const onCompleted = ({ createAccount: { error, user } }: SignUpPayload) => {
-    // TODO Additional Error Handling
-    if (error?.includes("exist")) setAlreadyExistError(true);
+  const { register, handleSubmit, setValue, watch, getValues } = useForm({
+    defaultValues: {
+      username: "",
+      email: "",
+      phone_number: "",
+      password: "",
+      passwordCheck: "",
+    },
+  });
+  const onCompleted = ({ signUp: { ok, user } }: UserPayload) => {
+    if (!ok) setAlreadyExistError(true);
     else setCompleted(true);
   };
   const onError = (error: ApolloError) => {
+    console.warn(error);
     setNetworkError(!!error);
   };
   const [signUp, { loading }] = useMutation(SIGNUP_MUTATION, {
@@ -51,34 +89,34 @@ export default function SignUp() {
     onError,
   });
   useEffect(() => {
-    register("userId", { required: true });
+    register("username", { required: true });
     register("email", { required: true });
-    register("phone", { required: true });
+    register("phone_number", { required: true });
     register("password", { required: true });
     register("passwordCheck", { required: true });
   }, [register]);
 
-  const emailRef = useRef();
-  const phoneRef = useRef();
+  const emailRef = useRef<TextInput>();
+  const phoneRef = useRef<TextInput>();
   const passwordRef = useRef();
   const passwordCheckRef = useRef();
-  const onNext = (nextRef: React.MutableRefObject<undefined>) => () => {
-    const { current }: any = nextRef;
-    current?.focus();
+  const onNext = (nextRef: React.MutableRefObject<TextInput>) => () => {
+    nextRef?.current?.focus();
   };
   const goToSignIn = () => navigation.navigate("SignIn");
-  const onSetValue = (name: string) => (text: string) => setValue(name, text);
-  const onValid = (input: SignUpInput) => {
-    delete input["passwordCheck"];
-    loading || signUp({ variables: { input } });
+  const onSetValue = (name: InputFormType) => (text: string) =>
+    setValue(name, text);
+  const onValid = (variables: VariableType) => {
+    delete variables.passwordCheck;
+    loading || signUp({ variables: { ...variables, is_valid: false } });
   };
 
   const onCloseModal = () => {
-    const { userId } = getValues();
+    const { email } = getValues();
     setCompleted(false);
     navigation.navigate({
       name: "SignIn",
-      params: { userId },
+      params: { email },
     });
   };
 
@@ -88,17 +126,17 @@ export default function SignUp() {
         {`회원가입을${"\n"}환영합니다`}
       </NanumText>
 
-      <Container margin={{ bottom: 40 }} space={330}>
+      <Container margin={{ bottom: 40 }} space={300}>
         <TextInputIcon
           Icon={Person}
           size={20}
-          placeholder="아이디를 입력해 주세요."
+          placeholder="이름을 입력해 주세요."
           returnKeyType="next"
           onSubmitEditing={onNext(emailRef)}
-          onChangeText={onSetValue("userId")}
+          onChangeText={onSetValue("username")}
         />
         <TextInputIcon
-          Icon={Chat}
+          Icon={Email}
           placeholder="이메일을 입력해 주세요."
           returnKeyType="next"
           keyboardType="email-address"
@@ -113,7 +151,7 @@ export default function SignUp() {
           returnKeyType="done"
           inputRef={phoneRef}
           onSubmitEditing={onNext(passwordRef)}
-          onChangeText={onSetValue("phone")}
+          onChangeText={onSetValue("phone_number")}
         />
         <TextInputIcon
           Icon={Lock}
@@ -129,7 +167,11 @@ export default function SignUp() {
           placeholder="비밀번호를 다시 입력해 주세요."
           returnKeyType="done"
           inputRef={passwordCheckRef}
-          onChangeText={onSetValue("passwordCheck")}
+          onChangeText={(text) => {
+            setValue("passwordCheck", text);
+            setIsPasswordCorrect(text !== watch("password"));
+          }}
+          error={!!watch("passwordCheck") && isPasswordCorrect}
           blurOnSubmit
           secureTextEntry
         />
@@ -140,11 +182,10 @@ export default function SignUp() {
           onPress={handleSubmit(onValid)}
           loading={loading}
           disabled={
-            !watch("userId") ||
             !watch("email") ||
-            !watch("phone") ||
+            !watch("phone_number") ||
             !watch("password") ||
-            !watch("passwordCheck")
+            isPasswordCorrect
           }
         />
       </Container>
