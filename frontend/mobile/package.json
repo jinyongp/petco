@@ -9,6 +9,7 @@
     "@react-navigation/bottom-tabs": "^5.11.10",
     "@react-navigation/native": "^5.0.5",
     "@react-navigation/stack": "5.14.4",
+    "axios": "^0.21.1",
     "expo": "^41.0.1",
     "expo-app-loading": "^1.0.3",
     "expo-asset": "~8.3.1",
@@ -20,6 +21,7 @@
     "react-dom": "16.13.1",
     "react-hook-form": "^7.2.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
+    "react-native-dotenv": "^2.5.5",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-keyboard-aware-scroll-view": "^0.9.4",
     "react-native-maps": "0.27.1",
@@ -35,6 +37,7 @@
     "@babel/preset-env": "^7.13.15",
     "@types/react": "~16.9.35",
     "@types/react-native": "~0.63.2",
+    "@types/react-native-dotenv": "^0.2.0",
     "@types/react-native-vector-icons": "^6.4.6",
     "react-native-svg-transformer": "^0.14.3",
     "typescript": "~4.0.0"
