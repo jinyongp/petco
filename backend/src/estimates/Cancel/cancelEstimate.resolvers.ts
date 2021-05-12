@@ -1,13 +1,17 @@
 import {Resolvers} from "../../types"
-
+import { EstimatesPayLoadTypes } from "../estimates.types";
 
 const resolvers:Resolvers = {
   Mutation:{
-    cancelEstimate: async(_,where,client):Promise<any> =>{      
-      // const estimate = await client.estimates.update({data:{status:"cancel"},where})
-      // .catch(()=>{return null})
-      // if(!estimate) return { status:404, message:"견적요청 취소에 실패하였습니다."}
-      // return { status:200, estimate,message:"견적요청이 취소되었습니다."}
+    cancelEstimate: async(_,where,{client}):Promise<EstimatesPayLoadTypes> =>{
+
+      try{
+        const estimates = await client.estimates.update({ data:{ status:"cancel"}, where });
+        return estimates ? { ok:true, estimates } : { ok:false, status:404 };
+      }catch(e){
+        console.log(e);
+        return { ok:false, status:500 };
+      };
     }
   }
 }

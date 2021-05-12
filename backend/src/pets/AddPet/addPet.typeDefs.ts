@@ -4,7 +4,7 @@ export default gql`
     addPet(
       name: String
       birth: String
-      gender: PetGenderType
+      gender: String
       weight: String
       type: PetType
       in_neutered: Boolean
