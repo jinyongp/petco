@@ -10,7 +10,7 @@ const resolvers:Resolvers = {
           where:{ user_id:id },
           orderBy:{ id:"desc" }
         });
-        return !pets ? {ok:false,status:404} : {ok:true,pets};
+        return pets ? {ok:true,pets} : {ok:false,status:404};
       }catch(e){
         console.log(e);
         return {ok:false,status:500};

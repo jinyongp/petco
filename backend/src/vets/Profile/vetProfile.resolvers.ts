@@ -1,15 +1,12 @@
-import {Resolvers} from "../../types"
-
+import {Resolvers} from "../../types";
+import {VetsPayLoadTypes} from "../vets.types";
 
 const resolvers:Resolvers = {
   Query:{
-    vetProfile: async (_,where,client):Promise<any>=>{
-      // const vet = await client.vets.findFirst({ where })
-      // .catch(()=>{ return null });
-      // if(!vet) return { status:404, message:"병원정보를 불러올 수 없습니다."}      
-      // return {status:200, vet:vet, message:"병원정보 불러오기를 성공하였습니다."}
+    vetProfile: async (_,where,{currentVets}):Promise<VetsPayLoadTypes>=>{
+      return currentVets ? {ok:true,vets:currentVets} : { ok:false, status:404 };
     }
   }
-}
+};
 
-export default resolvers
+export default resolvers;

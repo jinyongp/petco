@@ -15,16 +15,16 @@ export default gql`
     status: Int
   }
   type Pet {
-    id: Int
-    name: String
+    id: Int!
+    name: String!
     avatar: String
     birth:  String
-    gender: String
-    weight: String
-    type: PetType
-    in_neutered: Boolean
-    vaccinated: Boolean
-    user_id: Int
+    gender: PetGenderType!
+    weight: String!
+    type: PetType!
+    in_neutered: Boolean!
+    vaccinated: Boolean!
+    user_id: Int!
     created_at:String
     updated_at:String
     # TODO - type definitions

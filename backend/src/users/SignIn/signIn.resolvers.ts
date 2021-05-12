@@ -21,8 +21,8 @@ const resolvers: Resolvers = {
         const status = await bcrypt.compare(password, user.password);
         if (!status) return { ok: false, status: 404 };
 
-        const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY);
-        return { ok: true, token, user };
+        const token = jwt.sign({ id: user.id, userType:"user" }, process.env.SECRET_KEY);
+        return { ok: true, token };
       } catch (error) {
         console.error(error);
         return { ok: false, status: 500 };

@@ -1,12 +1,12 @@
-import {gql} from "apollo-server"
+import {gql} from "apollo-server";
 
 export default gql`
-  type VetSignInPayLoad{
-    status:Int
+  type VetsSignInPayLoad{
+    ok:Boolean
     token:String
-    message:String
+    status:Int
   }
   type Query{
-    vetSignIn(hospital_id:String,password:String):VetSignInPayLoad
+    vetSignIn(hospital_id:String,password:String):VetsSignInPayLoad
   }
 `;

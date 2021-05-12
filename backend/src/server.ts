@@ -9,14 +9,29 @@ import client from "./client";
 const context = async ({ req }: ExpressContext) => {
   const token = req.headers.authorization;
   if (!token) return { client };
-  // console.log(client)
+  
   try {
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
     if (typeof decodedToken === "string") return { client };
-    const currentUser = await client.users.findFirst({
-      where: { id: decodedToken["id"] },
-    });
-    return { client, currentUser };
+
+    //회원인지 병원인지 확인
+    const userType = decodedToken["userType"];
+
+    if(userType==="user"){
+
+      const currentUser = await client.users.findFirst({
+        where: { id: decodedToken["id"] },
+      });
+      return currentUser ? { client, currentUser} : { client };
+
+    }else if(userType==="vets"){
+
+      const currentVets = await client.vets.findFirst({
+        where: { id: decodedToken["id"] }
+      });
+      return currentVets ? {client, currentVets } : { client }
+
+    };
   } catch (error) {
     console.error(error);
     return { client };

@@ -1,24 +1,36 @@
 import {Resolvers} from "../../types"
-
+import {VetsPayLoadTypes} from "../vets.types";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 import bcrypt from "bcrypt"
 const resolvers:Resolvers = {
   Mutation:{
-    vetSignUp: async (_,data,client):Promise<any>=>{
+    vetSignUp: async (_,data,{client}):Promise<VetsPayLoadTypes>=>{
       const {hospital_id,password,name,location,number} = data
-      if(!hospital_id) return {status:404,message:"병원등록에 실패하였습니다."}
-      if(!password) return {status:404,message:"병원등록에 실패하였습니다."}
-      if(!name) return {status:404,message:"병원등록에 실패하였습니다."}
-      if(!location) return {status:404,message:"병원등록에 실패하였습니다."}
-      if(!number) return {status:404,message:"병원등록에 실패하였습니다."}
+      if(!hospital_id) return {ok:false,status:404}
+      if(!password) return {ok:false,status:404}
+      if(!name) return {ok:false,status:404}
+      if(!location) return {ok:false,status:404}
+      if(!number) return {ok:false,status:404}
 
-      const passwordHash = await bcrypt.hash(password,10);
-      data.password = passwordHash
-      // const vet = await client.vets.create({ data })
-      // .catch(()=>{ return null })
-      // if(!vet) return {status:404,message:"병원등록에 실패하였습니다."}
-      // return {status:200,vet,message:"병원등록에 성공하였습니다."}
+      try{
+        const passwordHash = await bcrypt.hash(password,10);
+        data.password = passwordHash;
+        const vets = await client.vets.create({ data });
+        
+        if(!vets) return {ok:false,status:404};
+        return {ok:true,vets};
+      }catch(e){
+        if( e instanceof PrismaClientKnownRequestError){
+          const {target} = e.meta as {target: string};
+          if(target === "hospital_id_unique"){
+            return {ok:false,status:409} // Already hospital_id is existed
+          }
+        }else{
+          return {ok:false,status:500};
+        }
+      }
     }
   }
 }
 
-export default resolvers
+export default resolvers;
