@@ -30,7 +30,7 @@ model pets {
   name         String
   avatar       String         @default("no photo")
   birth        String
-  gender       gender_type
+  gender       String
   weight       String
   type         pet_type
   in_neutered  Boolean        @default(false)
@@ -121,9 +121,4 @@ enum status {
 enum pet_type {
   cat
   dog
-}
-
-enum gender_type{
-  male
-  female
 }
