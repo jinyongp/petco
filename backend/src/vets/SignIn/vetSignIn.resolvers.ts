@@ -1,7 +1,6 @@
 require("dotenv").config();
 import {Resolvers} from "../../types";
 import {VetsPayLoadTypes} from "../vets.types";
-import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 const resolvers:Resolvers={
@@ -17,15 +16,15 @@ const resolvers:Resolvers={
         if(!vets) return {ok:false,status:404};
 
         const status = await bcrypt.compare(password,vets.password);
-        if(!status) return {ok:false,status:404};
+        if(!status) return {ok:false,status:401};
 
-        return {ok:true,vets}
+        return {ok:true,vets};
       }catch(e){
-        console.log(e)
-        return { ok:false , status:500}
+        console.log(e);
+        return { ok:false , status:500};
       };
     }
   }
-}
+};
 
-export default resolvers
+export default resolvers;

@@ -1,7 +1,8 @@
-import { PrismaClient, users } from "@prisma/client";
+import { PrismaClient, users, vets } from "@prisma/client";
 
 export type Context = {
   client: PrismaClient;
+  currentVets?: vets;
   currentUser?: users;
 };
 

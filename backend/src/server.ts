@@ -15,17 +15,23 @@ const context = async ({ req }: ExpressContext) => {
     if (typeof decodedToken === "string") return { client };
 
     //회원인지 병원인지 확인
-    const flagUser = decodedToken["email"];
+    const userType = decodedToken["userType"];
 
-    const currentUser = await client.users.findFirst({
-      where: { id: decodedToken["id"] },
-    });
-    
-    const currentVets = await client.vets.findFirst({
-      where: { id: decodedToken["id"] }
-    });
+    if(userType==="user"){
 
-    flagUser ? { client, currentUser } : { client, currentVets };
+      const currentUser = await client.users.findFirst({
+        where: { id: decodedToken["id"] },
+      });
+      return currentUser ? { client, currentUser} : { client };
+
+    }else if(userType==="vets"){
+
+      const currentVets = await client.vets.findFirst({
+        where: { id: decodedToken["id"] }
+      });
+      return currentVets ? {client, currentVets } : { client }
+
+    };
   } catch (error) {
     console.error(error);
     return { client };
