@@ -1,6 +1,16 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
-import { ActivityIndicator, Dimensions, StyleSheet } from "react-native";
-import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  ActivityIndicator,
+  ClippingRectangle,
+  Dimensions,
+  StyleSheet,
+} from "react-native";
+import MapView, {
+  Callout,
+  Circle,
+  Marker,
+  PROVIDER_GOOGLE,
+} from "react-native-maps";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import {
   Container,
@@ -13,42 +23,53 @@ import { ParamList } from "./@types";
 import LocationSVG from "../assets/icons/location.svg";
 import { colors } from "../style/colors";
 import { Ionicons } from "@expo/vector-icons";
+import { usePlaceSearch } from "../hooks";
+import { CoordinationType } from "../@types";
 
 const { width, height } = Dimensions.get("screen");
 const calculatedHeight = height - height * 0.49;
 const ASPECT_RATIO = width / calculatedHeight;
 
-const LATITUDE_DELTA = 0.992;
+const LATITUDE_DELTA = 0.000522;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+
+const RADIUS = 2000;
 
 export default function SelectLocation(): JSX.Element {
   const mapRef = useRef<MapView>();
-  const { params } = useRoute<RouteProp<ParamList, "SelectLocation">>();
-  const [initialPosition, setInitialPosition] = useState({
-    latitude: 0,
-    longitude: 0,
-  });
-  const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
+  const { params } = useRoute<RouteProp<ParamList, "SelectLocation">>();
+  const [region, setRegion] = useState({
+    latitude: params.latitude,
+    longitude: params.longitude,
+    latitudeDelta: LATITUDE_DELTA / 10,
+    longitudeDelta: LONGITUDE_DELTA / 10,
+  });
+  const [markers, setMarkers] = useState([]);
+  const [places, setPlaces] = useState([]);
+  const { loading, data, error } = usePlaceSearch(
+    params,
+    RADIUS,
+    "veterinary_care"
+  );
 
   const focusInitialMarker = (animated: boolean) => {
-    mapRef?.current?.fitToSuppliedMarkers(["initialMarker"], {
-      animated,
-      edgePadding: {
-        top: 150,
-        left: 150,
-        right: 150,
-        bottom: 150,
-      },
-    });
+    mapRef?.current?.fitToSuppliedMarkers(["initialMarker"], { animated });
   };
 
-  useLayoutEffect(() => {
-    setTimeout(() => {
-      setInitialPosition(params);
-      setLoading(false);
-    }, 300);
-  }, []);
+  const focusFitToPlaces = (places: CoordinationType[], animated = false) => {
+    mapRef.current?.fitToCoordinates(places, { animated });
+  };
+
+  useEffect(() => {
+    const locations = data?.map(({ geometry: { location } }) => ({
+      latitude: location.lat,
+      longitude: location.lng,
+    }));
+    console.log(locations);
+
+    setPlaces(locations);
+  }, [data]);
 
   if (loading) {
     return (
@@ -66,24 +87,72 @@ export default function SelectLocation(): JSX.Element {
             style={styles.maps}
             loadingEnabled={true}
             rotateEnabled={false}
-            onMapReady={() => focusInitialMarker(false)}
-            initialRegion={{
-              latitude: initialPosition.latitude,
-              longitude: initialPosition.latitude,
-              latitudeDelta: LATITUDE_DELTA,
-              longitudeDelta: LONGITUDE_DELTA,
-            }}
+            initialRegion={region}
+            onMapReady={() => focusFitToPlaces(places)}
           >
-            <Marker
+            {/* <Marker
               identifier="initialMarker"
               coordinate={{
-                latitude: initialPosition.latitude,
-                longitude: initialPosition.longitude,
+                latitude: params.latitude,
+                longitude: params.longitude,
               }}
             >
               <Ionicons name="location" size={30} color={colors.blue} />
-            </Marker>
+            </Marker> */}
+            <Circle
+              center={{
+                latitude: params.latitude,
+                longitude: params.longitude,
+              }}
+              radius={RADIUS}
+            />
+            {data?.map(
+              ({ geometry: { location }, name, vicinity, place_id }) => (
+                <Marker
+                  key={place_id}
+                  identifier={String(place_id)}
+                  coordinate={{
+                    latitude: location.lat,
+                    longitude: location.lng,
+                  }}
+                >
+                  <Ionicons name="location" size={30} color={colors.red} />
+                  <Callout
+                    tooltip
+                    style={{
+                      flex: 1,
+                      position: "relative",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Container
+                      style={{
+                        borderColor: colors.yellow,
+                        borderWidth: 1,
+                        borderRadius: 10,
+                        backgroundColor: "white",
+                      }}
+                      padding={10}
+                    >
+                      <NanumText>{name}</NanumText>
+                      <NanumText type="tiny">{vicinity}</NanumText>
+                    </Container>
+                  </Callout>
+                </Marker>
+              )
+            )}
           </MapView>
+        </Container>
+        <Container
+          style={{
+            position: "absolute",
+            width: "auto",
+            right: 10,
+            top: -1,
+          }}
+        >
+          <NanumText>검색한 동물병원: {data.length} 곳</NanumText>
         </Container>
         <Container
           row
@@ -97,7 +166,7 @@ export default function SelectLocation(): JSX.Element {
           <TouchableContainer
             width={40}
             height={40}
-            onPress={() => focusInitialMarker(true)}
+            onPress={() => focusFitToPlaces(places, true)}
           >
             <LocationSVG width={20} height={20} />
           </TouchableContainer>

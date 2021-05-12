@@ -10,3 +10,7 @@ declare module "*.png" {
   const content: ImageProps["source"];
   export default content;
 }
+
+declare module "@env" {
+  export const MAPS_API_KEY: string;
+}
