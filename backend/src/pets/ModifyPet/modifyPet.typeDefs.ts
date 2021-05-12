@@ -1,11 +1,6 @@
 import {gql} from "apollo-server"
 
 export default gql`
-  type ModifyPetPayLoad{
-    status:Int
-    pet:Pet
-    message:String
-  }
   type Mutation{
     modifyPet(
       id:Int

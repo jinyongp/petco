@@ -1,5 +1,5 @@
-import { Resolvers } from "../../types"
-import { PetPayloadTypes } from "../pets.types"
+import { Resolvers } from "../../types";
+import { PetPayloadTypes } from "../pets.types";
 
 const resolvers:Resolvers = {
   Mutation:{
@@ -9,15 +9,14 @@ const resolvers:Resolvers = {
       {client}
       ):Promise<PetPayloadTypes> =>{
         try{
-          const pets = await client.pets.delete({where})
-          if(!pets) return {ok:false,status:404}
-          return {ok:true,pets}
+          const pets = await client.pets.delete({where});
+          return !pets ? {ok:false,status:404} : {ok:true,pets};
         }catch(e){
-          console.log(e)
-          return {ok:false,status:500}
+          console.log(e);
+          return {ok:false,status:500};
         }
     }
   }
-}
+};
 
-export default resolvers
+export default resolvers;

@@ -23,8 +23,7 @@ const resolvers:Resolvers = {
         try{
           data.user_id = currentUser.id;
           const pets = await client.pets.create({data});
-          if(!pets) return {ok:false,status:404};
-          return {ok:true,pets};
+          return (!pets) ? {ok:false,status:404} : {ok:true,pets};
         }catch(e){
           console.log(e);
           return {ok:false,status:500};

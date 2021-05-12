@@ -1,13 +1,21 @@
-import {Resolvers} from "../../types"
-import { PetPayloadTypes } from "../pets.types"
+import {Resolvers} from "../../types";
+import { PetProfilePayloadTypes } from "../pets.types";
 const resolvers:Resolvers = {
   Query:{
-    petProfile: async (_,where,client):Promise<any>=>{
-      // const pets = await client.pets.findMany({where,orderBy:{id:"desc"}})
-      // .catch(()=>{return null})
-      // if(!pets) return {status:200,message:"반려동물 목록 가져오기에 실패하였습니다."}
-      // return {status:200,pets:pets,message:"반려동물 목록 가져오기에 성공하였습니다."}
+    petProfile: async (_,__,{client,currentUser}):Promise<PetProfilePayloadTypes>=>{
+
+      try{
+        const {id} = currentUser;
+        const pets = await client.pets.findMany({
+          where:{ user_id:id },
+          orderBy:{ id:"desc" }
+        });
+        return !pets ? {ok:false,status:404} : {ok:true,pets};
+      }catch(e){
+        console.log(e);
+        return {ok:false,status:500};
+      }
     }
   }
-}
-export default resolvers
+};
+export default resolvers;

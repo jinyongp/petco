@@ -2,11 +2,11 @@ import {gql} from "apollo-server"
 
 export default gql`
   type PetProfilePayLoad{
-    status:Int
+    ok:Boolean
     pets: [Pet]
-    message:String
+    status:Int
   }
   type Query{
-    petProfile(token:String):PetPayload
+    petProfile:PetProfilePayLoad
   }
 `;
