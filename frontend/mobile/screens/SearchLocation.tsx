@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, AppState, AppStateStatus, Linking, Platform } from "react-native";
+import {
+  ActivityIndicator,
+  AppState,
+  AppStateStatus,
+  Linking,
+  Platform,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import SearchSVG from "../assets/icons/search.svg";
 import LocationSVG from "../assets/icons/location.svg";
@@ -38,18 +44,21 @@ export default function SearchLocation(): JSX.Element {
   useEffect(() => {
     checkLocationServicesEnabled("active");
     AppState.addEventListener("change", checkLocationServicesEnabled);
-    return () => AppState.removeEventListener("change", checkLocationServicesEnabled);
+    return () =>
+      AppState.removeEventListener("change", checkLocationServicesEnabled);
   }, []);
 
   useEffect(() => {
     if (locationService) {
       AppState.addEventListener("change", checkLocationPermissionGranted);
-      return () => AppState.removeEventListener("change", checkLocationPermissionGranted);
+      return () =>
+        AppState.removeEventListener("change", checkLocationPermissionGranted);
     }
   }, [locationService]);
 
   const handleLocationPermission = async () => {
-    const { canAskAgain, granted } = await Location.requestForegroundPermissionsAsync();
+    const { canAskAgain, granted } =
+      await Location.requestForegroundPermissionsAsync();
     setAskAgain(canAskAgain);
 
     if (granted) {
@@ -89,12 +98,19 @@ export default function SearchLocation(): JSX.Element {
             }
           }}
         >
-          <LocationSVG style={{ position: "absolute", left: 20 }} width={25} height={25} />
+          <LocationSVG
+            style={{ position: "absolute", left: 20 }}
+            width={25}
+            height={25}
+          />
           <NanumText position="center" type="button">
             현재 위치로 주소 찾기
           </NanumText>
           {loading && (
-            <ActivityIndicator color={colors.blue} style={{ position: "absolute", right: 20 }} />
+            <ActivityIndicator
+              color={colors.blue}
+              style={{ position: "absolute", right: 20 }}
+            />
           )}
         </TouchableContainer>
         {locationService || (
@@ -112,7 +128,9 @@ export default function SearchLocation(): JSX.Element {
                 if (Platform.OS === "ios") {
                   Linking.openURL("App-Prefs:Privacy");
                 } else {
-                  IntentLauncher.startActivityAsync(IntentLauncher.ACTION_LOCATION_SOURCE_SETTINGS);
+                  IntentLauncher.startActivityAsync(
+                    IntentLauncher.ACTION_LOCATION_SOURCE_SETTINGS
+                  );
                 }
               }}
             >
@@ -128,7 +146,9 @@ export default function SearchLocation(): JSX.Element {
             if (Platform.OS === "ios") {
               Linking.openURL("app-settings:");
             } else {
-              IntentLauncher.startActivityAsync(IntentLauncher.ACTION_APPLICATION_DETAILS_SETTINGS);
+              IntentLauncher.startActivityAsync(
+                IntentLauncher.ACTION_APPLICATION_DETAILS_SETTINGS
+              );
             }
           }}
         />
