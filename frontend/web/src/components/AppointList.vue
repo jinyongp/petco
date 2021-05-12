@@ -2,6 +2,7 @@
   <span>
     <div v-for="appoint in appoints" :key="appoint.id" class="col">
       <div class="card">
+        <div class="id">예약번호 : {{ appoint.id }}</div>
         <div class="name">{{ appoint.name }}</div>
         <div class="birth">생년월일 : {{ appoint.date }}</div>
         <div class="text">몸무게 : {{ appoint.weight }} kg</div>
@@ -11,6 +12,11 @@
         <div class="text">
           백신접종 여부 : {{ isTrue(appoint.vaccination) }}
         </div>
+        <br />
+        <div class="text">진료과목: {{ appoint.diagnosis }}</div>
+        <div class="text">보호자 번호: {{ appoint.userId }}</div>
+        <button @click="cancelApoint">예약 취소</button>
+        <button @click="confirmAppointment">예약 확정</button>
       </div>
     </div>
   </span>
@@ -25,20 +31,24 @@ export default Vue.extend({
     return {
       appoints: [
         {
-          id: 1,
+          id: 20110514,
           name: "초코",
           date: "2013.03.18",
           weight: 3.8,
           neutralization: true,
           vaccination: true,
+          diagnosis: "x-ray",
+          userId: 1,
         },
         {
-          id: 2,
+          id: 20110515,
           name: "나비",
           date: "2017.05.27",
           weight: 2.1,
           neutralization: false,
           vaccination: true,
+          diagnosis: "CT 검사",
+          userId: 2,
         },
       ],
       appointments: null,
@@ -47,14 +57,7 @@ export default Vue.extend({
   apollo: {
     appointments: gql`
       query {
-        appointments {
-          id
-          status
-          date
-          users
-          pets
-          created_at
-        }
+        showAppointmentList
       }
     `,
   },
@@ -74,6 +77,22 @@ export default Vue.extend({
           }
         `,
         variables: {
+          appointments: this.appointments,
+        },
+      });
+    },
+    async confirmAppointment() {
+      await this.$apollo.mutate({
+        mutation: gql`
+          mutation confirmAppointment($id: Int) {
+            confirmAppointment(id: $id) {
+              result
+              appointment
+              message
+            }
+          }
+        `,
+        ariables: {
           appointments: this.appointments,
         },
       });
@@ -103,11 +122,30 @@ export default Vue.extend({
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
   border-radius: 30px;
 }
+.id {
+  /* 예약번호 : 2021042945655 */
+
+  position: relative;
+  width: 300px;
+  height: 36px;
+  left: 1px;
+  top: 20px;
+
+  font-family: NanumGothic;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 36px;
+  /* identical to box height */
+  /* letter-spacing: -0.3px; */
+
+  color: #000000;
+}
 .name {
   position: relative;
   width: 58px;
   height: 20px;
-  top: 20px;
+  top: 25px;
   left: 40px;
 
   font-family: NanumGothic;

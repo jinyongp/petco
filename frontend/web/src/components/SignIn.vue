@@ -35,27 +35,33 @@
 <script lang="ts">
 import Vue from "vue";
 import gql from "graphql-tag";
+// import client from "../apollo";
 
 // import { SignInInput } from "./type/index";
-import apolloClient from "../apollo";
+// import { onLogin } from "../vue-apollo";
 
 export default Vue.extend({
   data() {
     return {
-      loginDone: apolloClient,
+      // loginProp: this.login,
       error1: [] as any,
       error2: [] as any,
       hospital_id: "" as string,
       password: "" as string,
       token: "" as string,
+      vets: null,
     };
   },
+  // created() {
+  //   this.log.login = this.loginDone;
+  // },
   apollo: {
     vets: gql`
       query {
         vetSignIn {
           token
           result
+          message
         }
       }
     `,
@@ -65,9 +71,14 @@ export default Vue.extend({
       alert("worked");
       this.token = val;
     },
+    loginDone(prop) {
+      this.login = prop;
+    },
     loginAlert() {
+      this.$emit("show-log");
       alert("펫코에 오신 것을 환영합니다");
-      this.$router.push("/mypage");
+      // this.$router.push("/mypage");
+      this.$router.push("/").catch(() => {});
     },
     checkForm(e: any) {
       e.preventDefault();
@@ -79,7 +90,7 @@ export default Vue.extend({
       if (!this.password) {
         this.error2.push("비밀번호를 입력해주세요");
       }
-      if (!this.error1.length && !this.error2.length) return this.login();
+      if (!this.error1.length && !this.error2.length) return this.loginAlert();
     },
     async login() {
       await this.$apollo

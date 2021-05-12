@@ -1,9 +1,9 @@
 <template>
   <div class="hello">
     <img class="img" src="../assets/Flying_iPhone_X_Mockups.png" />
-    <div v-if="loginDone">{{ vet.name }} 환영합니다 :)</div>
-    <div if-else>
-      <SignIn />
+    <div v-if="login" class="text">{{ vet.name }} 환영합니다 :)</div>
+    <div v-else>
+      <SignIn v-on:show-log="loginDone" />
     </div>
   </div>
 </template>
@@ -14,6 +14,9 @@ import SignIn from "../components/SignIn.vue";
 import gql from "graphql-tag";
 
 export default Vue.extend({
+  props: {
+    login: Boolean,
+  },
   components: {
     SignIn,
   },
@@ -21,6 +24,7 @@ export default Vue.extend({
     return {
       msg: "my page" as string,
       vet: {} as object,
+      loginProp: true as boolean,
     };
   },
   apollo: {
@@ -35,6 +39,12 @@ export default Vue.extend({
         }
       }
     `,
+  },
+  methods: {
+    loginDone() {
+      this.login = this.loginProp;
+      this.$emit("loginDo", this.login);
+    },
   },
 });
 </script>
@@ -68,5 +78,12 @@ export default Vue.extend({
   top: 135px;
 
   background: url(/src/assets/Flying_iPhone_X_Mockups.png);
+}
+.text {
+  position: absolute;
+  width: 120px;
+  height: 26px;
+  left: 897px;
+  top: 377px;
 }
 </style>
