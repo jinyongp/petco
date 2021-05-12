@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <img class="img" src="../assets/Flying_iPhone_X_Mockups.png" />
-    <div v-if="login" class="text">{{ vet.name }} 환영합니다 :)</div>
+    <div v-if="loginP" class="text">{{ vet.name }} 환영합니다 :)</div>
     <div v-else>
       <SignIn v-on:show-log="loginDone" />
     </div>
@@ -24,6 +24,7 @@ export default Vue.extend({
     return {
       msg: "my page" as string,
       vet: {} as object,
+      loginP: this.login as boolean,
       loginProp: true as boolean,
     };
   },
@@ -42,7 +43,7 @@ export default Vue.extend({
   },
   methods: {
     loginDone() {
-      this.login = this.loginProp;
+      this.loginP = this.loginProp;
       this.$emit("loginDo", this.login);
     },
   },

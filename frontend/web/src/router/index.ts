@@ -3,8 +3,8 @@ import VueRouter from "vue-router";
 
 import Home from "../views/Home.vue";
 import Appointment from "../views/Appointment.vue";
-import Support from "../views/Support.vue";
-import SupportReq from "../views/SupportReq.vue";
+import Estimate from "../views/Estimate.vue";
+import EstimateRes from "../views/EstimateRes.vue";
 import MyPage from "../views/MyPage.vue";
 
 Vue.use(VueRouter);
@@ -27,14 +27,21 @@ const routes = [
     component: Appointment,
   },
   {
-    name: "support",
-    path: "/support",
-    component: Support,
+    name: "estimate",
+    path: "/estimate",
+    component: Estimate,
   },
   {
-    name: "supportreq",
-    path: "/supportreq",
-    component: SupportReq,
+    name: "estimateres",
+    path: "/estimateres",
+    // redirect: "/estimateres/all",
+    component: EstimateRes,
+    // children: [
+    //   {
+    //     name: "estimateres-filter",
+    //     path: ":id",
+    //   },
+    // ],
   },
   {
     name: "mypage",

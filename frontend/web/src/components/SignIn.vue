@@ -92,7 +92,7 @@ export default Vue.extend({
       }
       if (!this.error1.length && !this.error2.length) return this.loginAlert();
     },
-    async login() {
+    async vetSignIn() {
       await this.$apollo
         .mutate({
           mutation: gql`
@@ -119,7 +119,8 @@ export default Vue.extend({
             this.$apollo.provider.defaultClient,
             data.data.vetSignIn.token
           );
-          this.$router.push("/mypage");
+          this.$emit("show-log");
+          this.$router.push("/").catch(() => {});
         })
         .catch((error) => {
           // Error
