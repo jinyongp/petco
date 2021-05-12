@@ -62,8 +62,6 @@ model estimates {
   id                Int                 @id @default(autoincrement())
   request_comment   String
   status            status              @default(request)
-  vets              vets?               @relation(fields: [vet_id], references: [id])
-  vet_id            Int?
   users             users?              @relation(fields: [user_id], references: [id])
   user_id           Int?
   pets              pets?               @relation(fields: [pet_id], references: [id])
@@ -94,7 +92,6 @@ model vets {
   created_at        DateTime            @default(now())
   updated_at        DateTime            @updatedAt
   appointments      appointments[]
-  estimates         estimates[]
   response_estimate response_estimate[]
 }
 
