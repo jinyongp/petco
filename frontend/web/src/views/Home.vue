@@ -24,7 +24,7 @@ export default Vue.extend({
     return {
       msg: "my page" as string,
       vet: {} as object,
-      loginP: this.login as boolean,
+      loginP: false as boolean,
       loginProp: true as boolean,
     };
   },
