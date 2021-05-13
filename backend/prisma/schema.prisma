@@ -28,7 +28,7 @@ model users {
 model pets {
   id           Int            @id @default(autoincrement())
   name         String
-  avatar       String         @default("no photo")
+  avatar       String         
   birth        String
   gender       String
   weight       String
