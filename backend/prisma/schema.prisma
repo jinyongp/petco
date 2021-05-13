@@ -75,7 +75,7 @@ model response_estimate {
   id               Int        @id @default(autoincrement())
   vets             vets?      @relation(fields: [vet_id], references: [id])
   vet_id           Int?
-  response_comment String     @default("")
+  response_comment String     
   estimates        estimates? @relation(fields: [estimate_id], references: [id])
   estimate_id      Int?
   created_at       DateTime   @default(now())
