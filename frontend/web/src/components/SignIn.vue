@@ -41,6 +41,9 @@ import gql from "graphql-tag";
 // import { onLogin } from "../vue-apollo";
 
 export default Vue.extend({
+  props: {
+    login: Boolean,
+  },
   data() {
     return {
       // loginProp: this.login,
@@ -50,6 +53,7 @@ export default Vue.extend({
       password: "" as string,
       token: "" as string,
       vets: null,
+      loginDo: this.login,
     };
   },
   // created() {
@@ -75,7 +79,8 @@ export default Vue.extend({
       this.login = prop;
     },
     loginAlert() {
-      this.$emit("show-log");
+      this.loginDo = true;
+      this.$emit("show-log", this.loginDo);
       alert("펫코에 오신 것을 환영합니다");
       // this.$router.push("/mypage");
       this.$router.push("/").catch(() => {});
