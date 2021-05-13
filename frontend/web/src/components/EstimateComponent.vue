@@ -1,7 +1,6 @@
 <template>
   <div class="modal-mask">
     <div class="modal-container">
-      <div>asdasdasdasd</div>
       <div class="id">예약번호 : {{ ids[0].id }}</div>
       <div class="name">{{ ids[0].name }}</div>
       <div class="birth">생년월일 : {{ ids[0].date }}</div>
