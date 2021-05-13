@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <div class="logo">PETCO</div>
-    <!-- <div id="example" v-if="isLogin" class="filters"> -->
-    <div id="example" class="filters">
+    <div class="logo"><Logo /></div>
+    <div class="petco">PETCO</div>
+    <div id="example" v-if="login" class="filters">
       <button class="to-log" @click.prevent="logout">Log out</button>
       <router-link to="/home" class="to-home" tag="button">
         <div>홈</div>
@@ -22,8 +22,9 @@
       <router-link to="/mypage" class="to-mypage" tag="button">
         <div>마이페이지</div>
       </router-link>
+      <bell class="bell" />
     </div>
-    <!-- <div v-else>
+    <div v-else>
       <router-link to="/" class="to-log" v-on:loginDo="parents">
         <div>Log in</div>
       </router-link>
@@ -49,39 +50,49 @@
       </router-link>
 
       <router-link to="/" class="to-mypage" tag="button" @click="alertLogin">
-        <div @click="alertLogin">마이페이지</div>
-      </router-link>
-    </div> -->
+        <div @click="alertLogin">마이페이지</div> </router-link
+      >s
+      <bell class="bell" />
+    </div>
 
-    <router-view />
+    <router-view v-on:loginDo="loginDone" />
   </div>
 </template>
 
 <script lang="ts">
 import { Vue } from "vue-property-decorator";
 import { onLogout } from "./vue-apollo.js";
+import Logo from "./assets/Logo.vue";
+import Bell from "./assets/Bell.vue";
 // import client from "./apollo";
 
 // const postedById = localStorage.getItem(AUTH_TOKEN);
 
 export default Vue.extend({
+  components: {
+    Logo,
+    Bell,
+  },
   data() {
     return {
-      isLogin: false as boolean,
+      login: false as boolean,
     };
   },
   methods: {
     parents() {
-      this.isLogin = true;
+      this.login = true;
     },
     alertLogin() {
       alert("로그인이 필요한 서비스입니다");
     },
     logout() {
       // const onLogout = require("./vue-apollo");
-      this.isLogin = false;
+      this.login = false;
       onLogout(this.$apollo.provider.defaultClient);
       this.$router.push("/");
+    },
+    loginDone() {
+      this.login = true;
     },
   },
 });
@@ -148,7 +159,7 @@ export default Vue.extend({
   width: 88px;
   height: 15px;
   left: 130px;
-  top: 65px;
+  top: 45px;
 
   font-family: Roboto;
   font-style: normal;
@@ -157,6 +168,24 @@ export default Vue.extend({
   line-height: 28px;
 
   color: #000000;
+}
+.petco {
+  position: absolute;
+  width: 88px;
+  height: 15px;
+  left: 230px;
+  top: 75px;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 28px;
+
+  color: #000000;
+}
+.float {
+  float: left;
 }
 .to-home {
   position: absolute;
@@ -235,15 +264,15 @@ export default Vue.extend({
 
   position: absolute;
   width: 150px;
-  height: 34px;
+  height: 44px;
   left: 1068px;
-  top: 68px;
+  top: 58px;
 
   font-family: NanumGothic;
   font-style: normal;
   font-weight: bold;
   font-size: 26px;
-  line-height: 26px;
+  line-height: 40px;
   letter-spacing: -0.3px;
 
   color: #000000;
@@ -252,7 +281,7 @@ export default Vue.extend({
   position: absolute;
   width: 140px;
   height: 28px;
-  left: 880px;
+  left: 860px;
   top: 75px;
 
   font-family: NanumGothic;
@@ -271,5 +300,12 @@ export default Vue.extend({
 }
 .filters button.router-link-active {
   color: #fec544;
+}
+.bell {
+  position: absolute;
+  width: 140px;
+  height: 28px;
+  left: 955px;
+  top: 75px;
 }
 </style>
