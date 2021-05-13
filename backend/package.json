@@ -3,15 +3,13 @@
   "dependencies": {
     "@prisma/client": "2.21.2",
     "apollo-server": "^2.23.0",
-    "aws-sdk": "^2.899.0",
     "bcrypt": "^5.0.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "graphql": "^15.5.0",
     "graphql-tools": "^7.0.4",
     "jsonwebtoken": "^8.5.1",
-    "morgan": "^1.10.0",
-    "uuidv4": "^6.2.7"
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.1",
