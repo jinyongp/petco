@@ -15,8 +15,8 @@
         <br />
         <div class="text">진료과목: {{ appoint.diagnosis }}</div>
         <div class="text">보호자 번호: {{ appoint.userId }}</div>
-        <button @click="cancelAppoint">예약 취소</button>
-        <button @click="confirmAppointment">예약 확정</button>
+        <button class="but1" @click="cancel(appoints[index])">예약 취소</button>
+        <button class="but2" @click="confirmAppointment">예약 확정</button>
       </div>
     </div>
   </span>
@@ -62,6 +62,9 @@ export default Vue.extend({
     `,
   },
   methods: {
+    isAppoint() {
+      this.appoints.length !== 0;
+    },
     isTrue(prop: any) {
       return prop === true ? "O" : "X";
     },
@@ -89,6 +92,14 @@ export default Vue.extend({
           // Error
           console.error(error);
         });
+    },
+    cancel(i) {
+      alert("예약을 취소하셨습니다");
+      this.appoints.splice(i, 1);
+    },
+    confirm(i) {
+      alert("예약을 확정하였습니다");
+      this.appoints.splice(i, 1);
     },
     async confirmAppointment() {
       await this.$apollo
@@ -135,6 +146,7 @@ export default Vue.extend({
   width: 300px;
   height: 350px;
   top: 20;
+  /* text-align: left; */
 
   background: #ffffff;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
@@ -211,5 +223,23 @@ export default Vue.extend({
   letter-spacing: -0.3px;
 
   color: #000000;
+}
+.but1 {
+  position: relative;
+  width: 90px;
+  height: 40px;
+  top: 70px;
+  left: 10px;
+
+  border-radius: 40px;
+}
+.but2 {
+  position: relative;
+  width: 90px;
+  height: 40px;
+  top: 70px;
+  left: 30px;
+
+  border-radius: 40px;
 }
 </style>
