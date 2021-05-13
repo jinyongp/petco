@@ -5,6 +5,7 @@ export default gql`
     ok: Boolean!
     status: Int
     token: String
+    user:User
   }
   type Query {
     signIn(email: String!, password: String!): SignInPayLoad
