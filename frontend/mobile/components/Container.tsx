@@ -3,6 +3,17 @@ import { StyleProp, View, ViewStyle } from "react-native";
 import PropTypes from "prop-types";
 import { ContainerProps } from "./@types";
 
+/**
+ * Container component
+ *
+ * props
+ * - padding: { top, bottom, right, left } 상하좌우 padding 설정
+ * - margin: { top, bottom, right, left } 상하좌우 margin 설정
+ * - row
+ * - children
+ * - style
+ * - space
+ */
 export default function Container({
   padding,
   margin,

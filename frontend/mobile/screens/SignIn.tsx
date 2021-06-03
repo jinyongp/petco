@@ -90,6 +90,7 @@ export default function SignIn(): JSX.Element {
           value={watch("email")}
           placeholder="이메일을 입력해주세요."
           returnKeyType="next"
+          keyboardType="email-address"
           onSubmitEditing={onNext(passwordInputRef)}
           onChangeText={onSetValue("email")}
         />

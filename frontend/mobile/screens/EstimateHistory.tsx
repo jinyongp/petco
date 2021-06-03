@@ -1,9 +1,15 @@
 import React from "react";
 import { Image, ImageSourcePropType } from "react-native";
-import { Container, NanumText, ScreenLayout, TouchableButton } from "../components";
+import {
+  Container,
+  NanumText,
+  ScreenLayout,
+  TouchableButton,
+} from "../components";
 import navi from "../assets/images/navi.png";
 import choco from "../assets/images/choco.png";
 import { useNavigation } from "@react-navigation/core";
+import Dog from "../assets/icons/dog.svg";
 
 type Status = "request" | "confirm" | "cancel";
 
@@ -22,35 +28,8 @@ const history: HistoryType[] = [
     id: 1,
     name: "초코",
     status: "request",
-    petImage: choco,
-    estimates: ["심장 종합검진", "중성화 수술(남아)"],
-    location: "서울 강남구 역삼동",
-    date: "2021.03.18",
-  },
-  {
-    id: 2,
-    name: "나비",
-    status: "request",
-    petImage: navi,
-    estimates: ["심장 종합검진"],
-    location: "서울 강남구 역삼동",
-    date: "2021.03.18",
-  },
-  {
-    id: 3,
-    name: "초코",
-    status: "request",
-    petImage: choco,
-    estimates: ["심장 종합검진", "중성화 수술(남아)"],
-    location: "서울 강남구 역삼동",
-    date: "2021.03.18",
-  },
-  {
-    id: 4,
-    name: "나비",
-    status: "request",
-    petImage: navi,
-    estimates: ["심장 종합검진"],
+    petImage: null,
+    estimates: ["슬개골 탈구", "중성화 수술(남아)"],
     location: "서울 강남구 역삼동",
     date: "2021.03.18",
   },
@@ -65,7 +44,8 @@ export default function EstimateHistory(): JSX.Element {
     if (status === "cancel") return "견적 요청 취소";
   };
   const abbrEstimate = (estimates: string[]) => {
-    if (estimates.length > 1) return estimates[0] + " 외 " + (estimates.length - 1);
+    if (estimates.length > 1)
+      return estimates[0] + " 외 " + (estimates.length - 1);
     return estimates[0];
   };
 
@@ -86,7 +66,16 @@ export default function EstimateHistory(): JSX.Element {
                 <NanumText>{date}</NanumText>
               </Container>
               <Container style={{ width: "auto" }}>
-                <Image source={petImage} width={62} height={62} style={{ width: 62, height: 62 }} />
+                {petImage ? (
+                  <Image
+                    source={petImage}
+                    width={62}
+                    height={62}
+                    style={{ width: 62, height: 62 }}
+                  />
+                ) : (
+                  <Dog width={62} height={62} />
+                )}
               </Container>
             </Container>
             <TouchableButton

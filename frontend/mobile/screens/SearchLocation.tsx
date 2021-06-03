@@ -60,17 +60,7 @@ export default function SearchLocation(): JSX.Element {
     const { canAskAgain, granted } =
       await Location.requestForegroundPermissionsAsync();
     setAskAgain(canAskAgain);
-
-    if (granted) {
-      try {
-        setLoading(true);
-        const { coords } = await Location.getCurrentPositionAsync();
-        setLoading(false);
-        return coords;
-      } catch (error) {
-        console.warn(error);
-      }
-    }
+    setLoading(!granted);
   };
 
   return (
@@ -93,8 +83,8 @@ export default function SearchLocation(): JSX.Element {
           loading={loading}
           onPress={async () => {
             if (!loading) {
-              const { latitude, longitude } = await handleLocationPermission();
-              navigation.navigate("SelectLocation", { latitude, longitude });
+              await handleLocationPermission();
+              navigation.navigate("SelectLocation");
             }
           }}
         >

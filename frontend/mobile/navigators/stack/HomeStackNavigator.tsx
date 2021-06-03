@@ -9,6 +9,8 @@ import {
   SearchLocation,
   SelectLocation,
   SelectPet,
+  Reservation,
+  VeterinaryCareList,
 } from "../../screens";
 import { Stack } from "../Factory";
 import { stackNavigationOptions } from "../global/options";
@@ -16,7 +18,11 @@ import { stackNavigationOptions } from "../global/options";
 export default function HomeStackNavigator() {
   return (
     <Stack.Navigator screenOptions={stackNavigationOptions}>
-      <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen name="SelectPet" component={SelectPet} />
       <Stack.Screen name="RegisterPets" component={RegisterPets} />
       <Stack.Screen name="SearchLocation" component={SearchLocation} />
@@ -41,6 +47,8 @@ export default function HomeStackNavigator() {
           },
         }}
       />
+      <Stack.Screen name="VeterinaryCareList" component={VeterinaryCareList} />
+      <Stack.Screen name="Reservation" component={Reservation} />
     </Stack.Navigator>
   );
 }

@@ -13,6 +13,7 @@ export { default as TextInputLabel } from "./input/TextInputLabel";
 
 /* layout */
 export { default as ScreenLayout } from "./layout/ScreenLayout";
+export { default as ScreenContainer } from "./layout/ScreenContainer";
 
 /* modal */
 export { default as ConfirmModal } from "./modal/ConfirmModal";

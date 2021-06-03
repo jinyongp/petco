@@ -12,3 +12,5 @@ export { default as MyApplyList } from "./MyApplyList";
 export { default as MedicalSearch } from "./MedicalSearch";
 export { default as EstimateHistory } from "./EstimateHistory";
 export { default as EstimateDetail } from "./EstimateDetail";
+export { default as VeterinaryCareList } from "./VeterinaryCareList";
+export { default as Reservation } from "./Reservation";

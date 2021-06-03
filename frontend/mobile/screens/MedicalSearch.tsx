@@ -142,6 +142,7 @@ export default function MedicalSearch(): JSX.Element {
 
   const toggleSelectedItems = (outer: number, inner: number) => {
     const { selectedItems, setSelectedItems } = selectedSections[outer];
+
     if (selectedItems.includes(inner)) {
       setSelected(selected - 1);
       setSelectedItems(selectedItems.filter((item: number) => item !== inner));

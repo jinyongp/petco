@@ -9,10 +9,6 @@ export type ParamList = {
       profile: ImageSourcePropType;
     };
   };
-  SelectLocation: {
-    latitude: number;
-    longitude: number;
-  };
   SignIn: {
     email: string;
   };
