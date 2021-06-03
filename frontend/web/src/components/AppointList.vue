@@ -3,7 +3,7 @@
     <div v-for="appoint in appoints" :key="appoint.id" class="col">
       <div class="card">
         <div class="id">예약번호 : {{ appoint.id }}</div>
-        <div class="name">{{ appoint.name }}</div>
+        <div class="name">{{ appoint.name }}({{ appoint.type }})</div>
         <div class="birth">생년월일 : {{ appoint.date }}</div>
         <div class="text">몸무게 : {{ appoint.weight }} kg</div>
         <div class="text">
@@ -15,8 +15,11 @@
         <br />
         <div class="text">진료과목: {{ appoint.diagnosis }}</div>
         <div class="text">보호자 번호: {{ appoint.userId }}</div>
+        <p v-show="appoint.confirm">확정</p>
         <button class="but1" @click="cancel(appoints[index])">예약 취소</button>
-        <button class="but2" @click="confirmAppointment">예약 확정</button>
+        <button class="but2" @click="confirm(appoints[index])">
+          예약 확정
+        </button>
       </div>
     </div>
   </span>
@@ -35,20 +38,24 @@ export default Vue.extend({
           name: "초코",
           date: "2013.03.18",
           weight: 3.8,
+          type: "dog",
           neutralization: true,
           vaccination: true,
           diagnosis: "x-ray",
           userId: 1,
+          confirm: false,
         },
         {
           id: 20110515,
           name: "나비",
           date: "2017.05.27",
           weight: 2.1,
+          type: "cat",
           neutralization: false,
           vaccination: true,
           diagnosis: "CT 검사",
           userId: 2,
+          confirm: false,
         },
       ],
       appointments: null,
@@ -99,7 +106,7 @@ export default Vue.extend({
     },
     confirm(i) {
       alert("예약을 확정하였습니다");
-      this.appoints.splice(i, 1);
+      this.appoints[i].confirm = true;
     },
     async confirmAppointment() {
       await this.$apollo
@@ -173,7 +180,7 @@ export default Vue.extend({
 }
 .name {
   position: relative;
-  width: 58px;
+  width: 100px;
   height: 20px;
   top: 25px;
   left: 40px;
@@ -230,7 +237,7 @@ export default Vue.extend({
   height: 40px;
   top: 70px;
   left: 10px;
-
+  background: #fec544;
   border-radius: 40px;
 }
 .but2 {
@@ -239,7 +246,7 @@ export default Vue.extend({
   height: 40px;
   top: 70px;
   left: 30px;
-
+  background: #fec544;
   border-radius: 40px;
 }
 </style>
