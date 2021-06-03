@@ -10,7 +10,10 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { TextInputProps } from "@types/react-native";
 import { IconProps } from "@types/react-native-vector-icons/Icon";
-import { IOSNativeProps, AndroidNativeProps } from "@react-native-community/datetimepicker";
+import {
+  IOSNativeProps,
+  AndroidNativeProps,
+} from "@react-native-community/datetimepicker";
 import Modal from "react-native-modal";
 import ModalSelector from "react-native-modal-selector";
 
@@ -38,6 +41,8 @@ export interface CommonProps {
 }
 
 export interface ScreenLayoutProps extends CommonProps {
+  readonly scrollEnabled?: boolean;
+  readonly loading?: boolean;
   readonly align?: "flex-start" | "center" | "flex-end";
 }
 
@@ -53,7 +58,9 @@ export interface TouchableButtonProps {
   readonly loading?: boolean;
 }
 
-export interface TouchableContainerProps extends Omit<TouchableButtonProps, "title">, CommonProps {
+export interface TouchableContainerProps
+  extends Omit<TouchableButtonProps, "title">,
+    CommonProps {
   readonly row?: boolean;
 }
 
@@ -103,7 +110,9 @@ type CommonTextInputProps = Pick<
   | "secureTextEntry"
 >;
 
-export interface TextInputIconProps extends Pick<SvgProps, "color">, CommonTextInputProps {
+export interface TextInputIconProps
+  extends Pick<SvgProps, "color">,
+    CommonTextInputProps {
   readonly Icon: React.FC<SvgProps>;
   readonly size?: number | SizeType;
   readonly error?: boolean;
@@ -122,13 +131,17 @@ export interface TextLinkProps {
   readonly link: string;
 }
 
-type CommonIconProps = Pick<React.ComponentProps<typeof Ionicons>, "name" | "size" | "color">;
+type CommonIconProps = Pick<
+  React.ComponentProps<typeof Ionicons>,
+  "name" | "size" | "color"
+>;
 
 export interface TabIconProps extends CommonIconProps {
   readonly current?: boolean;
 }
 
-export interface PickerLabelProps extends React.ComponentProps<typeof ModalSelector> {
+export interface PickerLabelProps
+  extends React.ComponentProps<typeof ModalSelector> {
   readonly label: string;
 }
 
@@ -138,11 +151,23 @@ export interface DatePickerLabelProps {
 }
 
 export interface NanumTextProps extends BoxStyleProps, CommonProps {
-  readonly type?: "plain" | "button" | "title" | "header" | "placeholder" | "error" | "tiny";
+  readonly type?:
+    | "plain"
+    | "button"
+    | "title"
+    | "header"
+    | "placeholder"
+    | "error"
+    | "tiny";
   readonly size?: number | "xs" | "s" | "m" | "l" | "xl";
   readonly align?: TextStyle["textAlign"];
   readonly color?: TextStyle["color"];
-  readonly weight?: "light" | "regular" | "bold" | "extra-bold" | TextStyle["fontWeight"];
+  readonly weight?:
+    | "light"
+    | "regular"
+    | "bold"
+    | "extra-bold"
+    | TextStyle["fontWeight"];
   readonly onPress?: onPressType;
   readonly position?: ViewStyle["alignSelf"];
   readonly lineHeight?: TextStyle["lineHeight"];

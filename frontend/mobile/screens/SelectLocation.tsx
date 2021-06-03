@@ -1,17 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  ActivityIndicator,
-  ClippingRectangle,
-  Dimensions,
-  StyleSheet,
-} from "react-native";
+import { ActivityIndicator, Dimensions, StyleSheet } from "react-native";
 import MapView, {
   Callout,
   Circle,
   Marker,
   PROVIDER_GOOGLE,
 } from "react-native-maps";
-import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import {
   Container,
   NanumText,
@@ -19,12 +14,13 @@ import {
   TouchableButton,
   TouchableContainer,
 } from "../components";
-import { ParamList } from "./@types";
+import * as Location from "expo-location";
 import LocationSVG from "../assets/icons/location.svg";
 import { colors } from "../style/colors";
 import { Ionicons } from "@expo/vector-icons";
-import { usePlaceSearch } from "../hooks";
+import { usePlaceSearchAsync } from "../hooks";
 import { CoordinationType } from "../@types";
+import Cat from "../assets/animals/cat99.svg";
 
 const { width, height } = Dimensions.get("screen");
 const calculatedHeight = height - height * 0.49;
@@ -38,20 +34,16 @@ const RADIUS = 2000;
 export default function SelectLocation(): JSX.Element {
   const mapRef = useRef<MapView>();
   const navigation = useNavigation();
-  const { params } = useRoute<RouteProp<ParamList, "SelectLocation">>();
   const [region, setRegion] = useState({
-    latitude: params.latitude,
-    longitude: params.longitude,
+    latitude: 0,
+    longitude: 0,
     latitudeDelta: LATITUDE_DELTA / 10,
     longitudeDelta: LONGITUDE_DELTA / 10,
   });
-  const [markers, setMarkers] = useState([]);
   const [places, setPlaces] = useState([]);
-  const { loading, data, error } = usePlaceSearch(
-    params,
-    RADIUS,
-    "veterinary_care"
-  );
+  const [data, setData] = useState([]);
+  const [completed, setCompleted] = useState(false);
+  const requestPlacesAsync = usePlaceSearchAsync();
 
   const focusInitialMarker = (animated: boolean) => {
     mapRef?.current?.fitToSuppliedMarkers(["initialMarker"], { animated });
@@ -61,20 +53,51 @@ export default function SelectLocation(): JSX.Element {
     mapRef.current?.fitToCoordinates(places, { animated });
   };
 
+  const getCurrentLocation = async () => {
+    const { coords } = await Location.getCurrentPositionAsync();
+    return coords;
+  };
+
+  useEffect(() => {
+    (async () => {
+      // const { latitude, longitude } = await getCurrentLocation();
+      const latitude = 37.495618;
+      const longitude = 127.039491;
+      // setRegion({ ...region, latitude, longitude });
+      const results = await requestPlacesAsync(
+        { latitude, longitude },
+        RADIUS,
+        "veterinary_care"
+      );
+      setData(results);
+      setCompleted(true);
+    })();
+  }, []);
+
   useEffect(() => {
     const locations = data?.map(({ geometry: { location } }) => ({
       latitude: location.lat,
       longitude: location.lng,
     }));
-    console.log(locations);
-
     setPlaces(locations);
   }, [data]);
 
-  if (loading) {
+  if (!completed) {
     return (
       <Container style={{ flex: 1, backgroundColor: "white" }}>
         <ActivityIndicator />
+        <NanumText type="title" position="center" margin={{ top: 30 }}>
+          검색 중...
+        </NanumText>
+      </Container>
+    );
+  } else if (data.length === 0) {
+    return (
+      <Container style={{ flex: 1, backgroundColor: "white" }}>
+        <Cat width={100} height={100} />
+        <NanumText type="title" position="center">
+          근처에 검색되는 동물병원이 없어요.
+        </NanumText>
       </Container>
     );
   } else {
@@ -85,7 +108,7 @@ export default function SelectLocation(): JSX.Element {
             ref={mapRef}
             provider={PROVIDER_GOOGLE}
             style={styles.maps}
-            loadingEnabled={true}
+            loadingEnabled
             rotateEnabled={false}
             initialRegion={region}
             onMapReady={() => focusFitToPlaces(places)}
@@ -99,13 +122,7 @@ export default function SelectLocation(): JSX.Element {
             >
               <Ionicons name="location" size={30} color={colors.blue} />
             </Marker> */}
-            <Circle
-              center={{
-                latitude: params.latitude,
-                longitude: params.longitude,
-              }}
-              radius={RADIUS}
-            />
+            <Circle center={region} radius={RADIUS} />
             {data?.map(
               ({ geometry: { location }, name, vicinity, place_id }) => (
                 <Marker

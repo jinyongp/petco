@@ -18,6 +18,7 @@ import {
   TouchableButton,
   TouchableContainer,
 } from "../components";
+import { gql } from "@apollo/client";
 
 // // TODO validation check
 export default function RegisterPets(): JSX.Element {

@@ -1,5 +1,12 @@
 import React, { useRef, useState } from "react";
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../style/colors";
@@ -14,18 +21,6 @@ const userPets = [
   {
     name: "초코",
     profile: choco,
-  },
-  {
-    name: "초코",
-    profile: choco,
-  },
-  {
-    name: "나비",
-    profile: navi,
-  },
-  {
-    name: "나비",
-    profile: navi,
   },
 ];
 export default function MyPage() {
@@ -49,7 +44,12 @@ export default function MyPage() {
               await terminateTokenAsync();
             }}
           >
-            <NanumText position="center" size={10} color={colors.red} margin={{ left: 10 }}>
+            <NanumText
+              position="center"
+              size={10}
+              color={colors.red}
+              margin={{ left: 10 }}
+            >
               로그아웃
             </NanumText>
           </TouchableOpacity>
@@ -80,7 +80,10 @@ export default function MyPage() {
             <Ionicons name="settings-outline" size={25} />
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity style={styles.completeButton} onPress={() => setOption(true)}>
+          <TouchableOpacity
+            style={styles.completeButton}
+            onPress={() => setOption(true)}
+          >
             <NanumText type="button">완료</NanumText>
           </TouchableOpacity>
         )}
@@ -89,10 +92,16 @@ export default function MyPage() {
         <ScrollView
           horizontal
           ref={scrollViewRef}
-          onContentSizeChange={(x) => scrollViewRef?.current?.scrollTo({ x, animated: false })}
+          onContentSizeChange={(x) =>
+            scrollViewRef?.current?.scrollTo({ x, animated: false })
+          }
         >
           {userPets?.map(({ name, profile }, index) => (
-            <TouchableOpacity style={styles.petSelectButton} disabled key={index}>
+            <TouchableOpacity
+              style={styles.petSelectButton}
+              disabled
+              key={index}
+            >
               {option || (
                 <TouchableOpacity
                   style={styles.petDeleteButton}
@@ -103,7 +112,12 @@ export default function MyPage() {
                   <Ionicons name="close" size={25} />
                 </TouchableOpacity>
               )}
-              <Image style={styles.petImage} source={profile} width={80} height={80} />
+              <Image
+                style={styles.petImage}
+                source={profile}
+                width={80}
+                height={80}
+              />
               <NanumText position="center">{name}</NanumText>
             </TouchableOpacity>
           ))}

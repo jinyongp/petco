@@ -9,6 +9,14 @@
       "image": "./assets/images/petco.png",
       "resizeMode": "cover"
     },
+    "ios": {
+      "bundleIdentifier": "com.petco.petco",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.petco.petco",
+      "versionCode": 1
+    },
     "packagerOpts": {
       "config": "metro.config.js",
       "sourceExts": [

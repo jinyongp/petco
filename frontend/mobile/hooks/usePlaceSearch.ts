@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { MAPS_API_KEY } from "@env";
-import { CoordinationType } from "../@types";
+import { CoordinationType, DataType } from "../@types";
 
 const getUrl = (options: {
   radius: number;
@@ -9,38 +9,28 @@ const getUrl = (options: {
   type: string;
 }) => {
   const { radius, location, type } = options;
-  return `https://maps.googleapis.com/maps/api/place/nearbysearch/json?language=ko&radius=${radius}&opennow&location=${location}&type=${type}&key=${MAPS_API_KEY}`;
+  return `https://maps.googleapis.com/maps/api/place/nearbysearch/json?language=ko&radius=${radius}&location=${location}&type=${type}&key=${MAPS_API_KEY}`;
 };
 
-interface DataType {
-  business_status: string;
-  geometry: {
-    location: {
-      lat: number;
-      lng: number;
-    };
-  };
-  icon: string;
-  name: string;
-  place_id: string;
-  rating: number;
-  vicinity: string;
-}
-
-const usePlaceSearch = (
+type RequestPlacesFunc = (
   coords: CoordinationType,
   radius: number,
   type: string
-): {
-  loading: boolean;
-  data: DataType[];
-  error: string;
-} => {
+) => void;
+
+const usePlaceSearch = (): [
+  RequestPlacesFunc,
+  {
+    loading: boolean;
+    data: DataType[];
+    error: string;
+  }
+] => {
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<DataType[]>(null);
   const [error, setError] = useState<string>(null);
 
-  useEffect(() => {
+  const requestPlaces: RequestPlacesFunc = (coords, radius, type) => {
     const { latitude, longitude } = coords;
     (async () => {
       try {
@@ -61,9 +51,9 @@ const usePlaceSearch = (
         setLoading(false);
       }
     })();
-  }, []);
+  };
 
-  return { loading, data, error };
+  return [requestPlaces, { loading, data, error }];
 };
 
 export default usePlaceSearch;
