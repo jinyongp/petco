@@ -32,11 +32,15 @@
         <div @click="alertLogin">홈</div>
       </router-link>
       <router-link to="/" class="to-support" tag="button">
-        <div>
+        <div @click="alertLogin">
           견적관리
           <div class="submenu">
-            <router-link to="/" tag="div">견적서 응답</router-link>
-            <router-link to="/" tag="div">견적서 관리</router-link>
+            <router-link to="/" tag="div" @click="alertLogin"
+              >견적서 응답</router-link
+            >
+            <router-link to="/" tag="div" @click="alertLogin"
+              >견적서 관리</router-link
+            >
           </div>
         </div>
       </router-link>
