@@ -16,7 +16,7 @@
         </div>
 
         <div v-show="showModal">
-          <h3 slot="header">견적서 요청</h3>
+          <h1 slot="header">견적서 요청</h1>
           <EstimateComponent
             v-on:click="reqAndCancle"
             v-bind:example="example"
@@ -142,6 +142,60 @@ export default Vue.extend({
 </script>
 
 <style scoped>
+.id {
+  /* 예약번호 : 2021042945655 */
+
+  position: relative;
+  width: 300px;
+  height: 36px;
+  left: 1px;
+  top: 20px;
+
+  font-family: NanumGothic;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 36px;
+  /* identical to box height */
+  /* letter-spacing: -0.3px; */
+
+  color: #000000;
+}
+.name {
+  position: relative;
+  width: 100px;
+  height: 20px;
+  top: 25px;
+  left: 40px;
+
+  font-family: NanumGothic;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 20px;
+
+  text-align: center;
+  letter-spacing: -0.3px;
+
+  color: #000000;
+}
+.birth {
+  position: relative;
+  width: 147px;
+  height: 15px;
+  top: 50px;
+  left: 30px;
+
+  font-family: NanumGothic;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 15px;
+
+  letter-spacing: -0.3px;
+
+  color: #000000;
+}
 .text {
   position: relative;
   width: 120px;
