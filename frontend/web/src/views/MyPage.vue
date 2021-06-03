@@ -1,6 +1,9 @@
 <template>
-  <div>
+<div>
+  <div v-if="login">
     {{ vets }}
+  </div>
+  <div v-else ></div>
   </div>
 </template>
 
@@ -9,6 +12,9 @@ import Vue from "vue";
 import gql from "graphql-tag";
 
 export default Vue.extend({
+  props:{
+    login: Boolean
+  },
   data() {
     return {
       msg: "my page" as string,
@@ -26,5 +32,10 @@ export default Vue.extend({
       }
     `,
   },
+  methods:{
+    back(){
+      this.$router.push("/")
+    }
+  }
 });
 </script>

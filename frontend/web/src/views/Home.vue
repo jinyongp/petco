@@ -1,7 +1,9 @@
 <template>
   <div class="hello">
     <img class="img" src="../assets/Flying_iPhone_X_Mockups.png" />
-    <div v-if="loginP" class="text">{{ vet.name }} 환영합니다 :)</div>
+    <div v-if="loginP" class="text">
+      {{ vet.name }}그레이스 동물병원 님 환영합니다 :)
+    </div>
     <div v-else>
       <SignIn v-on:show-log="loginDone" />
     </div>
@@ -81,10 +83,23 @@ export default Vue.extend({
   background: url(/src/assets/Flying_iPhone_X_Mockups.png);
 }
 .text {
+  /* 환영합니다 :) */
+
   position: absolute;
-  width: 120px;
-  height: 26px;
-  left: 897px;
-  top: 377px;
+  left: 60.42%;
+  right: 10.49%;
+  top: 60.23%;
+  bottom: 55.08%;
+  width: 400px;
+
+  font-family: NanumGothic;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 48px;
+  line-height: 48px;
+  /* identical to box height */
+  letter-spacing: -0.3px;
+
+  color: #000000;
 }
 </style>
